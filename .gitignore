@@ -4,6 +4,9 @@
 # Godot Serialisations
 api.json
 
+# Visual Studio Code Project file
+source.code-workspace
+
 # Visual Studio Cache
 .vs/
 
@@ -36,3 +39,4 @@ compile_commands.json
 
 # docs
 docs/
+

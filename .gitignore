@@ -1,26 +1,38 @@
-# godot related files
-.godot/
-.import/
-*.translation
+# SConstruct db
+*.dblite
 
-# this config file contains sensitive content and should not be commited
-export_presets.cfg
+# Godot Serialisations
+api.json
 
-# mono files
-.mono/
+# Visual Studio Cache
+.vs/
 
-# the output binaries
+# VSCode Cache
+.vscode/
+
+# Mac stuff
+.DS_Store
+
+# Binaries
 build/
-
-#android build files
-android/
-
-# object files
-*.o
 *.os
+*.dll
+*.so
+*.a
 
-# other random files
-.sconsign.dblite
+# Godot
+godot/.import/
+godot/*.translation
+godot/export_presets.cfg
+godot/.mono/
+godot/android/
 
-# tiled session
-*.tiled-session
+# Gdnative libs
+godot/gdnative/linux.*
+godot/gdnative/windows.*
+
+# compile commands
+compile_commands.json
+
+# docs
+docs/

@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Main.gdns" type="Script" id=1]
-[ext_resource path="res://Level 1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Level1.tscn" type="PackedScene" id=2]
 
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
 launch_screen = 0
 
-[node name="Level 1" parent="." instance=ExtResource( 2 )]
+[node name="Level1" parent="." instance=ExtResource( 2 )]

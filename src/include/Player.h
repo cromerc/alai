@@ -8,7 +8,7 @@
 /**
  * @brief The speed the player should move it.
  */
-#define JUEGO_PLAYER_SPEED 100.0
+#define JUEGO_PLAYER_SPEED 60.0
 /**
  * @brief The force applied to the player when jumping.
  */

@@ -8,9 +8,9 @@ void Main::_register_methods()
 {
     register_method("_ready", &Main::_ready);
     register_method("_physics_process", &Main::_physics_process);
-    register_property<Main, bool>("full_screen", &Main::set_full_screen, &Main::get_full_screen, JUEGO_MAIN_FULL_SCREEN);
-    register_property<Main, Vector2>("window_size", &Main::set_window_size, &Main::get_window_size, JUEGO_MAIN_WINDOW_SIZE);
-    register_property<Main, int8_t>("launch_screen", &Main::set_launch_screen, &Main::get_launch_screen, JUEGO_MAIN_LAUNCH_SCREEN);
+    register_property<Main, bool>("full_screen", &Main::set_full_screen, &Main::get_full_screen, ALAI_MAIN_FULL_SCREEN);
+    register_property<Main, Vector2>("window_size", &Main::set_window_size, &Main::get_window_size, ALAI_MAIN_WINDOW_SIZE);
+    register_property<Main, int8_t>("launch_screen", &Main::set_launch_screen, &Main::get_launch_screen, ALAI_MAIN_LAUNCH_SCREEN);
 }
 
 Main::Main()
@@ -26,9 +26,9 @@ void Main::_init()
     _os = OS::get_singleton();
     _input = Input::get_singleton();
 
-    full_screen = JUEGO_MAIN_FULL_SCREEN;
-    window_size = JUEGO_MAIN_WINDOW_SIZE;
-    launch_screen = JUEGO_MAIN_LAUNCH_SCREEN;
+    full_screen = ALAI_MAIN_FULL_SCREEN;
+    window_size = ALAI_MAIN_WINDOW_SIZE;
+    launch_screen = ALAI_MAIN_LAUNCH_SCREEN;
 }
 
 void Main::_ready()

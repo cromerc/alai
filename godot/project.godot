@@ -10,7 +10,8 @@ config_version=4
 
 [application]
 
-config/name="Juego"
+config/name="Alai"
+config/description="This game is for testing an Artificial Intelligence."
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
@@ -20,6 +21,10 @@ window/size/width=512
 window/size/height=288
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+
+[editor]
+
+scene/scene_naming=1
 
 [editor_plugins]
 
@@ -74,14 +79,25 @@ right={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Tiles"
+2d_physics/layer_2="Player"
+
 [physics]
 
 common/enable_pause_aware_picking=true
+2d/cell_size=18
 
 [rendering]
 
-environment/default_environment="res://default_env.tres"
+2d/snapping/use_gpu_pixel_snap=true
+misc/lossless_compression/force_png=true
 
 [tiled_importer]
 
 enable_json_format=false
+
+[world]
+
+2d/cell_size=18

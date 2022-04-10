@@ -1,5 +1,5 @@
-#ifndef JUEGO_MAIN_H
-#define JUEGO_MAIN_H
+#ifndef ALAI_MAIN_H
+#define ALAI_MAIN_H
 
 #include <Godot.hpp>
 #include <Node.hpp>
@@ -9,17 +9,17 @@
 /**
  * @brief If the game should be full screen or not by default.
  */
-#define JUEGO_MAIN_FULL_SCREEN false
+#define ALAI_MAIN_FULL_SCREEN false
 /**
  * @brief The default size of the window.
  * @details This is ignored if full screen is true.
  */
-#define JUEGO_MAIN_WINDOW_SIZE Vector2(1280, 720)
+#define ALAI_MAIN_WINDOW_SIZE Vector2(1280, 720)
 /**
  * @brief Which screen to launch the game on.
  * @details If -1 it will launch the game on the "active" screen. Anything between 0 and N represents the screen number to show the game on when opened.
  */
-#define JUEGO_MAIN_LAUNCH_SCREEN -1
+#define ALAI_MAIN_LAUNCH_SCREEN -1
 
 /**
  * @brief This is the godot namespace for all the code included in the library.

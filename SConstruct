@@ -63,6 +63,7 @@ if env['platform'] == 'linux':
         env.Append(CCFLAGS=['-g3', '-Og'])
     else:
         env.Append(CCFLAGS=['-g', '-O3'])
+        env.Append(CPPDEFINES=['NDEBUG'])
 
     env.Append(CCFLAGS=['-m64'])
     env.Append(LINKFLAGS=['-m64'])
@@ -109,7 +110,7 @@ else:
 cpp_library += '.' + str(env['bits'])
 
 # make sure our binding library is properly includes
-env.Append(CPPPATH=['.', godot_headers_path, cpp_bindings_path + 'include/', cpp_bindings_path + 'include/core/', cpp_bindings_path + 'include/gen/', 'src/include/', 'lib/include'])
+env.Append(CPPPATH=['.', godot_headers_path, cpp_bindings_path + 'include/', cpp_bindings_path + 'include/core/', cpp_bindings_path + 'include/gen/'])
 env.Append(LIBPATH=[cpp_bindings_path + 'bin/'])
 env.Append(LIBS=[cpp_library])
 

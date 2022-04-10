@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://characters/player/sprites/green.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://characters/player/states/Idle.gdns" type="Script" id=2]
 [ext_resource path="res://characters/player/Player.gdns" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -22,7 +21,6 @@ shape = SubResource( 1 )
 [node name="StateMachine" type="Node" parent="."]
 
 [node name="Idle" type="Node" parent="StateMachine"]
-script = ExtResource( 2 )
 
 [node name="Move" type="Node" parent="StateMachine"]
 

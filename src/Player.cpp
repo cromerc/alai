@@ -14,10 +14,10 @@ void Player::_register_methods()
     register_method("_physics_process", &Player::_physics_process);
     register_method("_on_Player_player_moved", &Player::_on_Player_player_moved);
     //register_property<Player, Ref<SpriteFrames>>("sprite_frames", &Player::set_sprite_frames, &Player::get_sprite_frames, Ref<SpriteFrames>(), GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_RESOURCE_TYPE, String("SpriteFrames"));
-    register_property<Player, float>("speed", &Player::set_speed, &Player::get_speed, JUEGO_PLAYER_SPEED);
-    register_property<Player, float>("jump_force", &Player::set_jump_force, &Player::get_jump_force, JUEGO_PLAYER_JUMP_FORCE);
-    register_property<Player, float>("gravity", &Player::set_gravity, &Player::get_gravity, JUEGO_PLAYER_GRAVITY);
-    register_property<Player, float>("run_speed", &Player::set_run_speed, &Player::get_run_speed, JUEGO_PLAYER_RUN_SPEED);
+    register_property<Player, float>("speed", &Player::set_speed, &Player::get_speed, ALAI_PLAYER_SPEED);
+    register_property<Player, float>("jump_force", &Player::set_jump_force, &Player::get_jump_force, ALAI_PLAYER_JUMP_FORCE);
+    register_property<Player, float>("gravity", &Player::set_gravity, &Player::get_gravity, ALAI_PLAYER_GRAVITY);
+    register_property<Player, float>("run_speed", &Player::set_run_speed, &Player::get_run_speed, ALAI_PLAYER_RUN_SPEED);
     register_signal<Player>("player_moved", "position", GODOT_VARIANT_TYPE_VECTOR2);
 }
 
@@ -35,11 +35,11 @@ void Player::_init()
     _input = Input::get_singleton();
     _resource_loader = ResourceLoader::get_singleton();
 
-    //sprite_frames = _resource_loader->load(JUEGO_PLAYER_SPRITE_FRAMES);
-    set_speed(JUEGO_PLAYER_SPEED);
-    set_jump_force(JUEGO_PLAYER_JUMP_FORCE);
-    set_gravity(JUEGO_PLAYER_GRAVITY);
-    set_run_speed(JUEGO_PLAYER_RUN_SPEED);
+    //sprite_frames = _resource_loader->load(ALAI_PLAYER_SPRITE_FRAMES);
+    set_speed(ALAI_PLAYER_SPEED);
+    set_jump_force(ALAI_PLAYER_JUMP_FORCE);
+    set_gravity(ALAI_PLAYER_GRAVITY);
+    set_run_speed(ALAI_PLAYER_RUN_SPEED);
 
     coins = 0;
 

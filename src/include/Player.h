@@ -1,26 +1,26 @@
-#ifndef JUEGO_PLAYER_H
-#define JUEGO_PLAYER_H
+#ifndef ALAI_PLAYER_H
+#define ALAI_PLAYER_H
 
 /**
  * @brief This resource is loaded by default for the AnimatedSprite node.
  */
-#define JUEGO_PLAYER_SPRITE_FRAMES "res://characters/player/sprites/green.tres"
+#define ALAI_PLAYER_SPRITE_FRAMES "res://characters/player/sprites/green.tres"
 /**
  * @brief The speed the player should move it.
  */
-#define JUEGO_PLAYER_SPEED 60.0
+#define ALAI_PLAYER_SPEED 60.0
 /**
  * @brief The force applied to the player when jumping.
  */
-#define JUEGO_PLAYER_JUMP_FORCE 300.0
+#define ALAI_PLAYER_JUMP_FORCE 300.0
 /**
  * @brief The gravity applied to the player.
  */
-#define JUEGO_PLAYER_GRAVITY 9.81
+#define ALAI_PLAYER_GRAVITY 9.81
 /**
  * @brief The multiplier used to change the speed of the player when running.
  */
-#define JUEGO_PLAYER_RUN_SPEED 2.0
+#define ALAI_PLAYER_RUN_SPEED 2.0
 
 #include <Godot.hpp>
 #include <KinematicBody2D.hpp>

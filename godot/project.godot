@@ -10,7 +10,8 @@ config_version=4
 
 [application]
 
-config/name="Juego"
+config/name="Alai"
+config/description="This game is for testing an Artificial Intelligence."
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 

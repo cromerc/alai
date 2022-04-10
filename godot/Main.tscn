@@ -5,6 +5,5 @@
 
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
-launch_screen = 0
 
 [node name="Level1" parent="." instance=ExtResource( 2 )]

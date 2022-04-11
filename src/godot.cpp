@@ -1,12 +1,13 @@
 #include <Godot.hpp>
 
-#include "StateMachine.h"
-#include "State.h"
-#include "Walk.h"
-#include "Run.h"
+#include "state_machine/StateMachine.h"
+#include "state_machine/State.h"
 #include "Main.h"
-#include "Player.h"
-#include "PlayerIdle.h"
+#include "player/Player.h"
+#include "player/states/PlayerIdle.h"
+#include "player/states/PlayerMove.h"
+#include "player/states/PlayerJump.h"
+#include "player/states/PlayerFall.h"
 
 using namespace godot;
 
@@ -28,9 +29,10 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void *handle)
     Godot::nativescript_init(handle);
     register_class<StateMachine>();
     register_class<State>();
-    register_class<Walk>();
-    register_class<Run>();
-    register_class<Main>();
-    register_class<Player>();
-    register_class<PlayerIdle>();
+    register_class<main::Main>();
+    register_class<player::Player>();
+    register_class<player::PlayerIdle>();
+    register_class<player::PlayerMove>();
+    register_class<player::PlayerJump>();
+    register_class<player::PlayerFall>();
 }

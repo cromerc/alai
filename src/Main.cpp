@@ -3,14 +3,15 @@
 #include <SceneTree.hpp>
 
 using namespace godot;
+using namespace main;
 
 void Main::_register_methods()
 {
     register_method("_ready", &Main::_ready);
     register_method("_physics_process", &Main::_physics_process);
-    register_property<Main, bool>("full_screen", &Main::set_full_screen, &Main::get_full_screen, ALAI_MAIN_FULL_SCREEN);
-    register_property<Main, Vector2>("window_size", &Main::set_window_size, &Main::get_window_size, ALAI_MAIN_WINDOW_SIZE);
-    register_property<Main, int8_t>("launch_screen", &Main::set_launch_screen, &Main::get_launch_screen, ALAI_MAIN_LAUNCH_SCREEN);
+    register_property<Main, bool>("full_screen", &Main::set_full_screen, &Main::get_full_screen, main::full_screen);
+    register_property<Main, Vector2>("window_size", &Main::set_window_size, &Main::get_window_size, main::window_size);
+    register_property<Main, int8_t>("launch_screen", &Main::set_launch_screen, &Main::get_launch_screen, main::launch_screen);
 }
 
 Main::Main()
@@ -26,9 +27,9 @@ void Main::_init()
     _os = OS::get_singleton();
     _input = Input::get_singleton();
 
-    full_screen = ALAI_MAIN_FULL_SCREEN;
-    window_size = ALAI_MAIN_WINDOW_SIZE;
-    launch_screen = ALAI_MAIN_LAUNCH_SCREEN;
+    full_screen = main::full_screen;
+    window_size = main::window_size;
+    launch_screen = main::launch_screen;
 }
 
 void Main::_ready()
@@ -39,17 +40,10 @@ void Main::_ready()
     }
     else
     {
-        String resolution = String("Resolution before: " + String().num(_os->get_window_size().x) + "x" + String().num(_os->get_window_size().y));
-        Godot::print(resolution);
-
         _os->set_window_size(window_size);
         _os->set_window_position(
             _os->get_screen_position(get_launch_screen()) + _os->get_screen_size() *  0.5 - _os->get_window_size() * 0.5
         );
-
-        resolution = String("Resolution after: " + String().num(_os->get_window_size().x) + "x" + String().num(_os->get_window_size().y));
-
-        Godot::print(resolution);
     }
 }
 

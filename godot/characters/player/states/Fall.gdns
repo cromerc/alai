@@ -3,6 +3,6 @@
 [ext_resource path="res://gdnative/alai.tres" type="GDNativeLibrary" id=1]
 
 [resource]
-resource_name = "Main"
-class_name = "Main"
+resource_name = "PlayerFall"
+class_name = "PlayerFall"
 library = ExtResource( 1 )

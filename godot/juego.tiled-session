@@ -3,11 +3,11 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "levels/level01.tmx",
+    "activeFile": "levels/level02.tmx",
     "expandedProjectPaths": [
-        "tilesets",
-        "levels",
         ".",
+        "levels",
+        "tilesets",
         "parallax"
     ],
     "exportAsImage.useCurrentScale": false,
@@ -202,32 +202,48 @@
             "scale": 0.75,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 544,
-                "y": 248
+                "x": 1135.3333333333333,
+                "y": 248.66666666666669
+            }
+        },
+        "levels/level02.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 2015.6666666666665,
+                "y": 339
             }
         },
         "parallax/clouds.tmx": {
             "scale": 0.9252604166666667,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 264.790318041092,
-                "y": 384.7565437658316
+                "x": 265.33070644525753,
+                "y": 384.2161553616662
             }
         },
         "parallax/hills.tmx": {
             "scale": 0.9252604166666667,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 264.790318041092,
-                "y": 384.7565437658316
+                "x": 265.33070644525753,
+                "y": 384.2161553616662
+            }
+        },
+        "parallax/mountains.tmx": {
+            "scale": 0.9714409722222221,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 264.0407470288625,
+                "y": 288.7463140023233
             }
         },
         "parallax/snow.tmx": {
             "scale": 0.9252604166666667,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 264.790318041092,
-                "y": 384.7565437658316
+                "x": 265.33070644525753,
+                "y": 384.2161553616662
             }
         },
         "tilesets/backgrounds.tsx": {
@@ -235,11 +251,11 @@
             "scaleInEditor": 4
         },
         "tilesets/tiles.tsx": {
-            "scaleInDock": 2,
+            "scaleInDock": 1,
             "scaleInEditor": 2
         }
     },
-    "frame.defaultDuration": 300,
+    "frame.defaultDuration": 210,
     "last.exportedFilePath": "/mnt/data/godot/projects/Platformer",
     "last.imagePath": "/mnt/data/godot/projects/juego/godot/assets/backgrounds",
     "lastUsedTilesetExportFilter": "Godot Tileset format (*.tres)",
@@ -247,31 +263,30 @@
         "/home/cromer/projects/edx/games/project/maps/azaraka"
     ],
     "map.fixedSize": true,
-    "map.height": 12,
+    "map.height": 32,
     "map.lastUsedExportFilter": "Godot Tilemap format (*.tscn)",
     "map.lastUsedFormat": "tmx",
-    "map.tileHeight": 24,
-    "map.tileWidth": 24,
+    "map.tileHeight": 18,
+    "map.tileWidth": 18,
     "map.width": 22,
     "openFiles": [
-        "tilesets/tiles.tsx",
-        "levels/level01.tmx"
+        "levels/level02.tmx"
     ],
     "project": "juego.tiled-project",
     "property.type": "int",
     "recentFiles": [
+        "levels/level02.tmx",
         "tilesets/tiles.tsx",
         "levels/level01.tmx",
-        "tilesets/backgrounds.tsx",
         "parallax/snow.tmx",
+        "parallax/mountains.tmx",
         "parallax/hills.tmx",
+        "parallax/clouds.tmx",
+        "tilesets/backgrounds.tsx",
         "/mnt/data/godot/projects/Azaraka/maps/worldmap.tsx",
         "/mnt/data/godot/projects/Azaraka/maps/worldmap.tmx",
         "/mnt/data/godot/projects/Platformer/asset/world1.tmx",
-        "/mnt/data/godot/projects/Platformer/asset/spritesheet_ground.tsx",
-        "/mnt/data/godot/projects/Platformer/asset/world.tmx",
-        "/mnt/data/godot/projects/Azaraka/maps/dungeon1.tmx",
-        "/mnt/data/projects/edx/games/azaraka/maps/outside_entrance.tmx"
+        "/mnt/data/godot/projects/Platformer/asset/spritesheet_ground.tsx"
     ],
     "tileset.embedInMap": false,
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",

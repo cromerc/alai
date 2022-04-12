@@ -55,39 +55,39 @@ void Main::_physics_process(float delta)
     }
 }
 
-void Main::set_full_screen(bool new_full_screen)
+void Main::set_full_screen(bool full_screen)
 {
-    full_screen = new_full_screen;
+    this->full_screen = full_screen;
 }
 
 bool Main::get_full_screen()
 {
-    return full_screen;
+    return this->full_screen;
 }
 
-void Main::set_window_size(Vector2 new_window_size)
+void Main::set_window_size(Vector2 window_size)
 {
-    window_size = new_window_size;
+    this-> window_size = window_size;
 }
 
 Vector2 Main::get_window_size()
 {
-    return window_size;
+    return this->window_size;
 }
 
-void Main::set_launch_screen(int8_t new_launch_screen)
+void Main::set_launch_screen(int8_t launch_screen)
 {
-    launch_screen = new_launch_screen;
+    this->launch_screen = launch_screen;
 }
 
 int8_t Main::get_launch_screen()
 {
-    if (launch_screen == -1)
+    if (this->launch_screen == -1)
     {
         return _os->get_current_screen();
     }
     else
     {
-        return launch_screen;
+        return this->launch_screen;
     }
 }

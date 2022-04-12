@@ -112,9 +112,9 @@ namespace godot
                 /**
                  * @brief Set the sprite frames object.
                  * 
-                 * @param[in] new_sprite_frames The new sprite frame.
+                 * @param[in] sprite_frames The new sprite frame.
                  */
-                void set_sprite_frames(Ref<SpriteFrames> new_sprite_frames);
+                void set_sprite_frames(Ref<SpriteFrames> sprite_frames);
 
                 /**
                  * @brief Get the sprite frames object.
@@ -126,9 +126,9 @@ namespace godot
                 /**
                  * @brief Set the speed object.
                  * 
-                 * @param[in] new_speed The new speed.
+                 * @param[in] speed The new speed.
                  */
-                void set_speed(float new_speed);
+                void set_speed(float speed);
 
                 /**
                  * @brief Get the speed object.
@@ -140,9 +140,9 @@ namespace godot
                 /**
                  * @brief Set the jump force object.
                  * 
-                 * @param[in] new_jump_force The new force applied to the player to make him jump.
+                 * @param[in] jump_force The new force applied to the player to make him jump.
                  */
-                void set_jump_force(float new_jump_force);
+                void set_jump_force(float jump_force);
 
                 /**
                  * @brief Get the jump force object.
@@ -154,9 +154,9 @@ namespace godot
                 /**
                  * @brief Set the gravity object.
                  * 
-                 * @param[in] new_gravity The new gravity to apply to the player.
+                 * @param[in] gravity The new gravity to apply to the player.
                  */
-                void set_gravity(float new_gravity);
+                void set_gravity(float gravity);
 
                 /**
                  * @brief Get the gravity object.
@@ -168,9 +168,9 @@ namespace godot
                 /**
                  * @brief Set the run speed object.
                  * 
-                 * @param[in] new_run_speed The new speed for running.
+                 * @param[in] run_speed The new speed for running.
                  */
-                void set_run_speed(float new_run_speed);
+                void set_run_speed(float run_speed);
 
                 /**
                  * @brief Get the run speed object.

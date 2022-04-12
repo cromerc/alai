@@ -89,9 +89,9 @@ namespace godot
                 /**
                  * @brief Set the full screen object.
                  * 
-                 * @param[in] new_full_screen The new full screen state.
+                 * @param[in] full_screen The new full screen state.
                  */
-                void set_full_screen(bool new_full_screen);
+                void set_full_screen(bool full_screen);
 
                 /**
                  * @brief Get the full screen object.
@@ -104,9 +104,9 @@ namespace godot
                 /**
                  * @brief Set the window size object.
                  * 
-                 * @param[in] new_window_size The new window size.
+                 * @param[in] window_size The new window size.
                  */
-                void set_window_size(Vector2 new_window_size);
+                void set_window_size(Vector2 window_size);
 
                 /**
                  * @brief Get the window size object.
@@ -118,9 +118,9 @@ namespace godot
                 /**
                  * @brief Set the launch screen object.
                  * 
-                 * @param[in] new_launch_screen The launch screen to use.
+                 * @param[in] launch_screen The launch screen to use.
                  */
-                void set_launch_screen(int8_t new_launch_screen);
+                void set_launch_screen(int8_t launch_screen);
 
                 /**
                  * @brief Get the launch screen object.

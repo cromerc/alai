@@ -155,24 +155,24 @@ Variant StateMachine::_call(const String method, const Array &args)
     return this->call(method, args);
 }
 
-void StateMachine::set_default_state(const String new_default_state)
+void StateMachine::set_default_state(const String default_state)
 {
-    default_state = new_default_state;
+    this->default_state = default_state;
 }
 
 String StateMachine::get_default_state()
 {
-    return default_state;
+    return this->default_state;
 }
 
-void StateMachine::set_current_state(const String new_current_sate)
+void StateMachine::set_current_state(const String current_sate)
 {
-    current_state = new_current_sate;
+    this->current_state = current_sate;
 }
 
 String StateMachine::get_current_state()
 {
-    return current_state;
+    return this->current_state;
 }
 
 void StateMachine::set_debug(bool debug)

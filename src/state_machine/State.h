@@ -33,11 +33,11 @@ namespace godot
 
             virtual void _state_exit(const String state, const Array args = Array());
 
-            virtual void set_parent(Node *new_parent) final;
+            virtual void set_parent(Node *parent) final;
 
             virtual Node *get_parent() final;
 
-            virtual void set_state_machine(StateMachine *new_state_machine) final;
+            virtual void set_state_machine(StateMachine *state_machine) final;
 
             virtual StateMachine *get_state_machine() final;
     };

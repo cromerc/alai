@@ -74,7 +74,7 @@ namespace godot
                 return _call(method, Array::make(args...));
             }
 
-            void set_default_state(const String new_default_state);
+            void set_default_state(const String default_state);
 
             String get_default_state();
 
@@ -82,7 +82,7 @@ namespace godot
 
             bool get_debug();
 
-            void set_current_state(const String new_current_state);
+            void set_current_state(const String current_state);
 
             String get_current_state();
 

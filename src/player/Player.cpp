@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "player/Player.h"
 
 #include <Camera2D.hpp>
 #include <TileMap.hpp>
@@ -112,54 +112,54 @@ void Player::_physics_process(float delta)
     }
 }
 
-void Player::set_sprite_frames(Ref<SpriteFrames> new_sprite_frames)
+void Player::set_sprite_frames(Ref<SpriteFrames> sprite_frames)
 {
-    sprite_frames = new_sprite_frames;
+    this->sprite_frames = sprite_frames;
 }
 
 Ref<SpriteFrames> Player::get_sprite_frames()
 {
-    return sprite_frames;
+    return this->sprite_frames;
 }
 
-void Player::set_speed(float new_speed)
+void Player::set_speed(float speed)
 {
-    speed = new_speed;
+    this->speed = speed;
 }
 
 float Player::get_speed()
 {
-    return speed;
+    return this->speed;
 }
 
-void Player::set_jump_force(float new_jump_force)
+void Player::set_jump_force(float jump_force)
 {
-    jump_force = new_jump_force;
+    this->jump_force = jump_force;
 }
 
 float Player::get_jump_force()
 {
-    return jump_force;
+    return this->jump_force;
 }
 
-void Player::set_gravity(float new_gravity)
+void Player::set_gravity(float gravity)
 {
-    gravity = new_gravity;
+    this->gravity = gravity;
 }
 
 float Player::get_gravity()
 {
-    return gravity;
+    return this->gravity;
 }
 
-void Player::set_run_speed(float new_run_speed)
+void Player::set_run_speed(float run_speed)
 {
-    run_speed = new_run_speed;
+    this->run_speed = run_speed;
 }
 
 float Player::get_run_speed()
 {
-    return run_speed;
+    return this->run_speed;
 }
 
 void Player::set_double_jump(bool double_jump)

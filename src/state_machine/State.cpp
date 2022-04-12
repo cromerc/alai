@@ -33,9 +33,9 @@ void State::_state_exit(const String state, const Array args)
     WARN_PRINT("State " + state + " is missing its _state_exit method!");
 }
 
-void State::set_parent(Node *new_parent)
+void State::set_parent(Node *parent)
 {
-    parent = new_parent;
+    this->parent = parent;
 }
 
 Node *State::get_parent()
@@ -43,12 +43,12 @@ Node *State::get_parent()
     return parent;
 }
 
-void State::set_state_machine(StateMachine *new_state_machine)
+void State::set_state_machine(StateMachine *state_machine)
 {
-    state_machine = new_state_machine;
+    this->state_machine = state_machine;
 }
 
 StateMachine *State::get_state_machine()
 {
-    return state_machine;
+    return this->state_machine;
 }

@@ -1,5 +1,5 @@
-#include "StateMachine.h"
-#include "State.h"
+#include "state_machine/StateMachine.h"
+#include "state_machine/State.h"
 
 using namespace godot;
 

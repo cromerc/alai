@@ -10,21 +10,51 @@
 
 /**
  * @brief This is the godot namespace for all the code included in the library.
+ * 
  * @details This namespace is used a prefix when the Godot engine looks for classes, methods, and properties.
  */
 namespace godot
 {
+    /**
+     * @brief This namespace contains the global variables related to the player and its states.
+     * 
+     */
     namespace player
     {
+        /**
+         * @brief The default sprite resource of the player.
+         * 
+         */
         const char player_sprite_frames[] = "res://characters/player/sprites/green.tres";
+        /**
+         * @brief The default speed of the player.
+         * 
+         */
         const float speed = 60.0;
+        /**
+         * @brief The default jump force applied when jumping.
+         * 
+         */
         const float jump_force = 300.0;
+        /**
+         * @brief The default gravity applied to the player.
+         * 
+         */
         const float gravity = 9.81;
+        /**
+         * @brief The default run speed multiplier.
+         * 
+         */
         const float run_speed = 2.0;
+        /**
+         * @brief The default double jump activation state.
+         * 
+         */
         const bool double_jump = true;
 
         /**
          * @brief This class is used to control the player.
+         * 
          * @details This class allows the player to move, run, and jump as well as controls the sprite displayed for those actions.
          */
         class Player : public KinematicBody2D
@@ -34,75 +64,93 @@ namespace godot
             private:
                 /**
                  * @brief ResourceLoader singleton.
+                 * 
                  */
                 ResourceLoader *_resource_loader;
 
                 /**
                  * @brief The animated sprite connected to the KinematicBody2D.
+                 * 
                  */
                 AnimatedSprite *animated_sprite;
                 /**
                  * @brief The sprite frames used in the animated sprite.
+                 * 
                  */
                 Ref<SpriteFrames> sprite_frames;
                 /**
                  * @brief The coins the player has collected.
+                 * 
                  */
                 uint8_t coins;
                 /**
                  * @brief The velocity at which moves the player moves.
+                 * 
                  */
                 Vector2 velocity;
                 /**
                  * @brief The speed that the player moves in.
+                 * 
                  */
                 float speed;
                 /**
                  * @brief The force applied to the player when jumping.
+                 * 
                  */
                 float jump_force;
                 /**
                  * @brief The gravity applied to the player.
+                 * 
                  */
                 float gravity;
                 /**
                  * @brief The speed multiplier used to make the player move faster.
+                 * 
                  */
                 float run_speed;
-
+                /**
+                 * @brief If double jump is enabled or not.
+                 * 
+                 */
                 bool double_jump;
 
             public:
                 /**
                  * @brief This method registers classes with Godot.
+                 * 
                  * @details This method registers methods, properties, and signals with the Godot engine.
                  */
                 static void _register_methods();
 
                 /**
                  * @brief Construct a new Player object.
+                 * 
                  */
                 Player();
 
                 /**
                  * @brief Destroy the Player object.
+                 * 
                  */
                 ~Player();
 
                 /**
                  * @brief Initialize the class from Godot.
+                 * 
                  * @details This method is called just once when the Godot engine connects to the instance of the class.
                  */
                 void _init();
 
                 /**
                  * @brief Code to be run when ready.
+                 * 
                  * @details This method is run when all the children of this node are ready.
                  */
                 void _ready();
 
                 /**
                  * @brief This class handles the physics processing.
+                 * 
                  * @details Every delta time, this function is called to check for input and update positioning.
                  * 
                  * @param[in] delta The difference in time that passed since the last call to this method.
@@ -179,10 +227,33 @@ namespace godot
                  */
                 float get_run_speed();
 
+                /**
+                 * @brief Set the double jump object.
+                 * 
+                 * @param[in] double_jump The new double dump value.
+                 */
                 void set_double_jump(bool double_jump);
+
+                /**
+                 * @brief Get the double jump object.
+                 * 
+                 * @return true If double jump is enabled.
+                 * @return false If double jump is disabled.
+                 */
                 bool get_double_jump();
 
+                /**
+                 * @brief Set the velocity object.
+                 * 
+                 * @param[in] velocity The new velocity of the player.
+                 */
                 void set_velocity(Vector2 velocity);
+
+                /**
+                 * @brief Get the velocity object.
+                 * 
+                 * @return Vector2 Returns the velocity of the player.
+                 */
                 Vector2 get_velocity();
         };
     }

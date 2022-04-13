@@ -11,11 +11,19 @@
 
 using namespace godot;
 
+/**
+ * @brief This function connects the gdnative init function.
+ * 
+ */
 extern "C" void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options *o)
 {
     Godot::gdnative_init(o);
 }
 
+/**
+ * @brief This function connects the gdnative terminate function.
+ * 
+ */
 extern "C" void GDN_EXPORT godot_gdnative_terminate(godot_gdnative_terminate_options *o)
 {
     // This next line is a workaround to fix bug:
@@ -24,6 +32,10 @@ extern "C" void GDN_EXPORT godot_gdnative_terminate(godot_gdnative_terminate_opt
     Godot::gdnative_terminate(o);
 }
 
+/**
+ * @brief This function connects the init methods in the classes to godot's gdnative.
+ * 
+ */
 extern "C" void GDN_EXPORT godot_nativescript_init(void *handle)
 {
     Godot::nativescript_init(handle);

@@ -24,7 +24,7 @@ void PlayerMove::_init()
     _input = Input::get_singleton();
 }
 
-void PlayerMove::_state_enter(String state, Array args)
+void PlayerMove::_state_enter()
 {
     animated_sprite = get_parent()->get_node<AnimatedSprite>("AnimatedSprite");
     animated_sprite->set_animation("move");

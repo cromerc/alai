@@ -1,8 +1,13 @@
 [gd_resource type="NativeScript" load_steps=2 format=2]
 
-[ext_resource path="res://gdnative/libalai.tres" type="GDNativeLibrary" id=1]
+[sub_resource type="GDNativeLibrary" id=1]
+symbol_prefix = "godot_player"
+entry/Windows.64 = "res://gdnative/windows.64/libalai.dll"
+entry/X11.64 = "res://gdnative/linux.64/libalai.so"
+dependency/Windows.64 = [  ]
+dependency/X11.64 = [  ]
 
 [resource]
 resource_name = "Player"
 class_name = "Player"
-library = ExtResource( 1 )
+library = SubResource( 1 )

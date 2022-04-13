@@ -1,15 +1,29 @@
 #include <Godot.hpp>
 
+#include "state_machine/StateMachine.h"
+#include "state_machine/State.h"
 #include "Main.h"
-#include "Player.h"
+#include "player/Player.h"
+#include "player/states/PlayerIdle.h"
+#include "player/states/PlayerMove.h"
+#include "player/states/PlayerJump.h"
+#include "player/states/PlayerFall.h"
 
 using namespace godot;
 
+/**
+ * @brief This function connects the gdnative init function.
+ * 
+ */
 extern "C" void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options *o)
 {
     Godot::gdnative_init(o);
 }
 
+/**
+ * @brief This function connects the gdnative terminate function.
+ * 
+ */
 extern "C" void GDN_EXPORT godot_gdnative_terminate(godot_gdnative_terminate_options *o)
 {
     // This next line is a workaround to fix bug:
@@ -18,9 +32,19 @@ extern "C" void GDN_EXPORT godot_gdnative_terminate(godot_gdnative_terminate_opt
     Godot::gdnative_terminate(o);
 }
 
+/**
+ * @brief This function connects the init methods in the classes to godot's gdnative.
+ * 
+ */
 extern "C" void GDN_EXPORT godot_nativescript_init(void *handle)
 {
     Godot::nativescript_init(handle);
-    register_class<Main>();
-    register_class<Player>();
+    register_class<StateMachine>();
+    register_class<State>();
+    register_class<main::Main>();
+    register_class<player::Player>();
+    register_class<player::PlayerIdle>();
+    register_class<player::PlayerMove>();
+    register_class<player::PlayerJump>();
+    register_class<player::PlayerFall>();
 }

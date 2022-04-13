@@ -1,14 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://characters/player/sprites/green.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://characters/player/Player.gdns" type="Script" id=2]
+[ext_resource path="res://characters/player/states/Idle.gdns" type="Script" id=2]
+[ext_resource path="res://state_machine/StateMachine.gdns" type="Script" id=3]
+[ext_resource path="res://characters/player/states/Move.gdns" type="Script" id=4]
+[ext_resource path="res://characters/player/Player.gdns" type="Script" id=5]
+[ext_resource path="res://characters/player/states/Jump.gdns" type="Script" id=6]
+[ext_resource path="res://characters/player/states/Fall.gdns" type="Script" id=7]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 6.0
-height = 12.0
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 7, 12 )
 
 [node name="Player" type="KinematicBody2D"]
-script = ExtResource( 2 )
+script = ExtResource( 5 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 1 )
@@ -19,4 +23,18 @@ centered = false
 position = Vector2( 12, 12 )
 shape = SubResource( 1 )
 
-[connection signal="player_moved" from="." to="." method="_on_Player_player_moved"]
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 3 )
+default_state = "Idle"
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 2 )
+
+[node name="Move" type="Node" parent="StateMachine"]
+script = ExtResource( 4 )
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource( 6 )
+
+[node name="Fall" type="Node" parent="StateMachine"]
+script = ExtResource( 7 )

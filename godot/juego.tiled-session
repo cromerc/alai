@@ -5,10 +5,10 @@
     },
     "activeFile": "levels/level02.tmx",
     "expandedProjectPaths": [
-        ".",
         "levels",
-        "tilesets",
-        "parallax"
+        "parallax",
+        ".",
+        "tilesets"
     ],
     "exportAsImage.useCurrentScale": false,
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -207,11 +207,11 @@
             }
         },
         "levels/level02.tmx": {
-            "scale": 1.5,
+            "scale": 0.33,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 2015.6666666666665,
-                "y": 339
+                "x": 3307.575757575757,
+                "y": 556.0606060606061
             }
         },
         "parallax/clouds.tmx": {

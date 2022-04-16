@@ -16,7 +16,6 @@ tile_metadata=false
 uv_clip=true
 image_flags=7
 collision_layer=2
-collision_mask=0
 embed_internal_images=false
 save_tiled_properties=false
 add_background=true

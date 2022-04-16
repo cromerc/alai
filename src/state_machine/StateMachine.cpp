@@ -34,7 +34,15 @@ void StateMachine::_ready()
     connect("tree_entered", this, "_on_StateMachine_tree_entered");
     connect("tree_exiting", this, "_on_StateMachine_tree_exiting");
     parent = get_parent();
-    set_current_state(get_default_state());
+    add_states();
+    if (has(get_default_state()))
+    {
+        set_current_state(get_default_state());
+    }
+    else
+    {
+        WARN_PRINT("The selected default state " + get_default_state() + " doesn't exist!");
+    }
     setup();
 }
 
@@ -46,13 +54,13 @@ void StateMachine::setup()
     {
         if (children.size() > 0)
         {
-            WARN_PRINT("State machine doesn't have a default state set, using first child!");
+            WARN_PRINT("The state machine doesn't have a default state set, using first child!");
             auto child = Object::cast_to<Node>(children[0].operator Object*());
             set_current_state(child->get_name());
         }
         else
         {
-            ERR_PRINT("State machine doesn't have a default state set and has no child states!");
+            ERR_PRINT("The state machine doesn't have a default state set and has no child states!");
             return;
         }
     }
@@ -60,7 +68,6 @@ void StateMachine::setup()
     for (uint8_t i = 0; i < children.size(); i++)
     {
         auto child = Object::cast_to<Node>(children[i].operator Object*());
-        add_state(child->get_name(), child);
 
         child->call("set_state_machine", this);
 
@@ -72,7 +79,24 @@ void StateMachine::setup()
         }
     }
 
-    this->call("_state_enter", get_current_state());
+    Node *state_node = Object::cast_to<Node>(this->states[get_current_state()]);
+    if (state_node->has_method("_state_enter"))
+    {
+        this->call("_state_enter", get_current_state());
+    }
+    else {
+        WARN_PRINT("The state " + get_current_state() + " doesn't have a _state_enter method!");
+    }
+}
+
+void StateMachine::add_states()
+{
+    auto children = get_children();
+    for (uint8_t i = 0; i < children.size(); i++)
+    {
+        auto child = Object::cast_to<Node>(children[i].operator Object*());
+        add_state(child->get_name(), child);
+    }
 }
 
 void StateMachine::add_state(const String state, Node *child)
@@ -111,8 +135,31 @@ void StateMachine::change(const String state, const Array &args)
         return this->restart(state, args);
     }
 
+    if (!has(state))
+    {
+        WARN_PRINT("The state " + state + " does not exist, called from state " + get_current_state() + "!");
+        return;
+    }
+
     auto previous_state = get_current_state();
-    auto exiting = this->call("_state_exit", state, args);
+
+    Variant exiting;
+    Node *state_node = Object::cast_to<Node>(this->states[previous_state]);
+    if (state_node)
+    {
+        if (state_node->has_method("_state_exit"))
+        {
+            exiting = this->call("_state_exit", state, args);
+        }
+        else
+        {
+            WARN_PRINT("The state " + get_current_state() + " doesn't have a _state_exit method!");
+        }
+    }
+    else
+    {
+        ERR_PRINT("Could not get current state node for " + get_current_state() + "!");
+    }
 
     if (get_current_state() != "")
     {
@@ -132,7 +179,23 @@ void StateMachine::change(const String state, const Array &args)
     auto child = Object::cast_to<Node>(states[get_current_state()].operator Object*());
     this->add_child(child);
 
-    this->call("_state_enter", previous_state, args);
+    state_node = Object::cast_to<Node>(this->states[get_current_state()]);
+    if (state_node)
+    {
+        if (state_node->has_method("_state_enter"))
+        {
+            this->call("_state_enter", previous_state, args);
+        }
+        else
+        {
+            WARN_PRINT("The state " + get_current_state() + " doesn't have a _state_enter method!");
+        }
+    }
+    else
+    {
+        ERR_PRINT("Could not get current state node for " + get_current_state() + "!");
+    }
+
     this->emit_signal("state_entered", get_current_state());
     if (debug)
     {
@@ -143,11 +206,23 @@ void StateMachine::change(const String state, const Array &args)
 Variant StateMachine::call(const String method, const Array &args)
 {
     auto node = Object::cast_to<Node>(states[get_current_state()].operator Object*());
-    if (node != nullptr)
+    if (node)
     {
-        return node->call(method, args);
+        if (node->has_method(method))
+        {
+            return node->call(method, args);
+        }
+        else
+        {
+            WARN_PRINT("The state " + get_current_state() + " doesn't contain the method " + method + "!");
+            return Variant();
+        }
     }
-    return Variant();
+    else
+    {
+        ERR_PRINT("Could not get current state node for " + get_current_state() + "!");
+        return Variant();
+    }
 }
 
 Variant StateMachine::_call(const String method, const Array &args)
@@ -196,13 +271,18 @@ void StateMachine::_on_StateMachine_tree_exiting()
     for (uint8_t i = 0; i < keys.size(); i++)
     {
         auto child = Object::cast_to<Node>(states[keys[i]].operator Object*());
-        if (child != nullptr)
+        if (child)
         {
             auto children = get_children();
             if (!children.has(child))
             {
                 this->add_child(child);
             }
+        }
+        else
+        {
+            ERR_PRINT("Could not get child node!");
+            return;
         }
     }
 }

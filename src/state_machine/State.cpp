@@ -25,12 +25,12 @@ void State::_init()
 
 void State::_state_enter(const String state, const Array args)
 {
-    WARN_PRINT("State " + state + " is missing its _state_enter method!");
+    WARN_PRINT("State " + get_state_machine()->get_current_state() + " is missing its _state_enter method!");
 }
 
 void State::_state_exit(const String state, const Array args)
 {
-    WARN_PRINT("State " + state + " is missing its _state_exit method!");
+    WARN_PRINT("State " + get_state_machine()->get_current_state() + " is missing its _state_exit method!");
 }
 
 void State::set_parent(Node *parent)

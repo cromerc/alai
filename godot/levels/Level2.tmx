@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="141" height="32" tilewidth="18" tileheight="18" infinite="0" nextlayerid="10" nextobjectid="2">
+ <tileset firstgid="1" source="../tilesets/tiles.tsx"/>
+ <layer id="5" name="MiddleBackground" width="141" height="32">
+  <data encoding="base64" compression="zstd">
+   KLUv/WCARXUAABgAdQACAH8FesSH8I4N
+  </data>
+ </layer>
+ <layer id="3" name="Background" width="141" height="32">
+  <data encoding="base64" compression="zstd">
+   KLUv/WCAReUHAMJFERyAa1oDcI3yNgxLrJADMYGMt1VK3WqlViu1WtMUj4khBhdcZJCFAKFxxnPnTUDFDzcs6dEhpRLMlytV2+7O8VvXySWPBFSgUI9lOjCDESmJ0wEFUDBH6aMKnaYbqE3TeZHUEB8pcQNNOxDfKqik4dIamYl9N6jbSwMvVRqDzrlB7c8GUWKOC6sUzQEVzzPO4IgxtKAog6tu1FTgDVN/nN++tBeZA0EN5xk1db0sksKmrmbykTr0A63DDawOgUagB0qpvyBVq4CeYFVHe3t5wv3BM1Ta3X7RbDSyulEpRUiNZjBlQK7pDf62ajznrSAe+evSQvunzakrBQ==
+  </data>
+ </layer>
+ <layer id="1" name="Middleground" width="141" height="32">
+  <data encoding="base64" compression="zstd">
+   KLUv/WCARRUIANIEDhigRa0BQ/Q7R/1PsR/MPm2z0rW2E5CaSAF3bMIsV1J77ry5tED4oDjxQam7jR15GE8B0aFV8PXATaBgbbV0gAIUiIjIcQ60HM0oqqweBdaQKlwM1t8qpJZ8tB1EMyqotCNCvamRnuRifF+MubDcIJ1XDxT2Dk2sGSCCbmjVF90Y3KEoKuyI0JoBkXSjVCsddwC1S4ocQUr6N/Q3mAJ9d6or3KrVk3AMw9j/AKvg1Qj5Vxzki1QZxqrbTl1K3FCJ/5Lc4JzPwKsSN+cBgD8c4+5imZRt4gscA6U5ZtMLqm/ED7qsETDJqarCYgqXJ/PkyFVHIrHjagYEG3EVjOLjEQ==
+  </data>
+ </layer>
+ <layer id="4" name="MiddleForeground" width="141" height="32">
+  <data encoding="base64" compression="zstd">
+   KLUv/WCARXUAABgANwACALtARV6C3bEB
+  </data>
+ </layer>
+ <layer id="2" name="Foreground" width="141" height="32">
+  <data encoding="base64" compression="zstd">
+   KLUv/WCARRUCAHgAa2sjADcAIzdLIiIiSkoUoMD4AUCDbgcmhQw6tZMClhqiTQoZdCqUCkMFg6qbwA28Xqj2RbVDFeykwP8N4YEe+Q==
+  </data>
+ </layer>
+ <objectgroup id="8" name="Object Layer 1">
+  <object id="1" type="one-way" x="64" y="504.667" width="30" height="14"/>
+ </objectgroup>
+</map>

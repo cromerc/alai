@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://camera_fix.gd" type="Script" id=1]
+[ext_resource path="res://characters/player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/Prototype.tmx" type="PackedScene" id=3]
+[ext_resource path="res://assets/backgrounds/mountains.png" type="Texture" id=4]
+
+[node name="Prototype" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+limit_left = 0
+limit_top = 0
+limit_right = 512
+limit_bottom = 288
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+__meta__ = {
+"_edit_bone_": true
+}
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="Player/Camera2D"]
+rect = Rect2( 0, 0, 24, 24 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.2, 0.1 )
+motion_offset = Vector2( 0, -288 )
+motion_mirroring = Vector2( 528, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource( 4 )
+centered = false
+
+[node name="Map" type="Node2D" parent="."]
+
+[node name="Prototype" parent="Map" instance=ExtResource( 3 )]
+script = ExtResource( 1 )

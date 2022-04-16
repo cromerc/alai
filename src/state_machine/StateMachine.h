@@ -44,12 +44,25 @@ namespace godot
             Dictionary states;
 
             /**
+             * @brief This adds all nodes of the states machine as states in the machine.
+             * 
+             */
+            void add_states();
+
+            /**
              * @brief This adds a state to the list of states in the state machine.
              * 
              * @param[in] state The new state.
              * @param[in] child The godot node which represents the state.
              */
             void add_state(const String state, Node *child);
+
+            /**
+             * @brief Set the current state object.
+             * 
+             * @param[in] current_state The current state that is running.
+             */
+            void set_current_state(const String current_state);
 
         public:
             /**
@@ -158,6 +171,13 @@ namespace godot
             String get_default_state();
 
             /**
+             * @brief Get the current state object.
+             * 
+             * @return String The current running state.
+             */
+            String get_current_state();
+
+            /**
              * @brief Set the debug object.
              * 
              * @param[in] debug Whether or not to debug.
@@ -171,20 +191,6 @@ namespace godot
              * @return false If debugging is disabled.
              */
             bool get_debug();
-
-            /**
-             * @brief Set the current state object.
-             * 
-             * @param[in] current_state The current state that is running.
-             */
-            void set_current_state(const String current_state);
-
-            /**
-             * @brief Get the current state object.
-             * 
-             * @return String The current running state.
-             */
-            String get_current_state();
 
             /**
              * @brief This method is called when the signal tree_entered is emitted.

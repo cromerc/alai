@@ -5,6 +5,8 @@
 #include <Node.hpp>
 #include <OS.hpp>
 #include <Input.hpp>
+#include <PackedScene.hpp>
+#include <Ref.hpp>
 
 /**
  * @brief This is the godot namespace for all the code included in the library.
@@ -57,6 +59,11 @@ namespace godot
                  */
                 Input *_input;
 
+                /**
+                 * @brief The first level to load
+                 * 
+                 */
+                Ref<PackedScene> level;
                 /**
                  * @brief If the window is full screen or not.
                  * 
@@ -115,6 +122,20 @@ namespace godot
                  * @param[in] delta The difference in time that passed since the last call to this method.
                  */
                 void _physics_process(float delta);
+
+                /**
+                 * @brief Set the level object.
+                 * 
+                 * @param[in] level The new level to load when starting.
+                 */
+                void set_level(Ref<PackedScene> level);
+
+                /**
+                 * @brief Get the level object.
+                 * 
+                 * @return Ref<PackedScene> The level scene to load.
+                 */
+                Ref<PackedScene> get_level();
 
                 /**
                  * @brief Set the full screen object.

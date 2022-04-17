@@ -9,6 +9,7 @@ void Main::_register_methods()
 {
     register_method("_ready", &Main::_ready);
     register_method("_physics_process", &Main::_physics_process);
+    register_property<Main, Ref<PackedScene>>("level", &Main::set_level, &Main::get_level, NULL, GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_RESOURCE_TYPE, String("PackedScene"));
     register_property<Main, bool>("full_screen", &Main::set_full_screen, &Main::get_full_screen, main::full_screen);
     register_property<Main, Vector2>("window_size", &Main::set_window_size, &Main::get_window_size, main::window_size);
     register_property<Main, int8_t>("launch_screen", &Main::set_launch_screen, &Main::get_launch_screen, main::launch_screen);
@@ -45,6 +46,11 @@ void Main::_ready()
             _os->get_screen_position(get_launch_screen()) + _os->get_screen_size() *  0.5 - _os->get_window_size() * 0.5
         );
     }
+
+    if (level != NULL)
+    {
+        add_child(level->instance());
+    }
 }
 
 void Main::_physics_process(float delta)
@@ -53,6 +59,16 @@ void Main::_physics_process(float delta)
     {
         get_tree()->quit();
     }
+}
+
+void Main::set_level(Ref<PackedScene> level)
+{
+    this->level = level;
+}
+
+Ref<PackedScene> Main::get_level()
+{
+    return this->level;
 }
 
 void Main::set_full_screen(bool full_screen)

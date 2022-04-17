@@ -53,6 +53,18 @@ texture={
 "stream": false,
 "svg/scale": 1.0
 }
+vnen.tiled_importer={
+"add_background": true,
+"collision_layer": 2,
+"collision_mask": 0,
+"custom_properties": true,
+"embed_internal_images": false,
+"image_flags": 7,
+"post_import_script": "",
+"save_tiled_properties": false,
+"tile_metadata": false,
+"uv_clip": true
+}
 
 [input]
 
@@ -81,8 +93,8 @@ right={
 
 [layer_names]
 
-2d_physics/layer_1="Tiles"
-2d_physics/layer_2="Player"
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Tiles"
 
 [physics]
 

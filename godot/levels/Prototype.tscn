@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://camera_fix.gd" type="Script" id=1]
+[ext_resource path="res://CameraLimit.gdns" type="Script" id=1]
 [ext_resource path="res://characters/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://levels/Prototype.tmx" type="PackedScene" id=3]
 [ext_resource path="res://assets/backgrounds/mountains.png" type="Texture" id=4]

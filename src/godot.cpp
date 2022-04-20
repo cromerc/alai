@@ -3,6 +3,7 @@
 #include "state_machine/StateMachine.h"
 #include "state_machine/State.h"
 #include "Main.h"
+#include "CameraLimit.h"
 #include "player/Player.h"
 #include "player/states/PlayerIdle.h"
 #include "player/states/PlayerMove.h"
@@ -42,6 +43,7 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void *handle)
     register_class<StateMachine>();
     register_class<State>();
     register_class<main::Main>();
+    register_class<CameraLimit>();
     register_class<player::Player>();
     register_class<player::PlayerIdle>();
     register_class<player::PlayerMove>();

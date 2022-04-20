@@ -239,7 +239,7 @@
  </tile>
  <tile id="91">
   <objectgroup draworder="index" id="2">
-   <object id="1" type="one-way" x="0" y="6" width="18" height="6"/>
+   <object id="2" type="one-way" x="0" y="6" width="18" height="6"/>
   </objectgroup>
  </tile>
  <tile id="92">

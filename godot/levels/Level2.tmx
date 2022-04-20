@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="141" height="32" tilewidth="18" tileheight="18" infinite="0" nextlayerid="10" nextobjectid="2">
+<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="141" height="32" tilewidth="18" tileheight="18" infinite="0" nextlayerid="11" nextobjectid="3">
  <tileset firstgid="1" source="../tilesets/tiles.tsx"/>
  <layer id="5" name="MiddleBackground" width="141" height="32">
   <data encoding="base64" compression="zstd">
-   KLUv/WCARXUAABgAdQACAH8FesSH8I4N
+   KLUv/WCARR0BAFgAmgAAAJucAJp1AAYAfwV6TDiADwQeyP/9j6vwLlFiVMcG
   </data>
  </layer>
  <layer id="3" name="Background" width="141" height="32">
   <data encoding="base64" compression="zstd">
-   KLUv/WCAReUHAMJFERyAa1oDcI3yNgxLrJADMYGMt1VK3WqlViu1WtMUj4khBhdcZJCFAKFxxnPnTUDFDzcs6dEhpRLMlytV2+7O8VvXySWPBFSgUI9lOjCDESmJ0wEFUDBH6aMKnaYbqE3TeZHUEB8pcQNNOxDfKqik4dIamYl9N6jbSwMvVRqDzrlB7c8GUWKOC6sUzQEVzzPO4IgxtKAog6tu1FTgDVN/nN++tBeZA0EN5xk1db0sksKmrmbykTr0A63DDawOgUagB0qpvyBVq4CeYFVHe3t5wv3BM1Ta3X7RbDSyulEpRUiNZjBlQK7pDf62ajznrSAe+evSQvunzakrBQ==
+   KLUv/WCARdUIAGJGEhyATVoDd0XtKOuQYW4wgYL5HVaKLAO0Ls3IT58UmMKKML5IuTIdigbihxssrwQOeDRxcsgfivDBBSlJoD93Jpbd3eXXVHXzdk1goGBvZTowgxEpidMBBVAwR+2jCpWmG6hNU3mRzDAfqbiBpjuQbxVUUnF5jayJvhtU7aWHlyqNQeXcoMZPClJijgsWFJ0Dap1nnMeRMbRK0QFWye5GSAXeMNWO892X9CIzEFR4nlFTV8sgKWzq6kwGUod+oHe4gdUh0Ah0oCT1F6R6FdAJVuXoai9PuD94hkq72i/ijUZWNyolCKnRDKYRuQz8JXCq7wY1zekAnrN0iMRSqpA2pyoc1rT5RlVbVb7zVjAe+XVpoe+HzKkrBQ==
   </data>
  </layer>
  <layer id="1" name="Middleground" width="141" height="32">
   <data encoding="base64" compression="zstd">
-   KLUv/WCARRUIANIEDhigRa0BQ/Q7R/1PsR/MPm2z0rW2E5CaSAF3bMIsV1J77ry5tED4oDjxQam7jR15GE8B0aFV8PXATaBgbbV0gAIUiIjIcQ60HM0oqqweBdaQKlwM1t8qpJZ8tB1EMyqotCNCvamRnuRifF+MubDcIJ1XDxT2Dk2sGSCCbmjVF90Y3KEoKuyI0JoBkXSjVCsddwC1S4ocQUr6N/Q3mAJ9d6or3KrVk3AMw9j/AKvg1Qj5Vxzki1QZxqrbTl1K3FCJ/5Lc4JzPwKsSN+cBgD8c4+5imZRt4gscA6U5ZtMLqm/ED7qsETDJqarCYgqXJ/PkyFVHIrHjagYEG3EVjOLjEQ==
+   KLUv/WCARWUIAOJEDhiQR60Bj+u7rOyvi/GpHuO2zbgyWjtZC1N3jFmuoPbceTOlQw+GF4wXJ5S629iTyHFUEDhgJXx9MFKgUG+1dJACFIiIiHEOtBTNcAqsPBJYIwoYNNffKuSWfLQdjGYMcGlHhPKmRr4sj20jH4aOcLlBqrcHHu4djKwzRgTdiKrX3RfYoUi0sGOCnRFi0g1UrRTuBW6XFEFClBhXWOAEQXU6FW5UtZsIfXeqFVyF1ZNQDMPYvwCr4NWI+FcI1kVaGcaqm04datxSw91kbnjmc+BUgYtzAKAf7njdL1Nli/gy96w032x64eqF+IGVNYInOW+lsDBli1NbMjI1iCR2pJ4BMUdUhVH8pQM=
   </data>
  </layer>
  <layer id="4" name="MiddleForeground" width="141" height="32">

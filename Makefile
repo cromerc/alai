@@ -24,10 +24,10 @@ godot-cpp-windows:
 game: game-linux game-windows
 
 game-linux:
-	scons use_llvm=$(USE_LLVM) target=$(RELEASE_TYPE) target_path=godot/gdnative/ target_name=libjuego platform=linux bits=64 -j $(PROCS)
+	scons use_llvm=$(USE_LLVM) target=$(RELEASE_TYPE) target_path=godot/gdnative/ target_name=libalai platform=linux bits=64 -j $(PROCS)
 
 game-windows:
-	scons target=$(RELEASE_TYPE) target_name=libjuego target_path=godot/gdnative/ platform=windows bits=64 -j $(PROCS)
+	scons target=$(RELEASE_TYPE) target_name=libalai target_path=godot/gdnative/ platform=windows bits=64 -j $(PROCS)
 
 docs:
 # if doxygen and bear are installed create the code documentation

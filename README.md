@@ -1,4 +1,4 @@
-# Juego
+# Alai
 
 ## License
 

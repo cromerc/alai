@@ -211,12 +211,12 @@ func make_layer(layer, parent, root, data):
 
 	var opacity = float(layer.opacity) if "opacity" in layer else 1.0
 	var visible = bool(layer.visible) if "visible" in layer else true
-	
+
 	var z_index = 0
-	
+
 	if "properties" in layer and "z_index" in layer.properties:
 		z_index = layer.properties.z_index
-	
+
 	if layer.type == "tilelayer":
 		var layer_size = Vector2(int(layer.width), int(layer.height))
 		var tilemap = TileMap.new()
@@ -231,6 +231,7 @@ func make_layer(layer, parent, root, data):
 		tilemap.cell_y_sort = true
 		tilemap.cell_tile_origin = TileMap.TILE_ORIGIN_BOTTOM_LEFT
 		tilemap.collision_layer = options.collision_layer
+		tilemap.collision_mask = options.collision_mask
 		tilemap.z_index = z_index
 
 		var offset = Vector2()
@@ -280,7 +281,7 @@ func make_layer(layer, parent, root, data):
 				var gid = int_id & ~(FLIPPED_HORIZONTALLY_FLAG | FLIPPED_VERTICALLY_FLAG | FLIPPED_DIAGONALLY_FLAG)
 
 				var cell_x = cell_offset.x + chunk.x + (count % int(chunk.width))
-				var cell_y = cell_offset.y + chunk.y + int(count / chunk.width)
+				var cell_y = cell_offset.y + chunk.y + int(count / chunk.width) + 1
 				tilemap.set_cell(cell_x, cell_y, gid, flipped_h, flipped_v, flipped_d)
 
 				count += 1
@@ -702,26 +703,26 @@ func build_tileset_for_scene(tilesets, source_path, options):
 
 		var i = 0
 		var column = 0
-		
+
 		# Needed to look up textures for animations
 		var tileRegions = []
 		while i < tilecount:
 			var tilepos = Vector2(x, y)
 			var region = Rect2(tilepos, tilesize)
-			
+
 			tileRegions.push_back(region)
-			
+
 			column += 1
 			i += 1
-			
+
 			x += int(tilesize.x) + spacing
 			if (columns > 0 and column >= columns) or x >= int(imagesize.x) - margin or (x + int(tilesize.x)) > int(imagesize.x):
 				x = margin
 				y += int(tilesize.y) + spacing
 				column = 0
-		
+
 		i = 0
-		
+
 		while i < tilecount:
 			var region = tileRegions[i]
 
@@ -778,7 +779,7 @@ func build_tileset_for_scene(tilesets, source_path, options):
 					result.tile_set_texture(gid, image)
 				if options.apply_offset:
 					result.tile_set_texture_offset(gid, Vector2(0, -image.get_height()))
-						
+
 			if "tiles" in ts and rel_id in ts.tiles and "objectgroup" in ts.tiles[rel_id] \
 					and "objects" in ts.tiles[rel_id].objectgroup:
 				for object in ts.tiles[rel_id].objectgroup.objects:
@@ -803,10 +804,10 @@ func build_tileset_for_scene(tilesets, source_path, options):
 						result.tile_set_occluder_offset(gid, offset)
 					else:
 						result.tile_add_shape(gid, shape, Transform2D(0, offset), object.type == "one-way")
-			
+
 			if "properties" in ts and "custom_material" in ts.properties:
 				result.tile_set_material(gid, load(ts.properties.custom_material))
-				
+
 			if options.custom_properties and options.tile_metadata and "tileproperties" in ts \
 					and "tilepropertytypes" in ts and rel_id in ts.tileproperties and rel_id in ts.tilepropertytypes:
 				tile_meta[gid] = get_custom_properties(ts.tileproperties[rel_id], ts.tilepropertytypes[rel_id])
@@ -815,7 +816,7 @@ func build_tileset_for_scene(tilesets, source_path, options):
 					if property in ts.tiles[rel_id]:
 						if not gid in tile_meta: tile_meta[gid] = {}
 						tile_meta[gid][property] = ts.tiles[rel_id][property]
-			
+
 			gid += 1
 			i += 1
 
@@ -1047,13 +1048,19 @@ func is_convex(vertices):
 	return true
 
 # Decompress the data of the layer
-# Compression argument is a string, either "gzip" or "zlib"
+# Compression argument is a string, either "gzip", "zlib", or "zstd"
 func decompress_layer_data(layer_data, compression, map_size):
-	if compression != "gzip" and compression != "zlib":
-		print_error("Unrecognized compression format: %s" % [compression])
-		return ERR_INVALID_DATA
-
-	var compression_type = File.COMPRESSION_DEFLATE if compression == "zlib" else File.COMPRESSION_GZIP
+	var compression_type = -1
+	match compression:
+		"zlib":
+			compression_type = File.COMPRESSION_DEFLATE
+		"gzip":
+			compression_type = File.COMPRESSION_GZIP
+		"zstd":
+			compression_type = File.COMPRESSION_ZSTD
+		_:
+			print_error("Unrecognized compression format: %s" % [compression])
+			return ERR_INVALID_DATA
 	var expected_size = int(map_size.x) * int(map_size.y) * 4
 	var raw_data = Marshalls.base64_to_raw(layer_data).decompress(expected_size, compression_type)
 
@@ -1220,7 +1227,7 @@ func validate_layer(layer):
 				print_error("Invalid data layer property.")
 				return ERR_INVALID_DATA
 			if "compression" in layer:
-				if layer.compression != "gzip" and layer.compression != "zlib":
+				if layer.compression != "gzip" and layer.compression != "zlib" and layer.compression != "zstd":
 					print_error("Invalid compression type.")
 					return ERR_INVALID_DATA
 		"imagelayer":

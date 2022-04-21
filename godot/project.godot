@@ -10,7 +10,8 @@ config_version=4
 
 [application]
 
-config/name="Juego"
+config/name="Alai"
+config/description="This game is for testing an Artificial Intelligence."
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
@@ -20,6 +21,10 @@ window/size/width=512
 window/size/height=288
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+
+[editor]
+
+scene/scene_naming=1
 
 [editor_plugins]
 
@@ -48,6 +53,18 @@ texture={
 "stream": false,
 "svg/scale": 1.0
 }
+vnen.tiled_importer={
+"add_background": true,
+"collision_layer": 2,
+"collision_mask": 0,
+"custom_properties": true,
+"embed_internal_images": false,
+"image_flags": 7,
+"post_import_script": "",
+"save_tiled_properties": false,
+"tile_metadata": false,
+"uv_clip": true
+}
 
 [input]
 
@@ -74,14 +91,25 @@ right={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Tiles"
+
 [physics]
 
 common/enable_pause_aware_picking=true
+2d/cell_size=18
 
 [rendering]
 
-environment/default_environment="res://default_env.tres"
+2d/snapping/use_gpu_pixel_snap=true
+misc/lossless_compression/force_png=true
 
 [tiled_importer]
 
 enable_json_format=false
+
+[world]
+
+2d/cell_size=18

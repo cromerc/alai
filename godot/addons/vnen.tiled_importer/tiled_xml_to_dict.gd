@@ -247,7 +247,7 @@ func parse_tile_data(parser):
 				var prop_data = parse_properties(parser)
 				data["properties"] = prop_data.properties
 				data["propertytypes"] = prop_data.propertytypes
-			
+
 			elif parser.get_node_name() == "animation":
 				var frame_list = []
 				var err2 = parser.read()
@@ -265,7 +265,7 @@ func parse_tile_data(parser):
 							if parser.get_node_name() == "animation":
 								break
 					err2 = parser.read()
-				
+
 				data["animation"] = frame_list
 
 		err = parser.read()

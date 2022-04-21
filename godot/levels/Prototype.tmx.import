@@ -2,12 +2,12 @@
 
 importer="vnen.tiled_importer"
 type="PackedScene"
-path="res://.import/level01.tmx-65e129bada03d3bf56997e5be6fa923f.scn"
+path="res://.import/Prototype.tmx-1674122a110386791b767b1f6628b68b.scn"
 
 [deps]
 
-source_file="res://levels/level01.tmx"
-dest_files=[ "res://.import/level01.tmx-65e129bada03d3bf56997e5be6fa923f.scn" ]
+source_file="res://levels/Prototype.tmx"
+dest_files=[ "res://.import/Prototype.tmx-1674122a110386791b767b1f6628b68b.scn" ]
 
 [params]
 
@@ -15,7 +15,8 @@ custom_properties=true
 tile_metadata=false
 uv_clip=true
 image_flags=7
-collision_layer=1
+collision_layer=2
+collision_mask=0
 embed_internal_images=false
 save_tiled_properties=false
 add_background=true

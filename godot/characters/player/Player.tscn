@@ -19,6 +19,7 @@ script = ExtResource( 5 )
 frames = ExtResource( 1 )
 animation = "idle"
 centered = false
+flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 12, 12 )

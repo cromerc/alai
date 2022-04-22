@@ -6,6 +6,11 @@
 
 namespace godot
 {
+    /**
+     * @brief This class limits the camera's position.
+     * 
+     * @details The camera will be limited based on the used width and height of the Middleground tilemap.
+     */
     class CameraLimit: public Node2D
     {
         GODOT_CLASS(CameraLimit, Node2D)

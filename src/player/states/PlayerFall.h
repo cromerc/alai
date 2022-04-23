@@ -7,17 +7,12 @@
 #include <Input.hpp>
 #include <AnimatedSprite.hpp>
 
-/**
- * @brief This is the godot namespace for all the code included in the library.
- * 
- * @details This namespace is used a prefix when the Godot engine looks for classes, methods, and properties.
- */
 namespace godot
 {
     namespace player
     {
         /**
-         * @brief This class controls what happens when the player is in a falling state.
+         * @brief This class controls what happens when the Player is in a falling state.
          * 
          */
         class PlayerFall : public State
@@ -32,7 +27,7 @@ namespace godot
                 Input *_input;
 
                 /**
-                 * @brief The animated sprite connected to the player.
+                 * @brief The animated sprite connected to the Player.
                  * 
                  */
                 AnimatedSprite *animated_sprite;
@@ -46,13 +41,13 @@ namespace godot
                 static void _register_methods();
 
                 /**
-                 * @brief Construct a new Player Fall object.
+                 * @brief Construct a new PlayerFall object.
                  * 
                  */
                 PlayerFall();
 
                 /**
-                 * @brief Destroy the Player Fall object.
+                 * @brief Destroy the PlayerFall object.
                  * 
                  */
                 ~PlayerFall();

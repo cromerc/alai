@@ -12,7 +12,7 @@ namespace godot
     namespace player
     {
         /**
-         * @brief This class control what happens when the player is in the jump state.
+         * @brief This class control what happens when the Player is in the jump state.
          * 
          */
         class PlayerJump : public State
@@ -26,7 +26,7 @@ namespace godot
                  */
                 Input *_input;
                 /**
-                 * @brief The animated sprite connected to the player.
+                 * @brief The animated sprite connected to the Player.
                  * 
                  */
                 AnimatedSprite *animated_sprite;
@@ -45,13 +45,13 @@ namespace godot
                 static void _register_methods();
 
                 /**
-                 * @brief Construct a new Player Jump object.
+                 * @brief Construct a new PlayerJump object.
                  * 
                  */
                 PlayerJump();
 
                 /**
-                 * @brief Destroy the Player Jump object.
+                 * @brief Destroy the PlayerJump object.
                  * 
                  */
                 ~PlayerJump();

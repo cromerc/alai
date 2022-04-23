@@ -12,7 +12,7 @@ namespace godot
     namespace player
     {
         /**
-         * @brief This class controls what happens when the player is in the move state.
+         * @brief This class controls what happens when the Player is in the move state.
          * 
          */
         class PlayerMove : public State
@@ -26,7 +26,7 @@ namespace godot
                  */
                 Input *_input;
                 /**
-                 * @brief The animated sprite of the player.
+                 * @brief The animated sprite of the Player.
                  * 
                  */
                 AnimatedSprite *animated_sprite;
@@ -40,13 +40,13 @@ namespace godot
                 static void _register_methods();
 
                 /**
-                 * @brief Construct a new Player Move object.
+                 * @brief Construct a new PlayerMove object.
                  * 
                  */
                 PlayerMove();
 
                 /**
-                 * @brief Destroy the Player Move object.
+                 * @brief Destroy the PlayerMove object.
                  * 
                  */
                 ~PlayerMove();

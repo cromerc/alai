@@ -24,13 +24,13 @@ namespace godot
             static void _register_methods();
 
             /**
-             * @brief Construct a new Camera Limit object.
+             * @brief Construct a new CameraLimit object.
              * 
              */
             CameraLimit();
 
             /**
-             * @brief Destroy the Camera Limit object.
+             * @brief Destroy the CameraLimit object.
              * 
              */
             ~CameraLimit();

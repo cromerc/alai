@@ -73,12 +73,12 @@ namespace godot
             static void _register_methods();
 
             /**
-             * @brief Construct a new State Machine object.
+             * @brief Construct a new StateMachine object.
              */
             StateMachine();
 
             /**
-             * @brief Destroy the State Machine object.
+             * @brief Destroy the StateMachine object.
              */
             ~StateMachine();
 

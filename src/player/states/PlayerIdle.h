@@ -13,7 +13,7 @@ namespace godot
     namespace player
     {
         /**
-         * @brief This class controls what happens when the player is in the idle state.
+         * @brief This class controls what happens when the Player is in the idle state.
          * 
          */
         class PlayerIdle : public State
@@ -27,7 +27,7 @@ namespace godot
                  */
                 Input *_input;
                 /**
-                 * @brief The animated sprite of the player.
+                 * @brief The animated sprite of the Player.
                  * 
                  */
                 AnimatedSprite *animated_sprite;
@@ -41,13 +41,13 @@ namespace godot
                 static void _register_methods();
 
                 /**
-                 * @brief Construct a new Player Idle object.
+                 * @brief Construct a new PlayerIdle object.
                  * 
                  */
                 PlayerIdle();
 
                 /**
-                 * @brief Destroy the Player Idle object.
+                 * @brief Destroy the PlayerIdle object.
                  * 
                  */
                 ~PlayerIdle();

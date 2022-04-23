@@ -8,11 +8,6 @@
 #include <SpriteFrames.hpp>
 #include <ResourceLoader.hpp>
 
-/**
- * @brief This is the godot namespace for all the code included in the library.
- * 
- * @details This namespace is used a prefix when the Godot engine looks for classes, methods, and properties.
- */
 namespace godot
 {
     /**

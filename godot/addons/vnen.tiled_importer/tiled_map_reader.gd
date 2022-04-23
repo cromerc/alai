@@ -227,9 +227,10 @@ func make_layer(layer, parent, root, data):
 		tilemap.mode = map_mode
 		tilemap.cell_half_offset = map_offset
 		tilemap.format = 1
+		tilemap.cell_custom_transform = Transform2D(Vector2(cell_size.x, 0), Vector2(0, cell_size.y), Vector2(0, 0))
 		tilemap.cell_clip_uv = options.uv_clip
-		tilemap.cell_y_sort = true
-		tilemap.cell_tile_origin = TileMap.TILE_ORIGIN_BOTTOM_LEFT
+		tilemap.cell_y_sort = options.y_sort
+		tilemap.cell_tile_origin = TileMap.TILE_ORIGIN_TOP_LEFT
 		tilemap.collision_layer = options.collision_layer
 		tilemap.collision_mask = options.collision_mask
 		tilemap.z_index = z_index

@@ -14,6 +14,7 @@ dest_files=[ "res://.import/Level2.tmx-357d8ae9edfbc85f5abb1db3655640e1.scn" ]
 custom_properties=true
 tile_metadata=false
 uv_clip=true
+y_sort=false
 image_flags=7
 collision_layer=2
 collision_mask=0

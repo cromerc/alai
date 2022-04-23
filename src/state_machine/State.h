@@ -1,7 +1,7 @@
 #ifndef JUEGO_STATE_H
 #define JUEGO_STATE_H
 
-#include "StateMachine.h"
+#include "state_machine/StateMachine.h"
 
 #include <Godot.hpp>
 #include <Node.hpp>

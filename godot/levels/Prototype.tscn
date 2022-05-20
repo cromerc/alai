@@ -1,13 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://CameraLimit.gdns" type="Script" id=1]
 [ext_resource path="res://characters/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://levels/Prototype.tmx" type="PackedScene" id=3]
 [ext_resource path="res://assets/backgrounds/mountains.png" type="Texture" id=4]
+[ext_resource path="res://Collectables/Coin/Coin.tscn" type="PackedScene" id=5]
 
 [node name="Prototype" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
+collision_layer = 5
+collision_mask = 6
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
@@ -39,3 +42,9 @@ centered = false
 
 [node name="Prototype" parent="Map" instance=ExtResource( 3 )]
 script = ExtResource( 1 )
+
+[node name="coin" parent="." instance=ExtResource( 5 )]
+position = Vector2( 72, 456 )
+
+[node name="coin2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 240, 456 )

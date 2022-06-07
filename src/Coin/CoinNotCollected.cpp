@@ -1,4 +1,4 @@
-#include "player/states/CoinNotCollected.h"
+#include "Coin/CoinNotCollected.h"
 
 using namespace godot;
 
@@ -25,15 +25,17 @@ void CoinNotCollected::_init()
 void CoinNotCollected::_state_enter()
 {
     animated_sprite = get_parent()->get_node<AnimatedSprite>("AnimatedSprite");
-    animated_sprite->stop();
-    animated_sprite->set_animation("idle");
+    animated_sprite->set_animation("spin");
+    animated_sprite->play();
 }
 
 void CoinNotCollected::_state_exit()
 {
+    
 }
 
 void CoinNotCollected::_physics_process(float delta)
 {
-   
+
 }
+

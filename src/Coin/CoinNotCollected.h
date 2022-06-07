@@ -1,5 +1,5 @@
 #ifndef JUEGO_COIN_COINNOTCOLLECTED
-#define JJUEGO_COIN_COINNOTCOLLECTED
+#define JUEGO_COIN_COINNOTCOLLECTED
 
 #include "state_machine/State.h"
 

@@ -17,7 +17,7 @@ region = Rect2( 18, 0, 18, 18 )
 animations = [ {
 "frames": [ SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
-"name": "default",
+"name": "spin",
 "speed": 5.0
 } ]
 
@@ -30,6 +30,6 @@ shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
-frame = 1
+animation = "spin"
 playing = true
 centered = false

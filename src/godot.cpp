@@ -9,6 +9,7 @@
 #include "player/states/PlayerMove.h"
 #include "player/states/PlayerJump.h"
 #include "player/states/PlayerFall.h"
+#include "Coin/CoinNotCollected.h"
 
 using namespace godot;
 
@@ -49,4 +50,5 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void *handle)
     register_class<player::PlayerMove>();
     register_class<player::PlayerJump>();
     register_class<player::PlayerFall>();
+    register_class<coin::CoinNotCollected>();
 }

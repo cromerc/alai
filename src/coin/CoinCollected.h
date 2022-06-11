@@ -1,5 +1,5 @@
-#ifndef JUEGO_COIN_COINNOTCOLLECTED
-#define JUEGO_COIN_COINNOTCOLLECTED
+#ifndef ALAI_COIN_COLLECTED
+#define ALAI_COIN_COLLECTED
 
 #include "state_machine/State.h"
 
@@ -10,12 +10,12 @@
 namespace godot
 {
         /**
-         * @brief This class controls what happens when the Coin is in the not collected state.
+         * @brief This class controls what happens when the Coin is in the collected state.
          * 
          */
-        class CoinNotCollected : public State
+        class CoinCollected : public State
         {
-            GODOT_CLASS(CoinNotCollected, State)
+            GODOT_CLASS(CoinCollected, State)
 
             private:
                 /**
@@ -33,16 +33,16 @@ namespace godot
                 static void _register_methods();
 
                 /**
-                 * @brief Construct a new CoinNotCollected object.
+                 * @brief Construct a new CoinCollected object.
                  * 
                  */
-                CoinNotCollected();
+                CoinCollected();
 
                 /**
-                 * @brief Destroy the CoinNotCollected object.
+                 * @brief Destroy the CoinCollected object.
                  * 
                  */
-                ~CoinNotCollected();
+                ~CoinCollected();
 
                 /**
                  * @brief Initialize the class from Godot.
@@ -52,23 +52,22 @@ namespace godot
                 void _init();
 
                 /**
-                 * @brief Called when the not collected state of the coin is entered.
+                 * @brief Called when the collected state of the coin is entered.
                  * 
                  */
                 void _state_enter();
 
                 /**
-                 * @brief Called when the not collected state of the coin is exited.
+                 * @brief Called when the collected state of the coin is exited.
                  * 
                  */
                 void _state_exit();
 
                 /**
-                 * @brief The physics processed every delta time.
+                 * @brief Called when the animation of the collected coin has finished.
                  * 
-                 * @param[in] delta The time since the method was last run.
                  */
-                void _physics_process(float delta);
+                void _on_animation_finished(String anim_name);
         };
     
 }

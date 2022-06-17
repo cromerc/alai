@@ -31,11 +31,12 @@ animations = [ {
 extents = Vector2( 7.5, 8.5 )
 
 [node name="Dreadtooth" type="KinematicBody2D"]
+collision_layer = 8
+collision_mask = 11
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
 animation = "walk"
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -1,0 +1,72 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://CameraLimit.gdns" type="Script" id=1]
+[ext_resource path="res://characters/player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/PrototypeEnemies.tmx" type="PackedScene" id=3]
+[ext_resource path="res://assets/backgrounds/mountains.png" type="Texture" id=4]
+[ext_resource path="res://characters/enemies/gravevine/Gravevine.tscn" type="PackedScene" id=5]
+[ext_resource path="res://characters/enemies/dreadtooth/Dreadtooth.tscn" type="PackedScene" id=6]
+[ext_resource path="res://characters/enemies/super_shelly/SuperShelly.tscn" type="PackedScene" id=7]
+[ext_resource path="res://characters/enemies/spikeball/Spikeball.tscn" type="PackedScene" id=8]
+[ext_resource path="res://characters/enemies/shelly/Shelly.tscn" type="PackedScene" id=9]
+[ext_resource path="res://characters/enemies/blockface/Blockface.tscn" type="PackedScene" id=10]
+[ext_resource path="res://characters/enemies/blightwing/Blightwing.tscn" type="PackedScene" id=11]
+
+[node name="PrototypeEnemies" type="Node"]
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 80, 488 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+limit_left = 0
+limit_top = 0
+limit_right = 512
+limit_bottom = 288
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+__meta__ = {
+"_edit_bone_": true
+}
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="Player/Camera2D"]
+rect = Rect2( 0, 0, 24, 24 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.2, 0.1 )
+motion_offset = Vector2( 0, -288 )
+motion_mirroring = Vector2( 528, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource( 4 )
+centered = false
+
+[node name="Map" type="Node" parent="."]
+
+[node name="PrototypeEnemies" parent="Map" instance=ExtResource( 3 )]
+script = ExtResource( 1 )
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Spikeball" parent="Enemies" instance=ExtResource( 8 )]
+position = Vector2( 106, 547 )
+
+[node name="Blightwing" parent="Enemies" instance=ExtResource( 11 )]
+position = Vector2( 92, 516 )
+
+[node name="Blockface" parent="Enemies" instance=ExtResource( 10 )]
+position = Vector2( 169, 518 )
+
+[node name="Dreadtooth" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 212, 546 )
+
+[node name="Gravevine" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( 250, 550 )
+
+[node name="Shelly" parent="Enemies" instance=ExtResource( 9 )]
+position = Vector2( 138, 546 )
+
+[node name="SuperShelly" parent="Enemies" instance=ExtResource( 7 )]
+position = Vector2( 62, 546 )

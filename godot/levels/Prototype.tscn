@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://CameraLimit.gdns" type="Script" id=1]
 [ext_resource path="res://characters/player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://levels/Prototype.tmx" type="PackedScene" id=3]
 [ext_resource path="res://assets/backgrounds/mountains.png" type="Texture" id=4]
 [ext_resource path="res://collectables/coin/Coin.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/coin.png" type="Texture" id=6]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 0.541176 )
 
 [node name="Prototype" type="Node2D"]
 
@@ -47,3 +51,35 @@ position = Vector2( 72, 450 )
 
 [node name="coin2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 234, 450 )
+
+[node name="CoinHUD" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CoinHUD"]
+margin_left = 144.0
+margin_top = 18.0
+margin_right = 288.0
+margin_bottom = 54.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="TextureRect" type="TextureRect" parent="CoinHUD"]
+margin_left = 144.0
+margin_top = 18.0
+margin_right = 184.0
+margin_bottom = 58.0
+texture = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="CoinHUD"]
+margin_left = 198.0
+margin_top = 18.0
+margin_right = 238.0
+margin_bottom = 36.0
+text = "X"
+
+[node name="Coins" type="Label" parent="CoinHUD"]
+margin_left = 216.0
+margin_top = 18.0
+margin_right = 256.0
+margin_bottom = 32.0
+text = "##"
+
+[connection signal="ready" from="CoinHUD/Coins" to="Player" method="_on_CoinHUD_ready"]

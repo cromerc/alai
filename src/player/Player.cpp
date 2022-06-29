@@ -5,6 +5,7 @@
 #include <VisibilityNotifier2D.hpp>
 #include <SceneTree.hpp>
 #include <Texture.hpp>
+#include <Viewport.hpp>
 
 using namespace godot;
 using namespace player;
@@ -21,6 +22,9 @@ void Player::_register_methods()
     register_property<Player, float>("gravity", &Player::set_gravity, &Player::get_gravity, player::gravity);
     register_property<Player, float>("run_speed", &Player::set_run_speed, &Player::get_run_speed, player::run_speed);
     register_property<Player, bool>("double_jump", &Player::set_double_jump, &Player::get_double_jump, player::double_jump);
+    register_signal<Player>("object_created", "name", GODOT_VARIANT_TYPE_STRING, "state", GODOT_VARIANT_TYPE_STRING, "position", GODOT_VARIANT_TYPE_VECTOR2, "velocity", GODOT_VARIANT_TYPE_VECTOR2);
+    register_signal<Player>("object_updated", "name", GODOT_VARIANT_TYPE_STRING, "state", GODOT_VARIANT_TYPE_STRING, "position", GODOT_VARIANT_TYPE_VECTOR2, "velocity", GODOT_VARIANT_TYPE_VECTOR2);
+    register_signal<Player>("object_removed", "name", GODOT_VARIANT_TYPE_STRING);
 }
 
 Player::Player()
@@ -58,7 +62,6 @@ void Player::_ready()
     //animated_sprite->set_sprite_frames(sprite_frames);
 
     auto node = get_parent()->find_node("Middleground");
-
     if (node != nullptr)
     {
         auto tile_map = Object::cast_to<TileMap>(node);
@@ -68,6 +71,27 @@ void Player::_ready()
     else
     {
         WARN_PRINT("Middleground not found!");
+    }
+
+    auto object_node = get_tree()->get_root()->get_node("Main")->find_node("Monitor");
+    if (object_node != nullptr)
+    {
+        auto state = get_node("StateMachine")->get_child(0);
+        if (state != nullptr)
+        {
+            connect("object_created", object_node, "_object_created");
+            connect("object_updated", object_node, "_object_updated");
+            connect("object_removed", object_node, "_object_removed");
+            emit_signal("object_created", this->get_name(), state->get_name(), get_global_position(), velocity);
+        }
+        else
+        {
+            WARN_PRINT("State not found!");
+        }
+    }
+    else
+    {
+        WARN_PRINT("Data not found!");
     }
 }
 
@@ -109,6 +133,16 @@ void Player::_physics_process(float delta)
                 }
             }
         }
+    }
+
+    auto state = get_node("StateMachine")->get_child(0);
+    if (state != nullptr)
+    {
+        emit_signal("object_updated", this->get_name(), state->get_name(), get_global_position(), velocity);
+    }
+    else
+    {
+        WARN_PRINT("State not found!");
     }
 }
 

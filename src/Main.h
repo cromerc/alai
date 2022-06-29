@@ -1,6 +1,7 @@
 #ifndef ALAI_MAIN_H
 #define ALAI_MAIN_H
 
+#include <string>
 #include <Godot.hpp>
 #include <Node.hpp>
 #include <OS.hpp>
@@ -21,6 +22,11 @@ namespace godot
      */
     namespace main
     {
+        /**
+         * @brief The default value for the game version.
+         * 
+         */
+        const std::string game_version = "0.1.0";
         /**
          * @brief The default value for if the game should start in full screen.
          * 
@@ -64,6 +70,11 @@ namespace godot
                  * 
                  */
                 Ref<PackedScene> level;
+                /**
+                 * @brief The current version of the game.
+                 * 
+                 */
+                String game_version;
                 /**
                  * @brief If the window is full screen or not.
                  * 
@@ -136,6 +147,20 @@ namespace godot
                  * @return Ref<PackedScene> The level scene to load.
                  */
                 Ref<PackedScene> get_level();
+
+                /**
+                 * @brief Set the game version object.
+                 * 
+                 * @param[in] game_version The new version fo the game.
+                 */
+                void set_game_version(String game_version);
+
+                /**
+                 * @brief Get the game version object.
+                 * 
+                 * @return String The current version of the game.
+                 */
+                String get_game_version();
 
                 /**
                  * @brief Set the full screen object.

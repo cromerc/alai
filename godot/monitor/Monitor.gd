@@ -1,10 +1,14 @@
 extends Node
 
 
+export var enabled: bool = false
 export var development_url: String = "http://localhost:4050/api/v1"
 var url_real: String = "https://alai.cromer.cl/api/v1"
 export var use_development_url: bool = false
 onready var url: String = development_url if use_development_url else url_real
+
+var start_time: int = 0
+var started: bool = false
 
 var player: Dictionary = {}
 var level_id: int = 2 # PrototypeR
@@ -23,7 +27,6 @@ var frames: Array = []
 
 var coins: int = 0
 var points: int = 0
-onready var start_time: int = OS.get_ticks_msec()
 var objects: Array = []
 
 const empty_object: Dictionary = {
@@ -96,32 +99,45 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	var frame = empty_frame.duplicate(true)
-	frame["coins"] = coins
-	frame["points"] = points
-	frame["fps"] = Engine.get_frames_per_second()
-	frame["elapsed_time"] = OS.get_ticks_msec() - start_time
+	if enabled and started:
+		var frame = empty_frame.duplicate(true)
+		frame["coins"] = coins
+		frame["points"] = points
+		frame["fps"] = Engine.get_frames_per_second()
+		frame["elapsed_time"] = OS.get_ticks_msec() - start_time
 
-	var frame_objects = objects.duplicate()
-	frame["objects"] = frame_objects
+		var frame_objects = objects.duplicate()
+		frame["objects"] = frame_objects
 
-	frames.append(frame)
+		frames.append(frame)
 
-	if Input.is_action_just_pressed("Send"):
-		send_data()
+		if Input.is_action_just_pressed("Send"):
+			send_data()
 
 
 func _object_created(name: String, state: String, position: Vector2, velocity: Vector2) -> void:
-	add_object(name, state, position, velocity)
+	if enabled and started:
+		add_object(name, state, position, velocity)
 
 
 func _object_updated(name: String, state: String, position: Vector2, velocity: Vector2) -> void:
-	remove_object(name)
-	add_object(name, state, position, velocity)
+	if enabled and started:
+		remove_object(name)
+		add_object(name, state, position, velocity)
 
 
 func _object_removed(name: String) -> void:
-	remove_object(name)
+	if enabled and started:
+		remove_object(name)
+
+
+func start_monitor() -> void:
+	start_time = OS.get_ticks_msec()
+	started = true
+
+
+func stop_monitor() -> void:
+	started = false
 
 
 func add_object(name: String, state: String, position: Vector2, velocity: Vector2) -> void:

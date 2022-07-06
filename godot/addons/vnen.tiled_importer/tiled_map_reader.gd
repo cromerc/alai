@@ -50,6 +50,8 @@ const whitelist_properties = [
 	"infinite",
 	"margin",
 	"name",
+	"offsetx",
+	"offsety",
 	"orientation",
 	"probability",
 	"spacing",
@@ -227,10 +229,8 @@ func make_layer(layer, parent, root, data):
 		tilemap.mode = map_mode
 		tilemap.cell_half_offset = map_offset
 		tilemap.format = 1
-		tilemap.cell_custom_transform = Transform2D(Vector2(cell_size.x, 0), Vector2(0, cell_size.y), Vector2(0, 0))
 		tilemap.cell_clip_uv = options.uv_clip
 		tilemap.cell_y_sort = options.y_sort
-		tilemap.cell_tile_origin = TileMap.TILE_ORIGIN_TOP_LEFT
 		tilemap.collision_layer = options.collision_layer
 		tilemap.collision_mask = options.collision_mask
 		tilemap.z_index = z_index
@@ -282,7 +282,7 @@ func make_layer(layer, parent, root, data):
 				var gid = int_id & ~(FLIPPED_HORIZONTALLY_FLAG | FLIPPED_VERTICALLY_FLAG | FLIPPED_DIAGONALLY_FLAG)
 
 				var cell_x = cell_offset.x + chunk.x + (count % int(chunk.width))
-				var cell_y = cell_offset.y + chunk.y + int(count / chunk.width) + 1
+				var cell_y = cell_offset.y + chunk.y + int(count / chunk.width)
 				tilemap.set_cell(cell_x, cell_y, gid, flipped_h, flipped_v, flipped_d)
 
 				count += 1
@@ -695,7 +695,13 @@ func build_tileset_for_scene(tilesets, source_path, options):
 			imagesize = Vector2(int(ts.imagewidth), int(ts.imageheight))
 
 		var tilesize = Vector2(int(ts.tilewidth), int(ts.tileheight))
-		var tilecount = int(ts.tilecount)
+
+		var tilecount
+		if not "tilecount" in ts:
+			tilecount = make_tilecount(tilesize, imagesize, margin, spacing)
+		else:
+			tilecount = int(ts.tilecount)
+
 
 		var gid = firstgid
 
@@ -704,6 +710,7 @@ func build_tileset_for_scene(tilesets, source_path, options):
 
 		var i = 0
 		var column = 0
+
 
 		# Needed to look up textures for animations
 		var tileRegions = []
@@ -752,8 +759,6 @@ func build_tileset_for_scene(tilesets, source_path, options):
 				else:
 					result.tile_set_texture(gid, image)
 					result.tile_set_region(gid, region)
-				if options.apply_offset:
-					result.tile_set_texture_offset(gid, Vector2(0, -tilesize.y))
 			elif not rel_id in ts.tiles:
 				gid += 1
 				continue
@@ -778,8 +783,6 @@ func build_tileset_for_scene(tilesets, source_path, options):
 						# Error happened
 						return image
 					result.tile_set_texture(gid, image)
-				if options.apply_offset:
-					result.tile_set_texture_offset(gid, Vector2(0, -image.get_height()))
 
 			if "tiles" in ts and rel_id in ts.tiles and "objectgroup" in ts.tiles[rel_id] \
 					and "objects" in ts.tiles[rel_id].objectgroup:
@@ -792,8 +795,6 @@ func build_tileset_for_scene(tilesets, source_path, options):
 						return shape
 
 					var offset = Vector2(float(object.x), float(object.y))
-					if options.apply_offset:
-						offset += result.tile_get_texture_offset(gid)
 					if "width" in object and "height" in object:
 						offset += Vector2(float(object.width) / 2, float(object.height) / 2)
 
@@ -817,6 +818,11 @@ func build_tileset_for_scene(tilesets, source_path, options):
 					if property in ts.tiles[rel_id]:
 						if not gid in tile_meta: tile_meta[gid] = {}
 						tile_meta[gid][property] = ts.tiles[rel_id][property]
+
+						# If tile has a custom property called 'name', set the tile's name
+						if property == "name":
+							result.tile_set_name(gid, ts.tiles[rel_id].properties.name)
+
 
 			gid += 1
 			i += 1
@@ -876,13 +882,14 @@ func load_image(rel_path, source_path, options):
 
 	var image = null
 	if embed:
+		var img = Image.new()
+		img.load(total_path)
 		image = ImageTexture.new()
-		image.load(total_path)
+		image.create_from_image(img, flags)
 	else:
 		image = ResourceLoader.load(total_path, "ImageTexture")
-
-	if image != null:
-		image.set_flags(flags)
+		if image != null:
+			image.set_flags(flags)
 
 	return image
 
@@ -1128,6 +1135,17 @@ func object_sorter(first, second):
 		return first.id < second.id
 	return first.y < second.y
 
+# Create the tilecount for the TileSet if not present.
+# Based on the image and tile dimensions.
+func make_tilecount(tilesize, imagesize, margin, spacing):
+	var horizontal_tile_size = int(tilesize.x + margin * 2 + spacing)
+	var vertical_tile_size = int(tilesize.y + margin * 2 + spacing)
+
+	var horizontal_tile_count = int(imagesize.x) / horizontal_tile_size;
+	var vertical_tile_count = int(imagesize.y) / vertical_tile_size;
+
+	return horizontal_tile_count * vertical_tile_count
+
 # Validates the map dictionary content for missing or invalid keys
 # Returns an error code
 func validate_map(map):
@@ -1169,9 +1187,6 @@ func validate_tileset(tileset):
 		return ERR_INVALID_DATA
 	elif not "tileheight" in tileset or not str(tileset.tileheight).is_valid_integer():
 		print_error("Missing or invalid tileheight tileset property.")
-		return ERR_INVALID_DATA
-	elif not "tilecount" in tileset or not str(tileset.tilecount).is_valid_integer():
-		print_error("Missing or invalid tilecount tileset property.")
 		return ERR_INVALID_DATA
 	if not "image" in tileset:
 		for tile in tileset.tiles:

@@ -42,6 +42,9 @@ func get_recognized_extensions():
 func get_save_extension():
 	return "res"
 
+func get_import_order():
+	return 100
+
 func get_resource_type():
 	return "TileSet"
 
@@ -75,10 +78,6 @@ func get_import_options(preset):
 		},
 		{
 			"name": "save_tiled_properties",
-			"default_value": false
-		},
-		{
-			"name": "apply_offset",
 			"default_value": false
 		},
 		{

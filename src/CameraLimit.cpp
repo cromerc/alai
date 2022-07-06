@@ -32,7 +32,7 @@ void CameraLimit::_ready()
     if (middle_ground != NULL)
     {
         auto used_rect = middle_ground->get_used_rect();
-        auto bounds = Vector2(used_rect.position.x + used_rect.size.x, used_rect.position.y + used_rect.size.y - 1);
+        auto bounds = Vector2(used_rect.position.x + used_rect.size.x, used_rect.position.y + used_rect.size.y);
         node = get_tree()->get_root()->find_node("Camera2D", true, false);
         auto camera = cast_to<Camera2D>(node);
         if (camera != NULL)

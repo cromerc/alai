@@ -11,7 +11,6 @@ var start_time: int = 0
 var started: bool = false
 
 var player: Dictionary = {}
-var level_id: int = 2 # PrototypeR
 var os_id: int = 0
 var godot_version: Dictionary = Engine.get_version_info()
 var processor_count: int = OS.get_processor_count()
@@ -21,8 +20,6 @@ var screen_size: Vector2 = OS.get_screen_size()
 var machine_id: String = OS.get_unique_id()
 var locale: String = OS.get_locale()
 var game_version: String
-var won: bool = false
-var timestamp: int = OS.get_unix_time()
 var frames: Array = []
 
 var coins: int = 0
@@ -79,7 +76,7 @@ func _ready() -> void:
 	player["rut"] = clean_rut(player["rut"])
 
 	game["player"] = player
-	game["level_id"] = level_id
+	game["level_id"] = 0
 	game["os_id"] = os_id
 	game["godot_version"] = godot_version
 	game["processor_count"] = processor_count
@@ -89,8 +86,8 @@ func _ready() -> void:
 	game["screen_dpi"] = screen_dpi
 	game["screen_size"] = screen_size
 	game["game_version"] = game_version
-	game["won"] = won
-	game["timestamp"] = timestamp
+	game["won"] = false
+	game["timestamp"] = OS.get_unix_time()
 	game["frames"] = frames
 
 	var err = $HTTPRequest.connect("request_completed", self, "_on_request_completed")
@@ -99,20 +96,25 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if enabled and started:
-		var frame = empty_frame.duplicate(true)
-		frame["coins"] = coins
-		frame["points"] = points
-		frame["fps"] = Engine.get_frames_per_second()
-		frame["elapsed_time"] = OS.get_ticks_msec() - start_time
+	if enabled:
+		if started:
+			var frame = empty_frame.duplicate(true)
+			frame["coins"] = coins
+			frame["points"] = points
+			frame["fps"] = Engine.get_frames_per_second()
+			frame["elapsed_time"] = OS.get_ticks_msec() - start_time
 
-		var frame_objects = objects.duplicate()
-		frame["objects"] = frame_objects
+			var frame_objects = objects.duplicate()
+			frame["objects"] = frame_objects
 
-		frames.append(frame)
+			frames.append(frame)
 
-		if Input.is_action_just_pressed("Send"):
-			send_data()
+			if Input.is_action_just_pressed("Send"):
+				stop_monitor()
+				send_data()
+		else:
+			if Input.is_action_just_pressed("Send"):
+				start_monitor()
 
 
 func _object_created(name: String, state: String, position: Vector2, velocity: Vector2) -> void:
@@ -132,6 +134,10 @@ func _object_removed(name: String) -> void:
 
 
 func start_monitor() -> void:
+	frames.clear()
+	game["level_id"] = 2 # PrototypeR
+	game["won"] = false
+	game["timestamp"] = OS.get_unix_time()
 	start_time = OS.get_ticks_msec()
 	started = true
 

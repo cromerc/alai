@@ -37,6 +37,7 @@ void Main::_init()
 
 void Main::_ready()
 {
+    get_tree()->set_pause(true);
     if (get_full_screen())
     {
         _os->set_window_fullscreen(true);

@@ -183,7 +183,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 9 )
 custom_styles/normal = SubResource( 5 )
-text = "Christopher Barry Cromer"
 caret_blink = true
 script = ExtResource( 4 )
 
@@ -195,7 +194,6 @@ margin_bottom = 44.0
 rect_min_size = Vector2( 0, 20 )
 custom_fonts/font = SubResource( 10 )
 custom_styles/normal = SubResource( 6 )
-text = "23.660.457-8"
 caret_blink = true
 script = ExtResource( 3 )
 
@@ -207,7 +205,6 @@ margin_bottom = 68.0
 rect_min_size = Vector2( 0, 20 )
 custom_fonts/font = SubResource( 8 )
 custom_styles/normal = SubResource( 7 )
-text = "christohper.cromer1501@alumnos.ubiobio.cl"
 caret_blink = true
 script = ExtResource( 4 )
 

@@ -49,9 +49,9 @@ var game: Dictionary = {}
 func _ready() -> void:
 	game_version = get_parent().game_version
 
-	player["rut"] = "23.660.457-8"
-	player["name"] = "Chris Cromer"
-	player["email"] = "chris@cromer.cl"
+	player["rut"] = ""
+	player["name"] = ""
+	player["email"] = ""
 
 	var os_name = OS.get_name()
 	if os_name == "Android":
@@ -94,6 +94,10 @@ func _ready() -> void:
 	if err != OK:
 		print(err)
 
+	err = $MonitorGUI.find_node("Button").connect("input_validated", self, "_on_input_validated")
+	if err != OK:
+		print(err)
+
 
 func _physics_process(_delta: float) -> void:
 	if enabled:
@@ -115,6 +119,12 @@ func _physics_process(_delta: float) -> void:
 		else:
 			if Input.is_action_just_pressed("Send"):
 				start_monitor()
+
+
+func _on_input_validated(validated_player: Dictionary) -> void:
+	$MonitorGUI.queue_free()
+	get_tree().paused = false
+	player = validated_player.duplicate(true)
 
 
 func _object_created(name: String, state: String, position: Vector2, velocity: Vector2) -> void:
@@ -211,7 +221,55 @@ func clean_rut(rut: String) -> String:
 	rut = rut.to_lower()
 	rut = rut.replace(".", "")
 	rut = rut.replace("-", "")
+
+	var rutTemp: String = rut.substr(0, rut.length() - 1)
+	var verifier: String = rut.substr(rut.length() - 1, 1)
+
+	var regex = RegEx.new()
+	regex.compile("\\D")
+	rutTemp = regex.sub(rutTemp, "", true)
+
+	regex.compile("[^kK\\d]")
+	verifier = regex.sub(verifier, "", true)
+
+	rut = rutTemp + verifier
+
 	return rut
+
+
+func pretty_rut(rut: String) -> String:
+	rut = clean_rut(rut)
+
+	var rutTemp: String = rut.substr(0, rut.length() - 1)
+	var verifier: String = rut.substr(rut.length() - 1, 1)
+
+	var regex = RegEx.new()
+	regex.compile("[^kK\\d]")
+	verifier = regex.sub(verifier, "", true)
+
+	var byteArray = rutTemp.to_utf8()
+	byteArray.invert()
+
+	var newByteArray: PoolByteArray = PoolByteArray()
+	var i = 1
+	for symbol in byteArray:
+		newByteArray.append(symbol)
+		if i == 3:
+			newByteArray.append(".".to_utf8()[0])
+			i = 0
+		i = i + 1
+	if newByteArray.size() > 0 and newByteArray[newByteArray.size() - 1] == ".".to_utf8()[0]:
+		newByteArray.resize(newByteArray.size() - 1)
+
+	newByteArray.invert()
+	rutTemp = newByteArray.get_string_from_utf8()
+
+	if rutTemp.length() == 0 and verifier.length() > 0:
+		rutTemp = verifier
+	elif rutTemp.length() > 0 and verifier.length() > 0:
+		rutTemp = rutTemp + "-" + verifier
+
+	return rutTemp
 
 
 func is_rut_valid(rut: String) -> bool:

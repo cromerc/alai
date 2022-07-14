@@ -4,7 +4,9 @@
 [ext_resource path="res://monitor/GUI.tscn" type="PackedScene" id=3]
 
 [node name="Monitor" type="Node"]
+pause_mode = 2
 script = ExtResource( 1 )
+monitor_enabled = true
 use_development_url = true
 
 [node name="MonitorGUI" parent="." instance=ExtResource( 3 )]

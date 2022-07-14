@@ -1,7 +1,7 @@
 extends Node
 
 
-export var enabled: bool = false
+export var monitor_enabled: bool = false
 export var development_url: String = "http://localhost:4050/api/v1"
 var url_real: String = "https://alai.cromer.cl/api/v1"
 export var use_development_url: bool = false
@@ -73,8 +73,6 @@ func _ready() -> void:
 	else:
 		os_id = 0
 
-	player["rut"] = clean_rut(player["rut"])
-
 	game["player"] = player
 	game["level_id"] = 0
 	game["os_id"] = os_id
@@ -100,8 +98,8 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if enabled:
-		if started:
+	if monitor_enabled:
+		if started and not get_tree().paused:
 			var frame = empty_frame.duplicate(true)
 			frame["coins"] = coins
 			frame["points"] = points
@@ -119,6 +117,9 @@ func _physics_process(_delta: float) -> void:
 		else:
 			if Input.is_action_just_pressed("Send"):
 				start_monitor()
+	else:
+		get_tree().paused = false
+		queue_free()
 
 
 func _on_input_validated(validated_player: Dictionary) -> void:
@@ -128,18 +129,18 @@ func _on_input_validated(validated_player: Dictionary) -> void:
 
 
 func _object_created(name: String, state: String, position: Vector2, velocity: Vector2) -> void:
-	if enabled and started:
+	if monitor_enabled and started:
 		add_object(name, state, position, velocity)
 
 
 func _object_updated(name: String, state: String, position: Vector2, velocity: Vector2) -> void:
-	if enabled and started:
+	if monitor_enabled and started:
 		remove_object(name)
 		add_object(name, state, position, velocity)
 
 
 func _object_removed(name: String) -> void:
-	if enabled and started:
+	if monitor_enabled and started:
 		remove_object(name)
 
 
@@ -215,116 +216,3 @@ func compress_payload(payload: String) -> String:
 	return new_payload
 
 
-func clean_rut(rut: String) -> String:
-	rut = rut.strip_escapes()
-	rut = rut.strip_edges(true, true)
-	rut = rut.to_lower()
-	rut = rut.replace(".", "")
-	rut = rut.replace("-", "")
-
-	var rutTemp: String = rut.substr(0, rut.length() - 1)
-	var verifier: String = rut.substr(rut.length() - 1, 1)
-
-	var regex = RegEx.new()
-	regex.compile("\\D")
-	rutTemp = regex.sub(rutTemp, "", true)
-
-	regex.compile("[^kK\\d]")
-	verifier = regex.sub(verifier, "", true)
-
-	rut = rutTemp + verifier
-
-	return rut
-
-
-func pretty_rut(rut: String) -> String:
-	rut = clean_rut(rut)
-
-	var rutTemp: String = rut.substr(0, rut.length() - 1)
-	var verifier: String = rut.substr(rut.length() - 1, 1)
-
-	var regex = RegEx.new()
-	regex.compile("[^kK\\d]")
-	verifier = regex.sub(verifier, "", true)
-
-	var byteArray = rutTemp.to_utf8()
-	byteArray.invert()
-
-	var newByteArray: PoolByteArray = PoolByteArray()
-	var i = 1
-	for symbol in byteArray:
-		newByteArray.append(symbol)
-		if i == 3:
-			newByteArray.append(".".to_utf8()[0])
-			i = 0
-		i = i + 1
-	if newByteArray.size() > 0 and newByteArray[newByteArray.size() - 1] == ".".to_utf8()[0]:
-		newByteArray.resize(newByteArray.size() - 1)
-
-	newByteArray.invert()
-	rutTemp = newByteArray.get_string_from_utf8()
-
-	if rutTemp.length() == 0 and verifier.length() > 0:
-		rutTemp = verifier
-	elif rutTemp.length() > 0 and verifier.length() > 0:
-		rutTemp = rutTemp + "-" + verifier
-
-	return rutTemp
-
-
-func is_rut_valid(rut: String) -> bool:
-	rut = clean_rut(rut)
-	if rut.length() < 8 or rut.length() > 9:
-		print_debug("RUT length is invalid!")
-		return false
-
-	var rutTemp: String = rut.substr(0, rut.length() - 1)
-	var verifier: String = rut.substr(rut.length() - 1, 1)
-	print("Rut: " + rutTemp)
-	print("Verifier: " + verifier)
-
-	if not rutTemp.is_valid_integer():
-		print_debug("RUT isn't a valid integer!")
-		return false
-
-	if rutTemp.to_int() > 50000000:
-		print_debug("RUT is too large, that is a company!")
-		return false
-
-	if verifier != generate_verifier(rut):
-		return false
-
-	return true
-
-
-func generate_verifier(rut: String) -> String:
-	if not rut.is_valid_integer():
-		print_debug("RUT isn't a valid integer!")
-		return ""
-
-	var multiplier: int = 2
-	var sum: int = 0
-	var remainder: int = 0
-	var division: int = 0
-	var rutLength: int = rut.length()
-
-	var i: int = rutLength - 1
-	while i >= 0:
-		sum = sum + rut.substr(i, i + 1).to_int() * multiplier
-		multiplier = multiplier + 1
-		if multiplier == 8:
-			multiplier = 2
-		i = i - 1
-
-	var tempSum: float = int(sum)
-	division = int(floor(tempSum / 11))
-	division = division * 11
-	remainder = sum - division
-
-	if remainder != 0:
-		remainder = 11 - remainder
-
-	if remainder == 10:
-		return "k"
-	else:
-		return String(remainder)

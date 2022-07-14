@@ -9,4 +9,3 @@ script = ExtResource( 1 )
 level = ExtResource( 2 )
 
 [node name="Monitor" parent="." instance=ExtResource( 3 )]
-enabled = true

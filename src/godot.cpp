@@ -11,6 +11,7 @@
 #include "player/states/PlayerFall.h"
 #include "coin/CoinNotCollected.h"
 #include "coin/CoinCollected.h"
+#include "coin/CoinCounter.h"
 
 using namespace godot;
 
@@ -53,4 +54,5 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void *handle)
     register_class<player::PlayerFall>();
     register_class<CoinNotCollected>();
     register_class<CoinCollected>();
+    register_class<CoinCounter>();
 }

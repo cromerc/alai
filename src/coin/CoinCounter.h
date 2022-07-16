@@ -1,28 +1,24 @@
 #ifndef ALAI_COIN_COUNTER
 #define ALAI_COIN_COUNTER
 
-#include "state_machine/State.h"
 
 #include <Godot.hpp>
 #include <Node.hpp>
-#include <AnimatedSprite.hpp>
+#include <Label.hpp>
 
 namespace godot
 {
         /**
-         * @brief This class controls what happens when the Coin is in the collected state.
+         * @brief This class controls what happens when the Coin is in the collected .
          * 
          */
-        class CoinCounter : public State
+        class CoinCounter : public Label
         {
-            GODOT_CLASS(CoinCounter, State)
+            GODOT_CLASS(CoinCounter, Label)
 
             private:
-                /**
-                 * @brief The animated sprite of the Coin.
-                 * 
-                 */
-                AnimatedSprite *animated_sprite;
+                int coins = 0;
+
 
             public:
                 /**
@@ -52,23 +48,13 @@ namespace godot
                 void _init();
 
                 /**
-                 * @brief Called when the collected state of the coin is entered.
-                 * 
-                 */
-                void _state_enter();
-
-                /**
-                 * @brief Called when the collected state of the coin is exited.
-                 * 
-                 */
-                void _state_exit();
-
-                /**
-                 * @brief Called when the animation of the collected coin has finished.
+                 * @brief Called when the collected  of the coin is entered.
                  * 
                  */
 
                 void _on_CoinHUD_ready();
+                void _on_coin_collected(int amount);
+                void _ready();
                 
         };
     

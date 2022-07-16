@@ -3,6 +3,7 @@
 
 using namespace godot;
 
+
 void CoinCounter::_register_methods()
 {
     register_method("_state_enter", &CoinCounter::_state_enter);
@@ -35,6 +36,8 @@ void CoinCounter::_state_exit()
 
 void CoinCounter::_on_CoinHUD_ready()
 {
-
+    get_node("Coins").text() = "hola";
 
 }
+
+

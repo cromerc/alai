@@ -3,6 +3,7 @@
 
 using namespace godot;
 
+
 void CoinNotCollected::_register_methods()
 {
     register_method("_state_enter", &CoinNotCollected::_state_enter);
@@ -45,6 +46,7 @@ void CoinNotCollected::_on_body_entered(Node *node)
         auto coin = Object::cast_to<Area2D>(parent_node);
         coin->set_collision_mask_bit(0, false);
     }
+    
     get_state_machine()->change("CoinCollected");
     
     

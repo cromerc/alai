@@ -82,4 +82,4 @@ margin_right = 256.0
 margin_bottom = 32.0
 text = "##"
 
-[connection signal="ready" from="CoinHUD/Coins" to="Player" method="_on_CoinHUD_ready"]
+[connection signal="ready" from="CoinHUD" to="Player" method="_on_CoinHUD_ready"]

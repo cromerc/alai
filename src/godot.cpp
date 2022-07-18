@@ -12,6 +12,8 @@
 #include "coin/CoinNotCollected.h"
 #include "coin/CoinCollected.h"
 #include "coin/CoinCounter.h"
+#include "goal/GoalReached.h"
+#include "goal/GoalNotReached.h"
 
 using namespace godot;
 
@@ -55,4 +57,6 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void *handle)
     register_class<CoinNotCollected>();
     register_class<CoinCollected>();
     register_class<CoinCounter>();
+    register_class<GoalReached>();
+    register_class<GoalNotReached>();
 }

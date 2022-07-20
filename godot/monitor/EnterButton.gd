@@ -32,7 +32,7 @@ func is_valid_rut(rut: String) -> bool:
 		print_debug("RUT is too large, that is a company!")
 		return false
 
-	if verifier != generate_verifier(rut):
+	if verifier != generate_verifier(rut_temp):
 		return false
 
 	return true
@@ -51,13 +51,13 @@ func generate_verifier(rut: String) -> String:
 
 	var i: int = rut_length - 1
 	while i >= 0:
-		sum = sum + rut.substr(i, i + 1).to_int() * multiplier
+		sum = sum + rut.substr(i, 1).to_int() * multiplier
 		multiplier = multiplier + 1
 		if multiplier == 8:
 			multiplier = 2
 		i = i - 1
 
-	var tempSum: float = int(sum)
+	var tempSum: float = sum
 	division = int(floor(tempSum / 11))
 	division = division * 11
 	remainder = sum - division
@@ -78,6 +78,7 @@ func is_valid_email(email: String) -> bool:
 		print_debug("Isn't a valid email address!")
 		return false
 	return true
+
 
 func _on_Button_pressed() -> void:
 	var name = get_node("%Name")

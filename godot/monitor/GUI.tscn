@@ -1,0 +1,190 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/fonts/data/PixelOperator.tres" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/fonts/data/PixelOperator-Bold.tres" type="DynamicFontData" id=2]
+[ext_resource path="res://monitor/Rut.gd" type="Script" id=3]
+[ext_resource path="res://monitor/EnterButton.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=14]
+size = 8
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=13]
+content_margin_left = 5.0
+content_margin_right = 5.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color( 0.313726, 0.290196, 0.290196, 0.752941 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="DynamicFont" id=11]
+size = 12
+extra_spacing_top = 2
+extra_spacing_bottom = 2
+extra_spacing_char = 2
+extra_spacing_space = 2
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=12]
+content_margin_left = 5.0
+content_margin_right = 5.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+bg_color = Color( 0.313726, 0.290196, 0.290196, 0.752941 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0.239216, 0.239216, 0.239216, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="DynamicFont" id=16]
+font_data = ExtResource( 2 )
+
+[node name="MonitorGUI" type="CanvasLayer"]
+pause_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 512, 288 )
+color = Color( 0.0117647, 0.00784314, 0.00784314, 0.376471 )
+
+[node name="GUI" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 512, 0 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="GUI/VBoxContainer"]
+margin_right = 512.0
+margin_bottom = 96.0
+rect_min_size = Vector2( 0, 96 )
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="GUI/VBoxContainer/CenterContainer"]
+margin_top = 30.0
+margin_right = 512.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 512, 0 )
+custom_fonts/font = SubResource( 1 )
+text = "Ingresa su nombre completo, RUT y email por favor!"
+align = 1
+autowrap = true
+
+[node name="CenterContainer2" type="CenterContainer" parent="GUI/VBoxContainer"]
+margin_top = 96.0
+margin_right = 512.0
+margin_bottom = 192.0
+rect_min_size = Vector2( 0, 96 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="GUI/VBoxContainer/CenterContainer2"]
+margin_left = 16.0
+margin_top = 14.0
+margin_right = 496.0
+margin_bottom = 82.0
+rect_min_size = Vector2( 480, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Name" type="LineEdit" parent="GUI/VBoxContainer/CenterContainer2/VBoxContainer2"]
+unique_name_in_owner = true
+margin_right = 480.0
+margin_bottom = 20.0
+custom_fonts/font = SubResource( 14 )
+custom_styles/normal = SubResource( 13 )
+context_menu_enabled = false
+clear_button_enabled = true
+placeholder_text = "Nombre Completo"
+caret_blink = true
+
+[node name="Rut" type="LineEdit" parent="GUI/VBoxContainer/CenterContainer2/VBoxContainer2"]
+unique_name_in_owner = true
+margin_top = 24.0
+margin_right = 480.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 14 )
+custom_styles/normal = SubResource( 13 )
+clear_button_enabled = true
+placeholder_text = "RUT"
+caret_blink = true
+script = ExtResource( 3 )
+
+[node name="Email" type="LineEdit" parent="GUI/VBoxContainer/CenterContainer2/VBoxContainer2"]
+unique_name_in_owner = true
+margin_top = 48.0
+margin_right = 480.0
+margin_bottom = 68.0
+custom_fonts/font = SubResource( 14 )
+custom_styles/normal = SubResource( 13 )
+clear_button_enabled = true
+placeholder_text = "Email"
+caret_blink = true
+
+[node name="CenterContainer3" type="CenterContainer" parent="GUI/VBoxContainer"]
+margin_top = 192.0
+margin_right = 512.0
+margin_bottom = 288.0
+rect_min_size = Vector2( 0, 96 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="GUI/VBoxContainer/CenterContainer3"]
+margin_left = 197.0
+margin_top = 34.0
+margin_right = 314.0
+margin_bottom = 61.0
+focus_mode = 0
+custom_fonts/font = SubResource( 11 )
+custom_styles/normal = SubResource( 12 )
+enabled_focus_mode = 0
+text = "Ingresar"
+script = ExtResource( 5 )
+
+[node name="PopupDialog" type="PopupDialog" parent="."]
+unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 96.0
+margin_top = 96.0
+margin_right = -96.0
+margin_bottom = -96.0
+custom_styles/panel = SubResource( 15 )
+
+[node name="ErrorMessage" type="Label" parent="PopupDialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+custom_fonts/font = SubResource( 16 )
+text = "Error Message"
+align = 1
+valign = 1
+autowrap = true
+
+[connection signal="text_changed" from="GUI/VBoxContainer/CenterContainer2/VBoxContainer2/Rut" to="GUI/VBoxContainer/CenterContainer2/VBoxContainer2/Rut" method="_on_Rut_text_changed"]
+[connection signal="pressed" from="GUI/VBoxContainer/CenterContainer3/Button" to="GUI/VBoxContainer/CenterContainer3/Button" method="_on_Button_pressed"]
+[connection signal="gui_input" from="PopupDialog" to="GUI/VBoxContainer/CenterContainer3/Button" method="_on_PopupDialog_gui_input"]

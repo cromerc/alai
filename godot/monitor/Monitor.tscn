@@ -10,5 +10,6 @@ monitor_enabled = true
 use_development_url = true
 
 [node name="MonitorGUI" parent="." instance=ExtResource( 3 )]
+visible = false
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]

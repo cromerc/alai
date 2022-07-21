@@ -21,12 +21,13 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 5.5, 7.5 )
 
-[node name="Gravevine" type="KinematicBody2D"]
+[node name="Gravevine" type="KinematicBody2D" groups=["enemy"]]
 collision_layer = 8
 collision_mask = 11
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 3 )
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

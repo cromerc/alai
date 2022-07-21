@@ -13,9 +13,9 @@ dest_files=[ "res://.import/PrototypeEnemies.tmx-5728a1d35b5e3ba88a2df2406b1cd93
 
 custom_properties=true
 tile_metadata=false
-uv_clip=true
+uv_clip=false
 y_sort=false
-image_flags=7
+image_flags=0
 collision_layer=2
 collision_mask=0
 embed_internal_images=false

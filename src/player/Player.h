@@ -275,6 +275,10 @@ namespace godot
                  */
                 Vector2 get_velocity();
 
+                /**
+                 * @brief This function is called when an enemy touches the player.
+                 * 
+                 */
                 void _on_player_touched();
         };
     }

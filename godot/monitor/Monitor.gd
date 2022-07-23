@@ -99,6 +99,8 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if monitor_enabled:
+		if not $MonitorGUI.visible:
+			$MonitorGUI.visible = true
 		if started and not get_tree().paused:
 			var frame = empty_frame.duplicate(true)
 			frame["coins"] = coins

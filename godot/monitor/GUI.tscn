@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/fonts/data/PixelOperator.tres" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/fonts/data/PixelOperator-Bold.tres" type="DynamicFontData" id=2]
@@ -41,6 +41,13 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="InputEventAction" id=17]
+action = "ui_accept"
+pressed = true
+
+[sub_resource type="ShortCut" id=18]
+shortcut = SubResource( 17 )
 
 [sub_resource type="StyleBoxFlat" id=15]
 bg_color = Color( 0.239216, 0.239216, 0.239216, 1 )
@@ -160,7 +167,9 @@ margin_bottom = 61.0
 focus_mode = 0
 custom_fonts/font = SubResource( 11 )
 custom_styles/normal = SubResource( 12 )
+shortcut_in_tooltip = false
 enabled_focus_mode = 0
+shortcut = SubResource( 18 )
 text = "Ingresar"
 script = ExtResource( 5 )
 

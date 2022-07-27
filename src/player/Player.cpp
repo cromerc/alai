@@ -142,7 +142,7 @@ void Player::_physics_process(float delta)
             }*/
             velocity.y = -get_bounce_force();
         }
-        else if (collider->is_in_group("enemy") && (collider->is_in_group("rideable") && Vector2::DOWN.dot(collision->get_normal()) > 0.1))
+        else if (collider->is_in_group("enemy") && (collider->is_in_group("rideable") && Vector2::DOWN.dot(collision->get_normal()) > 0))
         {
             _on_player_touched();
         }

@@ -9,6 +9,7 @@ void Main::_register_methods()
 {
     register_method("_ready", &Main::_ready);
     register_method("_physics_process", &Main::_physics_process);
+    register_property<Main, String>("game_version", &Main::set_game_version, &Main::get_game_version, String(main::game_version.c_str()));
     register_property<Main, Ref<PackedScene>>("level", &Main::set_level, &Main::get_level, NULL, GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_RESOURCE_TYPE, String("PackedScene"));
     register_property<Main, bool>("full_screen", &Main::set_full_screen, &Main::get_full_screen, main::full_screen);
     register_property<Main, Vector2>("window_size", &Main::set_window_size, &Main::get_window_size, main::window_size);
@@ -28,6 +29,7 @@ void Main::_init()
     _os = OS::get_singleton();
     _input = Input::get_singleton();
 
+    game_version = String(main::game_version.c_str());
     full_screen = main::full_screen;
     window_size = main::window_size;
     launch_screen = main::launch_screen;
@@ -35,6 +37,7 @@ void Main::_init()
 
 void Main::_ready()
 {
+    get_tree()->set_pause(true);
     if (get_full_screen())
     {
         _os->set_window_fullscreen(true);
@@ -69,6 +72,16 @@ void Main::set_level(Ref<PackedScene> level)
 Ref<PackedScene> Main::get_level()
 {
     return this->level;
+}
+
+void Main::set_game_version(String game_version)
+{
+    this->game_version = game_version;
+}
+
+String Main::get_game_version()
+{
+    return this->game_version;
 }
 
 void Main::set_full_screen(bool full_screen)

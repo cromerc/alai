@@ -38,7 +38,13 @@ void GoalNotReached::_state_exit()
 
 void GoalNotReached::_on_Goal_body_entered(Node *node)
 {
-    
+    auto parent_node = get_parent();
+
+    if (parent_node != nullptr)
+    {
+        auto goal = Object::cast_to<Area2D>(parent_node);
+        goal->set_collision_mask_bit(0, false);
+    }
     
     get_state_machine()->change("GoalReached");
     

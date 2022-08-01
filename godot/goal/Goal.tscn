@@ -36,11 +36,11 @@ shape = SubResource( 5 )
 position = Vector2( 18, 18 )
 frames = SubResource( 8 )
 animation = "flagmove"
-frame = 1
 playing = true
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 4 )
+default_state = "GoalNotReached"
 
 [node name="GoalReached" type="Node" parent="StateMachine"]
 script = ExtResource( 3 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://CameraLimit.gdns" type="Script" id=1]
 [ext_resource path="res://characters/player/Player.tscn" type="PackedScene" id=2]
@@ -7,8 +7,7 @@
 [ext_resource path="res://collectables/coin/Coin.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/coin.png" type="Texture" id=6]
 [ext_resource path="res://hud/coin/Counter.gdns" type="Script" id=7]
-[ext_resource path="res://assets/flag.png" type="Texture" id=8]
-[ext_resource path="res://levels/GoalNotReached.gdns" type="Script" id=9]
+[ext_resource path="res://goal/Goal.tscn" type="PackedScene" id=8]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 0.541176 )
@@ -26,25 +25,6 @@ animations = [ {
 "frames": [ SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
 "name": "spin",
-"speed": 5.0
-} ]
-
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 10, 18 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 8 )
-region = Rect2( 0, 0, 18, 36 )
-
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 8 )
-region = Rect2( 18, 0, 18, 36 )
-
-[sub_resource type="SpriteFrames" id=8]
-animations = [ {
-"frames": [ SubResource( 6 ), SubResource( 7 ) ],
-"loop": true,
-"name": "flagmove",
 "speed": 5.0
 } ]
 
@@ -112,6 +92,7 @@ script = ExtResource( 7 )
 position = Vector2( 162, 18 )
 frames = SubResource( 4 )
 animation = "spin"
+frame = 1
 playing = true
 centered = false
 
@@ -120,32 +101,9 @@ centered = false
 [node name="coin" parent="Coins" instance=ExtResource( 5 )]
 position = Vector2( 72, 450 )
 
-[node name="AnimatedSprite" parent="Coins/coin" index="1"]
-frame = 0
-
 [node name="coin2" parent="Coins" instance=ExtResource( 5 )]
 position = Vector2( 234, 450 )
 
-[node name="Goal" type="Area2D" parent="."]
-position = Vector2( 324, 378 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Goal"]
-position = Vector2( 18, 18 )
-shape = SubResource( 5 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Goal"]
-position = Vector2( 18, 18 )
-frames = SubResource( 8 )
-animation = "flagmove"
-playing = true
-
-[node name="StateMachine" type="Node" parent="Goal"]
-
-[node name="GoalReached" type="Node" parent="Goal/StateMachine"]
-
-[node name="GoalNotReached" type="Node" parent="Goal/StateMachine"]
-script = ExtResource( 9 )
-
-[connection signal="body_entered" from="Goal" to="Goal/StateMachine/GoalNotReached" method="_on_Goal_body_entered"]
+[node name="Goal" parent="." instance=ExtResource( 8 )]
 
 [editable path="Coins/coin"]

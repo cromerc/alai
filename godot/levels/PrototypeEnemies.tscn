@@ -56,7 +56,19 @@ unique_name_in_owner = true
 position = Vector2( 106, 547 )
 
 [node name="Blightwing" parent="Enemies" instance=ExtResource( 11 )]
-position = Vector2( 92, 516 )
+position = Vector2( 488, 400 )
+follow_path = true
+
+[node name="Path" type="Node2D" parent="Enemies/Blightwing"]
+
+[node name="Node2D" type="Node2D" parent="Enemies/Blightwing/Path"]
+position = Vector2( 0, 96 )
+
+[node name="Node2D2" type="Node2D" parent="Enemies/Blightwing/Path"]
+position = Vector2( -128, 96 )
+
+[node name="Node2D3" type="Node2D" parent="Enemies/Blightwing/Path"]
+position = Vector2( -128, 0 )
 
 [node name="Blockface" parent="Enemies" instance=ExtResource( 10 )]
 position = Vector2( 206, 404 )
@@ -78,6 +90,7 @@ position = Vector2( 247, 439 )
 [node name="SuperShelly" parent="Enemies" instance=ExtResource( 7 )]
 position = Vector2( 62, 546 )
 
+[connection signal="player_touched" from="Enemies/Blightwing" to="Player" method="_on_player_touched"]
 [connection signal="player_touched" from="Enemies/Blockface" to="Player" method="_on_player_touched"]
 [connection signal="player_touched" from="Enemies/Dreadtooth" to="Player" method="_on_player_touched"]
 [connection signal="player_touched" from="Enemies/Dreadtooth2" to="Player" method="_on_player_touched"]

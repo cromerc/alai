@@ -52,7 +52,7 @@ void Main::_ready()
 
     if (level != NULL)
     {
-        add_child(level->instance());
+        get_node("Level")->add_child(level->instance());
     }
 }
 

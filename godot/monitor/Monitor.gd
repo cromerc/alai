@@ -85,7 +85,7 @@ func _ready() -> void:
 	game["screen_size"] = screen_size
 	game["game_version"] = game_version
 	game["won"] = false
-	game["timestamp"] = OS.get_unix_time()
+	game["timestamp"] = int(Time.get_unix_time_from_system())
 	game["frames"] = frames
 
 	var err = $HTTPRequest.connect("request_completed", self, "_on_request_completed")
@@ -107,7 +107,7 @@ func _physics_process(_delta: float) -> void:
 			frame["coins"] = coins
 			frame["points"] = points
 			frame["fps"] = Engine.get_frames_per_second()
-			frame["elapsed_time"] = OS.get_ticks_msec() - start_time
+			frame["elapsed_time"] = Time.get_ticks_msec() - start_time
 
 			var frame_objects = objects.duplicate()
 			frame["objects"] = frame_objects
@@ -151,8 +151,8 @@ func start_monitor() -> void:
 	frames.clear()
 	game["level_id"] = 2 # PrototypeR
 	game["won"] = false
-	game["timestamp"] = OS.get_unix_time()
-	start_time = OS.get_ticks_msec()
+	game["timestamp"] = int(Time.get_unix_time_from_system())
+	start_time = Time.get_ticks_msec()
 	started = true
 
 

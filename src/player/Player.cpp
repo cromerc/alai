@@ -96,7 +96,7 @@ void Player::_ready()
     }
     else
     {
-        WARN_PRINT("Data not found!");
+        WARN_PRINT("Monitor not found!");
     }
 }
 

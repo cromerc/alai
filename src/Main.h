@@ -218,6 +218,9 @@ namespace godot
                 int8_t get_launch_screen();
 
                 void _on_monitor_loaded();
+
+                void load_monitor();
+                Node *load_level();
         };
     }
 }

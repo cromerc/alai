@@ -7,7 +7,6 @@
 pause_mode = 2
 script = ExtResource( 1 )
 monitor_enabled = true
-use_development_url = true
 
 [node name="MonitorGUI" parent="." instance=ExtResource( 3 )]
 visible = false

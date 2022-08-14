@@ -81,7 +81,7 @@ void Player::_ready()
 }
 
 void Player::_on_monitor_loaded() {
-    auto object_node = get_tree()->get_root()->get_node("Main")->find_node("Monitor", true);
+    auto object_node = get_tree()->get_root()->find_node("Monitor", true, false);
     if (object_node != nullptr)
     {
         auto state = get_node("StateMachine")->get_child(0);
@@ -97,10 +97,12 @@ void Player::_on_monitor_loaded() {
             WARN_PRINT("State not found!");
         }
     }
+#ifndef NDEBUG
     else
     {
         WARN_PRINT("Monitor not found!");
     }
+#endif
 }
 
 void Player::_physics_process(float delta)

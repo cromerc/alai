@@ -46,20 +46,12 @@ void Main::_ready()
     {
         // Load monitor from pck
         Godot::print("Monitor pck found, loading...");
-        Ref<PackedScene> monitor_scene = _resource_loader->load("res://monitor/Monitor.tscn");
-        add_child(monitor_scene->instance());
-        auto monitor = get_node("Monitor");
-        monitor->connect("monitor_loaded", this, "_on_monitor_loaded");
-        get_tree()->set_pause(true);
+        load_monitor();
     }
     else if (_resource_loader->exists("res://monitor/Monitor.tscn"))
     {
         // Load monitor from alai's pck
-        Ref<PackedScene> monitor_scene = _resource_loader->load("res://monitor/Monitor.tscn");
-        add_child(monitor_scene->instance());
-        auto monitor = get_node("Monitor");
-        monitor->connect("monitor_loaded", this, "_on_monitor_loaded");
-        get_tree()->set_pause(true);
+        load_monitor();
     }
     else
     {
@@ -95,15 +87,36 @@ void Main::_ready()
     }
 }
 
-void Main::_on_monitor_loaded() {
-    if (level != NULL)
+void Main::_on_monitor_loaded()
+{
+    if (level != nullptr)
+    {
+        auto level_node = load_level();
+        connect("monitor_loaded", level_node->get_child(0)->find_node("Player", true, false), "_on_monitor_loaded");
+        emit_signal("monitor_loaded");
+    }
+}
+
+void Main::load_monitor()
+{
+    Ref<PackedScene> monitor_scene = _resource_loader->load("res://monitor/Monitor.tscn");
+    add_child(monitor_scene->instance());
+    auto monitor = get_node("Monitor");
+    monitor->connect("monitor_loaded", this, "_on_monitor_loaded");
+    get_tree()->set_pause(true);
+}
+
+Node *Main::load_level()
+{
+    if (level != nullptr)
     {
         auto path = level->get_path();
-        Ref<PackedScene> level_scene = _resource_loader->load(path);
-        auto loaded_level = level_scene->instance();
-        connect("monitor_loaded", loaded_level, "_on_monitor_loaded");
-        get_node("Level")->add_child(loaded_level);
+        auto loaded_level = level->instance();
+        auto level_node = get_node("Level");
+        level_node->add_child(loaded_level);
+        return level_node;
     }
+    return nullptr;
 }
 
 void Main::_physics_process(float delta)

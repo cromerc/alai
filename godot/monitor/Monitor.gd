@@ -129,6 +129,7 @@ func _on_input_validated(validated_player: Dictionary) -> void:
 	$MonitorGUI.queue_free()
 	get_tree().paused = false
 	player = validated_player.duplicate(true)
+	game["player"] = player
 
 
 func _object_created(name: String, state: String, position: Vector2, velocity: Vector2) -> void:

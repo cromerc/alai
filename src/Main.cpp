@@ -9,11 +9,13 @@ void Main::_register_methods()
 {
     register_method("_ready", &Main::_ready);
     register_method("_physics_process", &Main::_physics_process);
+    register_method("_on_monitor_loaded", &Main::_on_monitor_loaded);
     register_property<Main, String>("game_version", &Main::set_game_version, &Main::get_game_version, String(main::game_version.c_str()));
     register_property<Main, Ref<PackedScene>>("level", &Main::set_level, &Main::get_level, NULL, GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_RESOURCE_TYPE, String("PackedScene"));
     register_property<Main, bool>("full_screen", &Main::set_full_screen, &Main::get_full_screen, main::full_screen);
     register_property<Main, Vector2>("window_size", &Main::set_window_size, &Main::get_window_size, main::window_size);
     register_property<Main, int8_t>("launch_screen", &Main::set_launch_screen, &Main::get_launch_screen, main::launch_screen);
+    register_signal<Main>("monitor_loaded");
 }
 
 Main::Main()
@@ -28,6 +30,8 @@ void Main::_init()
 {
     _os = OS::get_singleton();
     _input = Input::get_singleton();
+    _project_settings = ProjectSettings::get_singleton();
+    _resource_loader = ResourceLoader::get_singleton();
 
     game_version = String(main::game_version.c_str());
     full_screen = main::full_screen;
@@ -37,7 +41,32 @@ void Main::_init()
 
 void Main::_ready()
 {
-    get_tree()->set_pause(true);
+    auto success = _project_settings->load_resource_pack("monitor.pck");
+    if (success)
+    {
+        // Load monitor from pck
+        Godot::print("Monitor pck found, loading...");
+        Ref<PackedScene> monitor_scene = _resource_loader->load("res://monitor/Monitor.tscn");
+        add_child(monitor_scene->instance());
+        auto monitor = get_node("Monitor");
+        monitor->connect("monitor_loaded", this, "_on_monitor_loaded");
+        get_tree()->set_pause(true);
+    }
+    else if (_resource_loader->exists("res://monitor/Monitor.tscn"))
+    {
+        // Load monitor from alai's pck
+        Ref<PackedScene> monitor_scene = _resource_loader->load("res://monitor/Monitor.tscn");
+        add_child(monitor_scene->instance());
+        auto monitor = get_node("Monitor");
+        monitor->connect("monitor_loaded", this, "_on_monitor_loaded");
+        get_tree()->set_pause(true);
+    }
+    else
+    {
+        // There is no monitor included
+        _on_monitor_loaded();
+    }
+
     if (get_full_screen())
     {
         _os->set_window_fullscreen(true);
@@ -50,9 +79,30 @@ void Main::_ready()
         );
     }
 
+    success = _project_settings->load_resource_pack("crt.pck");
+    if (success)
+    {
+        // Load crt from pck
+        Godot::print("CRT pck found, loading...");
+        Ref<PackedScene> crt_scene = _resource_loader->load("res://shaders/crt/crt.tscn");
+        add_child(crt_scene->instance());
+    }
+    else if (_resource_loader->exists("res://shaders/crt/crt.tscn"))
+    {
+        // Load crt from alai's pck
+        Ref<PackedScene> crt_scene = _resource_loader->load("res://shaders/crt/crt.tscn");
+        add_child(crt_scene->instance());
+    }
+}
+
+void Main::_on_monitor_loaded() {
     if (level != NULL)
     {
-        get_node("Level")->add_child(level->instance());
+        auto path = level->get_path();
+        Ref<PackedScene> level_scene = _resource_loader->load(path);
+        auto loaded_level = level_scene->instance();
+        connect("monitor_loaded", loaded_level, "_on_monitor_loaded");
+        get_node("Level")->add_child(loaded_level);
     }
 }
 

@@ -1,6 +1,9 @@
 extends Node
 
 
+signal monitor_loaded()
+
+
 export var monitor_enabled: bool = false
 export var development_url: String = "http://localhost:4050/api/v1"
 var url_real: String = "https://alai.cromer.cl/api/v1"
@@ -101,6 +104,7 @@ func _physics_process(_delta: float) -> void:
 	if monitor_enabled:
 		if has_node("MonitorGUI") and not $MonitorGUI.visible:
 			$MonitorGUI.visible = true
+			emit_signal("monitor_loaded")
 
 		if started and not get_tree().paused:
 			var frame = empty_frame.duplicate(true)

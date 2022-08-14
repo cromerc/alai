@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/fonts/data/PixelOperator.tres" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/fonts/data/PixelOperator-Bold.tres" type="DynamicFontData" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://monitor/EnterButton.gd" type="Script" id=5]
 [ext_resource path="res://assets/sounds/ui_popup.wav" type="AudioStream" id=6]
 [ext_resource path="res://assets/sounds/ui_select.wav" type="AudioStream" id=7]
+[ext_resource path="res://monitor/MonitorGUI.gd" type="Script" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 1 )
@@ -69,6 +70,7 @@ font_data = ExtResource( 2 )
 
 [node name="MonitorGUI" type="CanvasLayer"]
 pause_mode = 2
+script = ExtResource( 8 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 40.0

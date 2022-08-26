@@ -126,6 +126,7 @@ func _physics_process(_delta: float) -> void:
 				start_monitor()
 	else:
 		get_tree().paused = false
+		emit_signal("monitor_loaded")
 		queue_free()
 
 

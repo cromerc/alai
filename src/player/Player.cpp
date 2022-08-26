@@ -6,6 +6,8 @@
 #include <SceneTree.hpp>
 #include <Texture.hpp>
 #include <Viewport.hpp>
+#include <RayCast2D.hpp>
+#include <KinematicCollision2D.hpp>
 
 using namespace godot;
 using namespace player;
@@ -16,9 +18,12 @@ void Player::_register_methods()
     register_method("_physics_process", &Player::_physics_process);
     register_method("set_velocity", &Player::set_velocity);
     register_method("get_velocity", &Player::get_velocity);
+    register_method("_on_player_touched", &Player::_on_player_touched);
+    register_method("_on_monitor_loaded", &Player::_on_monitor_loaded);
     //register_property<Player, Ref<SpriteFrames>>("sprite_frames", &Player::set_sprite_frames, &Player::get_sprite_frames, Ref<SpriteFrames>(), GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_RESOURCE_TYPE, String("SpriteFrames"));
     register_property<Player, float>("speed", &Player::set_speed, &Player::get_speed, player::speed);
     register_property<Player, float>("jump_force", &Player::set_jump_force, &Player::get_jump_force, player::jump_force);
+    register_property<Player, float>("bounce_force", &Player::set_bounce_force, &Player::get_bounce_force, player::bounce_force);
     register_property<Player, float>("gravity", &Player::set_gravity, &Player::get_gravity, player::gravity);
     register_property<Player, float>("run_speed", &Player::set_run_speed, &Player::get_run_speed, player::run_speed);
     register_property<Player, bool>("double_jump", &Player::set_double_jump, &Player::get_double_jump, player::double_jump);
@@ -42,6 +47,7 @@ void Player::_init()
     //sprite_frames = _resource_loader->load(player::sprite_frames);
     set_speed(player::speed);
     set_jump_force(player::jump_force);
+    set_bounce_force(player::bounce_force);
     set_gravity(player::gravity);
     set_run_speed(player::run_speed);
     set_double_jump(player::double_jump);
@@ -72,8 +78,10 @@ void Player::_ready()
     {
         WARN_PRINT("Middleground not found!");
     }
+}
 
-    auto object_node = get_tree()->get_root()->get_node("Main")->find_node("Monitor");
+void Player::_on_monitor_loaded() {
+    auto object_node = get_tree()->get_root()->find_node("Monitor", true, false);
     if (object_node != nullptr)
     {
         auto state = get_node("StateMachine")->get_child(0);
@@ -89,18 +97,65 @@ void Player::_ready()
             WARN_PRINT("State not found!");
         }
     }
+#ifndef NDEBUG
     else
     {
-        WARN_PRINT("Data not found!");
+        WARN_PRINT("Monitor not found!");
     }
+#endif
 }
 
 void Player::_physics_process(float delta)
 {
     velocity.y += get_gravity();
 
-    velocity = move_and_slide(velocity, Vector2::UP, true);
+    auto snap_vector = Vector2::ZERO;
+    if (!is_on_floor())
+    {
+        snap_vector = Vector2::DOWN * 20.0;
+    }
+
+    auto platform_detector = get_node<RayCast2D>("PlatformDetector");
+    auto is_on_platform = platform_detector->is_colliding();
+
+    velocity = move_and_slide_with_snap(velocity, snap_vector, Vector2::UP, !is_on_platform, 4, 0.9, false);
+    //velocity = move_and_slide(velocity, Vector2::UP, !is_on_platform);
     velocity.x = Math::lerp((float) velocity.x, (float) 0, (float) 0.2);
+
+    auto count = get_slide_count();
+    for (int64_t i = 0; i < count; i++)
+    {
+        auto collision = get_slide_collision(i);
+        auto collision_object = collision->get_collider();
+        auto collider = Object::cast_to<Node>(collision_object);
+        if (collider->is_in_group("squashable") && Vector2::UP.dot(collision->get_normal()) > 0.1)
+        {
+            collider->call_deferred("squash");
+            /*auto dup_node = collider->duplicate();
+            auto dup = Object::cast_to<KinematicBody2D>(dup_node);
+            auto dup_pos = dup->get_position();
+            dup_pos.x += 24;
+            dup->set_position(dup_pos);
+            auto enemies = get_tree()->get_root()->get_node("Main")->find_node("Enemies", true, false);
+            if (enemies != nullptr) {
+                enemies->add_child(dup);
+            }
+            else
+            {
+                WARN_PRINT("Enemies not found!");
+                dup->queue_free();
+            }*/
+            velocity.y = -get_bounce_force();
+        }
+        else if (collider->is_in_group("enemy") && (collider->is_in_group("rideable") && Vector2::DOWN.dot(collision->get_normal()) > 0))
+        {
+            _on_player_touched();
+        }
+        else if (collider->is_in_group("enemy") && !collider->is_in_group("rideable"))
+        {
+            _on_player_touched();
+        }
+    }
 
     // Clamp the player's position inside the camera's limits
     auto camera = get_node<Camera2D>("Camera2D");
@@ -176,6 +231,16 @@ float Player::get_jump_force()
     return this->jump_force;
 }
 
+void Player::set_bounce_force(float bounce_force)
+{
+    this->bounce_force = bounce_force;
+}
+
+float Player::get_bounce_force()
+{
+    return this->bounce_force;
+}
+
 void Player::set_gravity(float gravity)
 {
     this->gravity = gravity;
@@ -214,4 +279,13 @@ void Player::set_velocity(Vector2 velocity)
 Vector2 Player::get_velocity()
 {
     return this->velocity;
+}
+
+void Player::_on_player_touched()
+{
+    auto error = get_tree()->change_scene("res://Main.tscn");
+    if (error != Error::OK)
+    {
+        ERR_PRINT(String().num((int) error) + " Could not load scene!");
+    }
 }

@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://shaders/crt/crt.shader" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/resolution = Vector2( 1280, 720 )
+shader_param/show_curve = false
+shader_param/show_vignette = false
+shader_param/show_horizontal_scan_lines = true
+shader_param/show_vertical_scan_lines = false
+shader_param/gray_scale = false
+shader_param/curvature_x_amount = 6.0
+shader_param/curvature_y_amount = 6.0
+shader_param/corner_color = Color( 0, 0, 0, 1 )
+shader_param/vignette_size = 4.0
+shader_param/vignette_opacity = 1.0

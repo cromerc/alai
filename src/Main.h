@@ -1,12 +1,15 @@
 #ifndef ALAI_MAIN_H
 #define ALAI_MAIN_H
 
+#include <string>
 #include <Godot.hpp>
 #include <Node.hpp>
 #include <OS.hpp>
 #include <Input.hpp>
 #include <PackedScene.hpp>
 #include <Ref.hpp>
+#include <ProjectSettings.hpp>
+#include <ResourceLoader.hpp>
 
 /**
  * @brief This is the godot namespace for all the code included in the library.
@@ -21,6 +24,11 @@ namespace godot
      */
     namespace main
     {
+        /**
+         * @brief The default value for the game version.
+         * 
+         */
+        const std::string game_version = "0.1.0";
         /**
          * @brief The default value for if the game should start in full screen.
          * 
@@ -58,12 +66,27 @@ namespace godot
                  * 
                  */
                 Input *_input;
+                /**
+                 * @brief ProjectSettings singleton.
+                 * 
+                 */
+                ProjectSettings *_project_settings;
+                /**
+                 * @brief ResourceLoader singleton.
+                 * 
+                 */
+                ResourceLoader *_resource_loader;
 
                 /**
                  * @brief The first level to load
                  * 
                  */
                 Ref<PackedScene> level;
+                /**
+                 * @brief The current version of the game.
+                 * 
+                 */
+                String game_version;
                 /**
                  * @brief If the window is full screen or not.
                  * 
@@ -138,6 +161,20 @@ namespace godot
                 Ref<PackedScene> get_level();
 
                 /**
+                 * @brief Set the game version object.
+                 * 
+                 * @param[in] game_version The new version fo the game.
+                 */
+                void set_game_version(String game_version);
+
+                /**
+                 * @brief Get the game version object.
+                 * 
+                 * @return String The current version of the game.
+                 */
+                String get_game_version();
+
+                /**
                  * @brief Set the full screen object.
                  * 
                  * @param[in] full_screen The new full screen state.
@@ -179,6 +216,11 @@ namespace godot
                  * @return int8_t The launch screen.
                  */
                 int8_t get_launch_screen();
+
+                void _on_monitor_loaded();
+
+                void load_monitor();
+                Node *load_level();
         };
     }
 }

@@ -32,6 +32,11 @@ namespace godot
          */
         const float jump_force = 300.0;
         /**
+         * @brief The default bounce force applied when bouncing on something.
+         * 
+         */
+        const float bounce_force = 200.0;
+        /**
          * @brief The default gravity applied to the player.
          * 
          */
@@ -93,6 +98,11 @@ namespace godot
                  * 
                  */
                 float jump_force;
+                /**
+                 * @brief The force applied to the player when bouncing off something.
+                 * 
+                 */
+                float bounce_force;
                 /**
                  * @brief The gravity applied to the player.
                  * 
@@ -195,6 +205,20 @@ namespace godot
                 float get_jump_force();
 
                 /**
+                 * @brief Set the bounce force object.
+                 * 
+                 * @param[in] bounce_force The new force applied to the player to make him bounce.
+                 */
+                void set_bounce_force(float bounce_force);
+
+                /**
+                 * @brief Get the bounce force object.
+                 * 
+                 * @return float The current force being applied to the player.
+                 */
+                float get_bounce_force();
+
+                /**
                  * @brief Set the gravity object.
                  * 
                  * @param[in] gravity The new gravity to apply to the player.
@@ -250,6 +274,14 @@ namespace godot
                  * @return Vector2 Returns the velocity of the player.
                  */
                 Vector2 get_velocity();
+
+                /**
+                 * @brief This function is called when an enemy touches the player.
+                 * 
+                 */
+                void _on_player_touched();
+
+                void _on_monitor_loaded();
         };
     }
 }

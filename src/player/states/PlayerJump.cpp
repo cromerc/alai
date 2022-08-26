@@ -1,6 +1,8 @@
 #include "player/states/PlayerJump.h"
 #include "player/Player.h"
 
+#include <AudioStreamPlayer.hpp>
+
 using namespace godot;
 using namespace player;
 
@@ -26,6 +28,9 @@ void PlayerJump::_init()
 
 void PlayerJump::_state_enter(const String state)
 {
+    auto jump_sound = get_parent()->get_node<AudioStreamPlayer>("Sounds/Jump");
+    jump_sound->play();
+
     animated_sprite = get_parent()->get_node<AnimatedSprite>("AnimatedSprite");
     animated_sprite->stop();
     animated_sprite->set_animation("air");

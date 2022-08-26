@@ -1,5 +1,5 @@
-#ifndef JUEGO_PLAYER_MOVE_H
-#define JUEGO_PLAYER_MOVE_H
+#ifndef ALAI_PLAYER_STATES_PLAYER_MOVE_H
+#define ALAI_PLAYER_STATES_PLAYER_MOVE_H
 
 #include "state_machine/State.h"
 
@@ -7,7 +7,7 @@
 #include <Input.hpp>
 #include <AnimatedSprite.hpp>
 
-namespace godot
+namespace alai
 {
     namespace player
     {
@@ -24,12 +24,12 @@ namespace godot
                  * @brief Input singleton.
                  * 
                  */
-                Input *_input;
+                godot::Input *_input;
                 /**
                  * @brief The animated sprite of the Player.
                  * 
                  */
-                AnimatedSprite *animated_sprite;
+                godot::AnimatedSprite *animated_sprite;
 
             public:
                 /**

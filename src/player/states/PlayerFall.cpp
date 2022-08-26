@@ -1,45 +1,42 @@
 #include "player/states/PlayerFall.h"
 #include "player/Player.h"
 
-using namespace godot;
-using namespace player;
-
-void PlayerFall::_register_methods()
+void alai::player::PlayerFall::_register_methods()
 {
     register_method("_state_enter", &PlayerFall::_state_enter);
     register_method("_state_exit", &PlayerFall::_state_exit);
     register_method("_physics_process", &PlayerFall::_physics_process);
 }
 
-PlayerFall::PlayerFall()
+alai::player::PlayerFall::PlayerFall()
 {
 }
 
-PlayerFall::~PlayerFall()
+alai::player::PlayerFall::~PlayerFall()
 {
 }
 
-void PlayerFall::_init()
+void alai::player::PlayerFall::_init()
 {
-    _input = Input::get_singleton();
+    _input = godot::Input::get_singleton();
 }
 
-void PlayerFall::_state_enter()
+void alai::player::PlayerFall::_state_enter()
 {
-    animated_sprite = get_parent()->get_node<AnimatedSprite>("AnimatedSprite");
+    animated_sprite = get_parent()->get_node<godot::AnimatedSprite>("AnimatedSprite");
     animated_sprite->stop();
     animated_sprite->set_animation("air");
 }
 
-void PlayerFall::_state_exit()
+void alai::player::PlayerFall::_state_exit()
 {
     animated_sprite->set_animation("move");
     animated_sprite->set_frame(1);
 }
 
-void PlayerFall::_physics_process(float delta)
+void alai::player::PlayerFall::_physics_process(float delta)
 {
-    auto parent = Object::cast_to<player::Player>(get_parent());
+    auto parent = Object::cast_to<Player>(get_parent());
 
     if (parent->is_on_floor())
     {

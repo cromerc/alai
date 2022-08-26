@@ -1,35 +1,33 @@
 #include "state_machine/StateMachine.h"
 #include "state_machine/State.h"
 
-using namespace godot;
-
-void StateMachine::_register_methods()
+void alai::StateMachine::_register_methods()
 {
-    register_method("_ready", &StateMachine::_ready);
-    register_method("_on_StateMachine_tree_entered", &StateMachine::_on_StateMachine_tree_entered);
-    register_method("_on_StateMachine_tree_exiting", &StateMachine::_on_StateMachine_tree_exiting);
-    register_property<StateMachine, String>("default_state", &StateMachine::set_default_state, &StateMachine::get_default_state, String());
-    register_property<StateMachine, bool>("debug", &StateMachine::set_debug, &StateMachine::get_debug, false);
-    register_signal<StateMachine>("state_entered", "state", GODOT_VARIANT_TYPE_STRING);
-    register_signal<StateMachine>("state_exited", "state", GODOT_VARIANT_TYPE_STRING);
-    register_signal<StateMachine>("state_restarted", "state", GODOT_VARIANT_TYPE_STRING);
+    godot::register_method("_ready", &StateMachine::_ready);
+    godot::register_method("_on_StateMachine_tree_entered", &StateMachine::_on_StateMachine_tree_entered);
+    godot::register_method("_on_StateMachine_tree_exiting", &StateMachine::_on_StateMachine_tree_exiting);
+    godot::register_property<StateMachine, godot::String>("default_state", &StateMachine::set_default_state, &StateMachine::get_default_state, godot::String());
+    godot::register_property<StateMachine, bool>("debug", &StateMachine::set_debug, &StateMachine::get_debug, false);
+    godot::register_signal<StateMachine>("state_entered", "state", GODOT_VARIANT_TYPE_STRING);
+    godot::register_signal<StateMachine>("state_exited", "state", GODOT_VARIANT_TYPE_STRING);
+    godot::register_signal<StateMachine>("state_restarted", "state", GODOT_VARIANT_TYPE_STRING);
 }
 
-StateMachine::StateMachine()
-{
-}
-
-StateMachine::~StateMachine()
+alai::StateMachine::StateMachine()
 {
 }
 
-void StateMachine::_init()
+alai::StateMachine::~StateMachine()
 {
-    set_default_state(String());
+}
+
+void alai::StateMachine::_init()
+{
+    set_default_state(godot::String());
     set_debug(false);
 }
 
-void StateMachine::_ready()
+void alai::StateMachine::_ready()
 {
     connect("tree_entered", this, "_on_StateMachine_tree_entered");
     connect("tree_exiting", this, "_on_StateMachine_tree_exiting");
@@ -46,7 +44,7 @@ void StateMachine::_ready()
     setup();
 }
 
-void StateMachine::setup()
+void alai::StateMachine::setup()
 {
     auto children = get_children();
 
@@ -89,7 +87,7 @@ void StateMachine::setup()
     }
 }
 
-void StateMachine::add_states()
+void alai::StateMachine::add_states()
 {
     auto children = get_children();
     for (uint8_t i = 0; i < children.size(); i++)
@@ -99,12 +97,12 @@ void StateMachine::add_states()
     }
 }
 
-void StateMachine::add_state(const String state, Node *child)
+void alai::StateMachine::add_state(const godot::String state, Node *child)
 {
     states[state] = child;
 }
 
-bool StateMachine::is_current(const String state)
+bool alai::StateMachine::is_current(const godot::String state)
 {
     if (get_current_state() == "")
     {
@@ -116,19 +114,19 @@ bool StateMachine::is_current(const String state)
     }
 }
 
-bool StateMachine::has(const String state)
+bool alai::StateMachine::has(const godot::String state)
 {
     return states.has(state);
 }
 
-void StateMachine::restart(const String state, const Array& args)
+void alai::StateMachine::restart(const godot::String state, const godot::Array& args)
 {
     this->call("_state_exit", state, args);
     this->call("_state_enter", state, args);
     this->emit_signal("state_restarted", get_current_state());
 }
 
-void StateMachine::change(const String state, const Array &args)
+void alai::StateMachine::change(const godot::String state, const godot::Array &args)
 {
     if (is_current(state))
     {
@@ -143,7 +141,7 @@ void StateMachine::change(const String state, const Array &args)
 
     auto previous_state = get_current_state();
 
-    Variant exiting;
+    godot::Variant exiting;
     Node *state_node = Object::cast_to<Node>(this->states[previous_state]);
     if (state_node)
     {
@@ -171,7 +169,7 @@ void StateMachine::change(const String state, const Array &args)
         this->emit_signal("state_exited", get_current_state());
         if (debug)
         {
-            Godot::print(get_current_state() + " exited!");
+            godot::Godot::print(get_current_state() + " exited!");
         }
     }
 
@@ -199,11 +197,11 @@ void StateMachine::change(const String state, const Array &args)
     this->emit_signal("state_entered", get_current_state());
     if (debug)
     {
-        Godot::print(get_current_state() + " entered!");
+        godot::Godot::print(get_current_state() + " entered!");
     }
 }
 
-Variant StateMachine::call(const String method, const Array &args)
+godot::Variant alai::StateMachine::call(const godot::String method, const godot::Array &args)
 {
     auto node = Object::cast_to<Node>(states[get_current_state()].operator Object*());
     if (node)
@@ -215,57 +213,57 @@ Variant StateMachine::call(const String method, const Array &args)
         else
         {
             WARN_PRINT("The state " + get_current_state() + " doesn't contain the method " + method + "!");
-            return Variant();
+            return godot::Variant();
         }
     }
     else
     {
         ERR_PRINT("Could not get current state node for " + get_current_state() + "!");
-        return Variant();
+        return godot::Variant();
     }
 }
 
-Variant StateMachine::_call(const String method, const Array &args)
+godot::Variant alai::StateMachine::_call(const godot::String method, const godot::Array &args)
 {
     return this->call(method, args);
 }
 
-void StateMachine::set_default_state(const String default_state)
+void alai::StateMachine::set_default_state(const godot::String default_state)
 {
     this->default_state = default_state;
 }
 
-String StateMachine::get_default_state()
+godot::String alai::StateMachine::get_default_state()
 {
     return this->default_state;
 }
 
-void StateMachine::set_current_state(const String current_sate)
+void alai::StateMachine::set_current_state(const godot::String current_sate)
 {
     this->current_state = current_sate;
 }
 
-String StateMachine::get_current_state()
+godot::String alai::StateMachine::get_current_state()
 {
     return this->current_state;
 }
 
-void StateMachine::set_debug(bool debug)
+void alai::StateMachine::set_debug(bool debug)
 {
     this->debug = debug;
 }
 
-bool StateMachine::get_debug()
+bool alai::StateMachine::get_debug()
 {
     return this->debug;
 }
 
-void StateMachine::_on_StateMachine_tree_entered()
+void alai::StateMachine::_on_StateMachine_tree_entered()
 {
     setup();
 }
 
-void StateMachine::_on_StateMachine_tree_exiting()
+void alai::StateMachine::_on_StateMachine_tree_exiting()
 {
     auto keys = states.keys();
     for (uint8_t i = 0; i < keys.size(); i++)

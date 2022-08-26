@@ -3,20 +3,20 @@
 
 #include <string>
 #include <Godot.hpp>
+#include <Input.hpp>
 #include <Node.hpp>
 #include <OS.hpp>
-#include <Input.hpp>
 #include <PackedScene.hpp>
-#include <Ref.hpp>
 #include <ProjectSettings.hpp>
+#include <Ref.hpp>
 #include <ResourceLoader.hpp>
 
 /**
- * @brief This is the godot namespace for all the code included in the library.
+ * @brief This is the alai namespace for all the code included in the game.
  * 
  * @details This namespace is used a prefix when the Godot engine looks for classes, methods, and properties.
  */
-namespace godot
+namespace alai
 {
     /**
      * @brief This namespace houses some global variables and the main class.
@@ -38,7 +38,7 @@ namespace godot
          * @brief The default resolution for the game window.
          * 
          */
-        const Vector2 window_size = Vector2(1280, 720);
+        const godot::Vector2 window_size = godot::Vector2(1280, 720);
         /**
          * @brief The default screen the the game should open on.
          * 
@@ -49,44 +49,44 @@ namespace godot
         /**
          * @brief This class controls the Main node.
          * 
-         * @details The main node is responsible for controling the window and the game iteself is a child of it.
+         * @details The main node is responsible for controlling the window and the game itself is a child of it.
          */
-        class Main : public Node
+        class Main : public godot::Node
         {
-            GODOT_CLASS(Main, Node)
+            GODOT_CLASS(Main, godot::Node)
 
             private:
                 /**
                  * @brief OS singleton.
                  * 
                  */
-                OS *_os;
+                godot::OS *_os;
                 /**
                  * @brief Input singleton.
                  * 
                  */
-                Input *_input;
+                godot::Input *_input;
                 /**
                  * @brief ProjectSettings singleton.
                  * 
                  */
-                ProjectSettings *_project_settings;
+                godot::ProjectSettings *_project_settings;
                 /**
                  * @brief ResourceLoader singleton.
                  * 
                  */
-                ResourceLoader *_resource_loader;
+                godot::ResourceLoader *_resource_loader;
 
                 /**
                  * @brief The first level to load
                  * 
                  */
-                Ref<PackedScene> level;
+                godot::Ref<godot::PackedScene> level;
                 /**
                  * @brief The current version of the game.
                  * 
                  */
-                String game_version;
+                godot::String game_version;
                 /**
                  * @brief If the window is full screen or not.
                  * 
@@ -96,7 +96,7 @@ namespace godot
                  * @brief The size of the window.
                  * 
                  */
-                Vector2 window_size;
+                godot::Vector2 window_size;
                 /**
                  * @brief The screen to launch the game on.
                  * 
@@ -151,28 +151,28 @@ namespace godot
                  * 
                  * @param[in] level The new level to load when starting.
                  */
-                void set_level(Ref<PackedScene> level);
+                void set_level(godot::Ref<godot::PackedScene> level);
 
                 /**
                  * @brief Get the level object.
                  * 
                  * @return Ref<PackedScene> The level scene to load.
                  */
-                Ref<PackedScene> get_level();
+                godot::Ref<godot::PackedScene> get_level();
 
                 /**
                  * @brief Set the game version object.
                  * 
                  * @param[in] game_version The new version fo the game.
                  */
-                void set_game_version(String game_version);
+                void set_game_version(godot::String game_version);
 
                 /**
                  * @brief Get the game version object.
                  * 
                  * @return String The current version of the game.
                  */
-                String get_game_version();
+                godot::String get_game_version();
 
                 /**
                  * @brief Set the full screen object.
@@ -194,14 +194,14 @@ namespace godot
                  * 
                  * @param[in] window_size The new window size.
                  */
-                void set_window_size(Vector2 window_size);
+                void set_window_size(godot::Vector2 window_size);
 
                 /**
                  * @brief Get the window size object.
                  * 
                  * @return Vector2 The window size.
                  */
-                Vector2 get_window_size();
+                godot::Vector2 get_window_size();
 
                 /**
                  * @brief Set the launch screen object.
@@ -217,9 +217,23 @@ namespace godot
                  */
                 int8_t get_launch_screen();
 
+                /**
+                 * @brief Called when the monitor finishes loading.
+                 * 
+                 */
                 void _on_monitor_loaded();
 
+                /**
+                 * @brief Loads the monitor and adds it to the scene.
+                 * 
+                 */
                 void load_monitor();
+
+                /**
+                 * @brief Loads the selected level.
+                 * 
+                 * @return Node* The level node which we will later add the monitor to.
+                 */
                 Node *load_level();
         };
     }

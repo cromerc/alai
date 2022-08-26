@@ -49,7 +49,7 @@ namespace godot
 		 * @brief Called when the collected  of the coin is entered.
 		 * 
 		 */
-		void _on_botonreiniciar_pressed();
+		void _on_restart_button_pressed();
 	};
 }
 

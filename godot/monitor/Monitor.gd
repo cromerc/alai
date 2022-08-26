@@ -1,6 +1,9 @@
 extends Node
 
 
+signal monitor_loaded()
+
+
 export var monitor_enabled: bool = false
 export var development_url: String = "http://localhost:4050/api/v1"
 var url_real: String = "https://alai.cromer.cl/api/v1"
@@ -101,6 +104,7 @@ func _physics_process(_delta: float) -> void:
 	if monitor_enabled:
 		if has_node("MonitorGUI") and not $MonitorGUI.visible:
 			$MonitorGUI.visible = true
+			emit_signal("monitor_loaded")
 
 		if started and not get_tree().paused:
 			var frame = empty_frame.duplicate(true)
@@ -122,6 +126,7 @@ func _physics_process(_delta: float) -> void:
 				start_monitor()
 	else:
 		get_tree().paused = false
+		emit_signal("monitor_loaded")
 		queue_free()
 
 
@@ -129,21 +134,22 @@ func _on_input_validated(validated_player: Dictionary) -> void:
 	$MonitorGUI.queue_free()
 	get_tree().paused = false
 	player = validated_player.duplicate(true)
+	game["player"] = player
 
 
 func _object_created(name: String, state: String, position: Vector2, velocity: Vector2) -> void:
-	if monitor_enabled and started:
+	if monitor_enabled:
 		add_object(name, state, position, velocity)
 
 
 func _object_updated(name: String, state: String, position: Vector2, velocity: Vector2) -> void:
-	if monitor_enabled and started:
+	if monitor_enabled:
 		remove_object(name)
 		add_object(name, state, position, velocity)
 
 
 func _object_removed(name: String) -> void:
-	if monitor_enabled and started:
+	if monitor_enabled:
 		remove_object(name)
 
 
@@ -174,8 +180,8 @@ func add_object(name: String, state: String, position: Vector2, velocity: Vector
 
 func remove_object(name: String) -> void:
 	for i in range(0, objects.size()):
-			if objects[i]["name"] == name:
-				objects.remove(i)
+		if objects[i]["name"] == name:
+			objects.remove(i)
 
 
 func _on_coin_update(amount: int) -> void:

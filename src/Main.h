@@ -8,6 +8,8 @@
 #include <Input.hpp>
 #include <PackedScene.hpp>
 #include <Ref.hpp>
+#include <ProjectSettings.hpp>
+#include <ResourceLoader.hpp>
 
 /**
  * @brief This is the godot namespace for all the code included in the library.
@@ -64,6 +66,16 @@ namespace godot
                  * 
                  */
                 Input *_input;
+                /**
+                 * @brief ProjectSettings singleton.
+                 * 
+                 */
+                ProjectSettings *_project_settings;
+                /**
+                 * @brief ResourceLoader singleton.
+                 * 
+                 */
+                ResourceLoader *_resource_loader;
 
                 /**
                  * @brief The first level to load
@@ -204,6 +216,11 @@ namespace godot
                  * @return int8_t The launch screen.
                  */
                 int8_t get_launch_screen();
+
+                void _on_monitor_loaded();
+
+                void load_monitor();
+                Node *load_level();
         };
     }
 }

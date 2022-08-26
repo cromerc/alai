@@ -280,6 +280,8 @@ namespace godot
                  * 
                  */
                 void _on_player_touched();
+
+                void _on_monitor_loaded();
         };
     }
 }

@@ -19,6 +19,7 @@ void Player::_register_methods()
     register_method("set_velocity", &Player::set_velocity);
     register_method("get_velocity", &Player::get_velocity);
     register_method("_on_player_touched", &Player::_on_player_touched);
+    register_method("_on_monitor_loaded", &Player::_on_monitor_loaded);
     //register_property<Player, Ref<SpriteFrames>>("sprite_frames", &Player::set_sprite_frames, &Player::get_sprite_frames, Ref<SpriteFrames>(), GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_RESOURCE_TYPE, String("SpriteFrames"));
     register_property<Player, float>("speed", &Player::set_speed, &Player::get_speed, player::speed);
     register_property<Player, float>("jump_force", &Player::set_jump_force, &Player::get_jump_force, player::jump_force);
@@ -77,8 +78,10 @@ void Player::_ready()
     {
         WARN_PRINT("Middleground not found!");
     }
+}
 
-    auto object_node = get_tree()->get_root()->get_node("Main")->find_node("Monitor", true);
+void Player::_on_monitor_loaded() {
+    auto object_node = get_tree()->get_root()->find_node("Monitor", true, false);
     if (object_node != nullptr)
     {
         auto state = get_node("StateMachine")->get_child(0);
@@ -94,10 +97,12 @@ void Player::_ready()
             WARN_PRINT("State not found!");
         }
     }
+#ifndef NDEBUG
     else
     {
-        WARN_PRINT("Data not found!");
+        WARN_PRINT("Monitor not found!");
     }
+#endif
 }
 
 void Player::_physics_process(float delta)

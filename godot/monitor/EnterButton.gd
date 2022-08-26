@@ -114,6 +114,10 @@ func show_error_message(message: String) -> void:
 
 
 func _on_PopupDialog_gui_input(event: InputEvent) -> void:
-	if event.is_pressed():
-		var popup = get_node("%PopupDialog")
-		popup.hide()
+	var popup = get_node("%PopupDialog")
+	if popup.visible and event.is_pressed():
+		popup.call_deferred("hide")
+
+
+func _on_text_entered(_new_text: String) -> void:
+	call_deferred("_on_Button_pressed")

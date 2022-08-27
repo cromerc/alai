@@ -15,6 +15,10 @@ config/description="This game is for testing an Artificial Intelligence."
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Event="*res://Event.gdns"
+
 [display]
 
 window/size/width=512

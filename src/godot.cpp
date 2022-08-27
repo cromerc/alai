@@ -41,7 +41,7 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void *handle)
 
     godot::register_class<alai::StateMachine>();
     godot::register_class<alai::State>();
-    godot::register_class<alai::main::Main>();
+    godot::register_class<alai::Main>();
     godot::register_class<alai::CameraLimit>();
     godot::register_class<alai::player::Player>();
     godot::register_class<alai::player::PlayerIdle>();

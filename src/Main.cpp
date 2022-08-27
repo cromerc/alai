@@ -2,41 +2,41 @@
 
 #include <SceneTree.hpp>
 
-void alai::main::Main::_register_methods()
+void alai::Main::_register_methods()
 {
     godot::register_method("_ready", &Main::_ready);
     godot::register_method("_physics_process", &Main::_physics_process);
     godot::register_method("_on_monitor_loaded", &Main::_on_monitor_loaded);
-    godot::register_property<Main, godot::String>("game_version", &Main::set_game_version, &Main::get_game_version, godot::String(main::game_version.c_str()));
+    godot::register_property<Main, godot::String>("game_version", &Main::set_game_version, &Main::get_game_version, godot::String(alai::game_version.c_str()));
     godot::register_property<Main, godot::Ref<godot::PackedScene>>("level", &Main::set_level, &Main::get_level, NULL, GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_RESOURCE_TYPE, godot::String("PackedScene"));
-    godot::register_property<Main, bool>("full_screen", &Main::set_full_screen, &Main::get_full_screen, main::full_screen);
-    godot::register_property<Main, godot::Vector2>("window_size", &Main::set_window_size, &Main::get_window_size, main::window_size);
-    godot::register_property<Main, int8_t>("launch_screen", &Main::set_launch_screen, &Main::get_launch_screen, main::launch_screen);
+    godot::register_property<Main, bool>("full_screen", &Main::set_full_screen, &Main::get_full_screen, alai::full_screen);
+    godot::register_property<Main, godot::Vector2>("window_size", &Main::set_window_size, &Main::get_window_size, alai::window_size);
+    godot::register_property<Main, int8_t>("launch_screen", &Main::set_launch_screen, &Main::get_launch_screen, alai::launch_screen);
     godot::register_signal<Main>("monitor_loaded");
 }
 
-alai::main::Main::Main()
+alai::Main::Main()
 {
 }
 
-alai::main::Main::~Main()
+alai::Main::~Main()
 {
 }
 
-void alai::main::Main::_init()
+void alai::Main::_init()
 {
     _os = godot::OS::get_singleton();
     _input = godot::Input::get_singleton();
     _project_settings = godot::ProjectSettings::get_singleton();
     _resource_loader = godot::ResourceLoader::get_singleton();
 
-    game_version = godot::String(main::game_version.c_str());
-    full_screen = main::full_screen;
-    window_size = main::window_size;
-    launch_screen = main::launch_screen;
+    game_version = godot::String(alai::game_version.c_str());
+    full_screen = alai::full_screen;
+    window_size = alai::window_size;
+    launch_screen = alai::launch_screen;
 }
 
-void alai::main::Main::_ready()
+void alai::Main::_ready()
 {
     auto success = _project_settings->load_resource_pack("monitor.pck");
     if (success)
@@ -84,7 +84,7 @@ void alai::main::Main::_ready()
     }
 }
 
-void alai::main::Main::_on_monitor_loaded()
+void alai::Main::_on_monitor_loaded()
 {
     if (level != nullptr)
     {
@@ -94,7 +94,7 @@ void alai::main::Main::_on_monitor_loaded()
     }
 }
 
-void alai::main::Main::load_monitor()
+void alai::Main::load_monitor()
 {
     godot::Ref<godot::PackedScene> monitor_scene = _resource_loader->load("res://monitor/Monitor.tscn");
     add_child(monitor_scene->instance());
@@ -103,7 +103,7 @@ void alai::main::Main::load_monitor()
     get_tree()->set_pause(true);
 }
 
-godot::Node *alai::main::Main::load_level()
+godot::Node *alai::Main::load_level()
 {
     if (level != nullptr)
     {
@@ -116,7 +116,7 @@ godot::Node *alai::main::Main::load_level()
     return nullptr;
 }
 
-void alai::main::Main::_physics_process(float delta)
+void alai::Main::_physics_process(float delta)
 {
     if (_input->is_action_just_pressed("ui_cancel"))
     {
@@ -124,52 +124,52 @@ void alai::main::Main::_physics_process(float delta)
     }
 }
 
-void alai::main::Main::set_level(godot::Ref<godot::PackedScene> level)
+void alai::Main::set_level(godot::Ref<godot::PackedScene> level)
 {
     this->level = level;
 }
 
-godot::Ref<godot::PackedScene> alai::main::Main::get_level()
+godot::Ref<godot::PackedScene> alai::Main::get_level()
 {
     return this->level;
 }
 
-void alai::main::Main::set_game_version(godot::String game_version)
+void alai::Main::set_game_version(godot::String game_version)
 {
     this->game_version = game_version;
 }
 
-godot::String alai::main::Main::get_game_version()
+godot::String alai::Main::get_game_version()
 {
     return this->game_version;
 }
 
-void alai::main::Main::set_full_screen(bool full_screen)
+void alai::Main::set_full_screen(bool full_screen)
 {
     this->full_screen = full_screen;
 }
 
-bool alai::main::Main::get_full_screen()
+bool alai::Main::get_full_screen()
 {
     return this->full_screen;
 }
 
-void alai::main::Main::set_window_size(godot::Vector2 window_size)
+void alai::Main::set_window_size(godot::Vector2 window_size)
 {
     this-> window_size = window_size;
 }
 
-godot::Vector2 alai::main::Main::get_window_size()
+godot::Vector2 alai::Main::get_window_size()
 {
     return this->window_size;
 }
 
-void alai::main::Main::set_launch_screen(int8_t launch_screen)
+void alai::Main::set_launch_screen(int8_t launch_screen)
 {
     this->launch_screen = launch_screen;
 }
 
-int8_t alai::main::Main::get_launch_screen()
+int8_t alai::Main::get_launch_screen()
 {
     if (this->launch_screen == -1)
     {

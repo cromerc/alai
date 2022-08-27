@@ -1,5 +1,6 @@
 #include <Godot.hpp>
 
+#include "Event.h"
 #include "state_machine/StateMachine.h"
 #include "state_machine/State.h"
 #include "Main.h"
@@ -45,6 +46,7 @@ extern "C" void GDN_EXPORT godot_gdnative_terminate(godot_gdnative_terminate_opt
 extern "C" void GDN_EXPORT godot_nativescript_init(void *handle)
 {
     Godot::nativescript_init(handle);
+    register_class<alai::Event>();
     register_class<StateMachine>();
     register_class<State>();
     register_class<main::Main>();

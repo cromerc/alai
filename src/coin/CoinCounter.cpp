@@ -1,6 +1,7 @@
 #include "coin/CoinCounter.h"
 #include <String.hpp>
 #include "coin/CoinCollected.h"
+#include "Event.h"
 using namespace godot;
 
 void CoinCounter::_register_methods()
@@ -35,13 +36,8 @@ void CoinCounter::_on_coin_collected(int amount)
 void CoinCounter::_ready()
 {
     set_text("0");
-    auto coins_node = get_node("../../Coins");
-    auto children_count = coins_node->get_child_count();
-    for(int64_t i = 0; i < children_count;i++)
-    {
-        auto child = coins_node->get_child(i);
-        child->get_node("StateMachine/CoinCollected")->connect("coin_collected",this,"_on_coin_collected");
-    }
+    auto event = get_node<alai::Event>("/root/Event");
+    event->connect("coin_collected", this, "_on_coin_collected");
    
 
 }

@@ -50,6 +50,10 @@ var game: Dictionary = {}
 
 
 func _ready() -> void:
+	Event.connect("object_created", self, "_object_created")
+	Event.connect("object_updated", self, "_object_updated")
+	Event.connect("object_removed", self, "_object_removed")
+
 	game_version = get_parent().game_version
 
 	player["rut"] = ""

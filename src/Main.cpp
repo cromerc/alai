@@ -7,11 +7,11 @@ void alai::Main::_register_methods()
     godot::register_method("_ready", &Main::_ready);
     godot::register_method("_physics_process", &Main::_physics_process);
     godot::register_method("_on_monitor_loaded", &Main::_on_monitor_loaded);
-    godot::register_property<Main, godot::String>("game_version", &Main::set_game_version, &Main::get_game_version, godot::String(alai::game_version.c_str()));
-    godot::register_property<Main, godot::Ref<godot::PackedScene>>("level", &Main::set_level, &Main::get_level, nullptr, GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_RESOURCE_TYPE, godot::String("PackedScene"));
-    godot::register_property<Main, bool>("full_screen", &Main::set_full_screen, &Main::get_full_screen, alai::full_screen);
-    godot::register_property<Main, godot::Vector2>("window_size", &Main::set_window_size, &Main::get_window_size, alai::window_size);
-    godot::register_property<Main, int8_t>("launch_screen", &Main::set_launch_screen, &Main::get_launch_screen, alai::launch_screen);
+    godot::register_property<Main, godot::String>("game_version", &Main::set_game_version, &Main::get_game_version, godot::String(default_game_version.c_str()));
+    godot::register_property<Main, godot::Ref<godot::PackedScene>>("level", &Main::set_level, &Main::get_level, nullptr, GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_RESOURCE_TYPE, "PackedScene");
+    godot::register_property<Main, bool>("full_screen", &Main::set_full_screen, &Main::get_full_screen, default_full_screen);
+    godot::register_property<Main, godot::Vector2>("window_size", &Main::set_window_size, &Main::get_window_size, default_window_size);
+    godot::register_property<Main, int8_t>("launch_screen", &Main::set_launch_screen, &Main::get_launch_screen, default_launch_screen);
     godot::register_signal<Main>("monitor_loaded");
 }
 
@@ -30,10 +30,10 @@ void alai::Main::_init()
     _project_settings = godot::ProjectSettings::get_singleton();
     _resource_loader = godot::ResourceLoader::get_singleton();
 
-    game_version = godot::String(alai::game_version.c_str());
-    full_screen = alai::full_screen;
-    window_size = alai::window_size;
-    launch_screen = alai::launch_screen;
+    set_game_version(godot::String(default_game_version.c_str()));
+    set_full_screen(default_full_screen);
+    set_window_size(default_window_size);
+    set_launch_screen(default_launch_screen);
 }
 
 void alai::Main::_ready()

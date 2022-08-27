@@ -19,28 +19,6 @@
 namespace alai
 {
     /**
-     * @brief The default value for the game version.
-     * 
-     */
-    const std::string game_version = "0.1.0";
-    /**
-     * @brief The default value for if the game should start in full screen.
-     * 
-     */
-    const bool full_screen = false;
-    /**
-     * @brief The default resolution for the game window.
-     * 
-     */
-    const godot::Vector2 window_size = godot::Vector2(1280, 720);
-    /**
-     * @brief The default screen the the game should open on.
-     * 
-     * @details -1 opens it on the currently active screen. And 0 and above are the screens to use.
-     */
-    const int8_t launch_screen = -1;
-
-    /**
      * @brief This class controls the Main node.
      * 
      * @details The main node is responsible for controlling the window and the game itself is a child of it.
@@ -70,7 +48,27 @@ namespace alai
              * 
              */
             godot::ResourceLoader *_resource_loader;
-
+            /**
+             * @brief The default value for the game version.
+             * 
+             */
+            inline static const std::string default_game_version = "0.1.0";
+            /**
+             * @brief The default value for if the game should start in full screen.
+             * 
+             */
+            inline static const bool default_full_screen = false;
+            /**
+             * @brief The default resolution for the game window.
+             * 
+             */
+            inline static const godot::Vector2 default_window_size = godot::Vector2(1280, 720);
+            /**
+             * @brief The default screen the the game should open on.
+             * 
+             * @details -1 opens it on the currently active screen. And 0 and above are the screens to use.
+             */
+            inline static const int8_t default_launch_screen = -1;
             /**
              * @brief The first level to load
              * 

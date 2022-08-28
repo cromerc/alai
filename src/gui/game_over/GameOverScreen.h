@@ -1,19 +1,22 @@
-#ifndef ALAI_CAMERA_LIMIT_H
-#define ALAI_CAMERA_LIMIT_H
+#ifndef ALAI_GAME_OVER_SCREEN_H
+#define ALAI_GAME_OVER_SCREEN_H
 
+#include <CanvasLayer.hpp>
 #include <Godot.hpp>
-#include <Node2D.hpp>
+#include <ResourceLoader.hpp>
 
 namespace alai
 {
     /**
-     * @brief This class limits the camera's position.
+     * @brief This class controls what happens when the Coin is in the collected .
      * 
-     * @details The camera will be limited based on the used width and height of the Middleground tilemap.
      */
-    class CameraLimit: public godot::Node2D
+    class GameOverScreen : public godot::CanvasLayer
     {
-        GODOT_CLASS(CameraLimit, godot::Node2D)
+        GODOT_CLASS(GameOverScreen, godot::CanvasLayer)
+
+        private:
+            godot::ResourceLoader *_resource_loader;
 
         public:
             /**
@@ -24,16 +27,16 @@ namespace alai
             static void _register_methods();
 
             /**
-             * @brief Construct a new CameraLimit object.
+             * @brief Construct a new GameOverScreen object.
              * 
              */
-            CameraLimit();
+            GameOverScreen();
 
             /**
-             * @brief Destroy the CameraLimit object.
+             * @brief Destroy the GameOverScreen object.
              * 
              */
-            ~CameraLimit();
+            ~GameOverScreen();
 
             /**
              * @brief Initialize the class from Godot.
@@ -43,11 +46,14 @@ namespace alai
             void _init();
 
             /**
-             * @brief Code to be run when ready.
+             * @brief Called when the collected  of the coin is entered.
              * 
-             * @details This method is run when all the children of this node are ready.
              */
             void _ready();
+            void _on_player_died();
+            void _on_restart_button_pressed();
+            void connect_signal();
     };
 }
+
 #endif

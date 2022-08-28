@@ -1,13 +1,13 @@
-#ifndef JUEGO_PLAYER_JUMP_H
-#define JUEGO_PLAYER_JUMP_H
+#ifndef ALAI_PLAYER_STATES_PLAYER_JUMP_H
+#define ALAI_PLAYER_STATES_PLAYER_JUMP_H
 
 #include "state_machine/State.h"
 
+#include <AnimatedSprite.hpp>
 #include <Godot.hpp>
 #include <Input.hpp>
-#include <AnimatedSprite.hpp>
 
-namespace godot
+namespace alai
 {
     namespace player
     {
@@ -24,12 +24,12 @@ namespace godot
                  * @brief Input singleton.
                  * 
                  */
-                Input *_input;
+                godot::Input *_input;
                 /**
                  * @brief The animated sprite connected to the Player.
                  * 
                  */
-                AnimatedSprite *animated_sprite;
+                godot::AnimatedSprite *animated_sprite;
                 /**
                  * @brief If the player has already performed a double jump or not.
                  * 
@@ -70,7 +70,7 @@ namespace godot
                  * 
                  * @param[in] state The previous state before this one was entered.
                  */
-                void _state_enter(const String state);
+                void _state_enter(const godot::String state);
 
                 /**
                  * @brief Called when the player exits the jump state.

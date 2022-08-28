@@ -1,5 +1,6 @@
 #include <Godot.hpp>
 
+#include "Event.h"
 #include "state_machine/StateMachine.h"
 #include "state_machine/State.h"
 #include "Main.h"
@@ -9,8 +10,12 @@
 #include "player/states/PlayerMove.h"
 #include "player/states/PlayerJump.h"
 #include "player/states/PlayerFall.h"
-
-using namespace godot;
+#include "coin/CoinNotCollected.h"
+#include "coin/CoinCollected.h"
+#include "coin/CoinCounter.h"
+#include "goal/GoalReached.h"
+#include "goal/GoalNotReached.h"
+#include "gui/game_over/GameOverScreen.h"
 
 /**
  * @brief This function connects the gdnative init function.
@@ -18,7 +23,7 @@ using namespace godot;
  */
 extern "C" void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options *o)
 {
-    Godot::gdnative_init(o);
+    godot::Godot::gdnative_init(o);
 }
 
 /**
@@ -29,8 +34,8 @@ extern "C" void GDN_EXPORT godot_gdnative_terminate(godot_gdnative_terminate_opt
 {
     // This next line is a workaround to fix bug:
     // https://github.com/godotengine/godot/issues/48295
-    Godot::nativescript_terminate(_RegisterState::nativescript_handle);
-    Godot::gdnative_terminate(o);
+    godot::Godot::nativescript_terminate(godot::_RegisterState::nativescript_handle);
+    godot::Godot::gdnative_terminate(o);
 }
 
 /**
@@ -39,14 +44,22 @@ extern "C" void GDN_EXPORT godot_gdnative_terminate(godot_gdnative_terminate_opt
  */
 extern "C" void GDN_EXPORT godot_nativescript_init(void *handle)
 {
-    Godot::nativescript_init(handle);
-    register_class<StateMachine>();
-    register_class<State>();
-    register_class<main::Main>();
-    register_class<CameraLimit>();
-    register_class<player::Player>();
-    register_class<player::PlayerIdle>();
-    register_class<player::PlayerMove>();
-    register_class<player::PlayerJump>();
-    register_class<player::PlayerFall>();
+    godot::Godot::nativescript_init(handle);
+
+	godot::register_class<alai::Event>();
+    godot::register_class<alai::StateMachine>();
+    godot::register_class<alai::State>();
+    godot::register_class<alai::Main>();
+    godot::register_class<alai::CameraLimit>();
+    godot::register_class<alai::player::Player>();
+    godot::register_class<alai::player::PlayerIdle>();
+    godot::register_class<alai::player::PlayerMove>();
+    godot::register_class<alai::player::PlayerJump>();
+    godot::register_class<alai::player::PlayerFall>();
+    godot::register_class<alai::CoinNotCollected>();
+    godot::register_class<alai::CoinCollected>();
+    godot::register_class<alai::CoinCounter>();
+    godot::register_class<alai::GoalReached>();
+    godot::register_class<alai::GoalNotReached>();
+    godot::register_class<alai::GameOverScreen>();
 }

@@ -1,19 +1,21 @@
-#ifndef ALAI_CAMERA_LIMIT_H
-#define ALAI_CAMERA_LIMIT_H
+#ifndef ALAI_COIN_COIN_COUNTER_H
+#define ALAI_COIN_COIN_COUNTER_H
 
 #include <Godot.hpp>
-#include <Node2D.hpp>
+#include <Label.hpp>
 
 namespace alai
 {
     /**
-     * @brief This class limits the camera's position.
+     * @brief This class controls what happens when the Coin is in the collected .
      * 
-     * @details The camera will be limited based on the used width and height of the Middleground tilemap.
      */
-    class CameraLimit: public godot::Node2D
+    class CoinCounter : public godot::Label
     {
-        GODOT_CLASS(CameraLimit, godot::Node2D)
+        GODOT_CLASS(CoinCounter, godot::Label)
+
+        private:
+            int coins;
 
         public:
             /**
@@ -24,16 +26,16 @@ namespace alai
             static void _register_methods();
 
             /**
-             * @brief Construct a new CameraLimit object.
+             * @brief Construct a new CoinCounter object.
              * 
              */
-            CameraLimit();
+            CoinCounter();
 
             /**
-             * @brief Destroy the CameraLimit object.
+             * @brief Destroy the CoinCounter object.
              * 
              */
-            ~CameraLimit();
+            ~CoinCounter();
 
             /**
              * @brief Initialize the class from Godot.
@@ -43,11 +45,16 @@ namespace alai
             void _init();
 
             /**
-             * @brief Code to be run when ready.
+             * @brief Called when the collected  of the coin is entered.
              * 
-             * @details This method is run when all the children of this node are ready.
              */
+
+            void _on_CoinHUD_ready();
+            void _on_coin_collected(int amount);
             void _ready();
+            
     };
+    
 }
+
 #endif

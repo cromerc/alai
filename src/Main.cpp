@@ -2,50 +2,47 @@
 
 #include <SceneTree.hpp>
 
-using namespace godot;
-using namespace main;
-
-void Main::_register_methods()
+void alai::Main::_register_methods()
 {
-    register_method("_ready", &Main::_ready);
-    register_method("_physics_process", &Main::_physics_process);
-    register_method("_on_monitor_loaded", &Main::_on_monitor_loaded);
-    register_property<Main, String>("game_version", &Main::set_game_version, &Main::get_game_version, String(main::game_version.c_str()));
-    register_property<Main, Ref<PackedScene>>("level", &Main::set_level, &Main::get_level, NULL, GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_RESOURCE_TYPE, String("PackedScene"));
-    register_property<Main, bool>("full_screen", &Main::set_full_screen, &Main::get_full_screen, main::full_screen);
-    register_property<Main, Vector2>("window_size", &Main::set_window_size, &Main::get_window_size, main::window_size);
-    register_property<Main, int8_t>("launch_screen", &Main::set_launch_screen, &Main::get_launch_screen, main::launch_screen);
-    register_signal<Main>("monitor_loaded");
+    godot::register_method("_ready", &Main::_ready);
+    godot::register_method("_physics_process", &Main::_physics_process);
+    godot::register_method("_on_monitor_loaded", &Main::_on_monitor_loaded);
+    godot::register_property<Main, godot::String>("game_version", &Main::set_game_version, &Main::get_game_version, godot::String(default_game_version.c_str()));
+    godot::register_property<Main, godot::Ref<godot::PackedScene>>("level", &Main::set_level, &Main::get_level, godot::Ref<godot::PackedScene>(nullptr), GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_RESOURCE_TYPE, "PackedScene");
+    godot::register_property<Main, bool>("full_screen", &Main::set_full_screen, &Main::get_full_screen, default_full_screen);
+    godot::register_property<Main, godot::Vector2>("window_size", &Main::set_window_size, &Main::get_window_size, default_window_size);
+    godot::register_property<Main, int8_t>("launch_screen", &Main::set_launch_screen, &Main::get_launch_screen, default_launch_screen);
+    godot::register_signal<Main>("monitor_loaded");
 }
 
-Main::Main()
+alai::Main::Main()
 {
 }
 
-Main::~Main()
+alai::Main::~Main()
 {
 }
 
-void Main::_init()
+void alai::Main::_init()
 {
-    _os = OS::get_singleton();
-    _input = Input::get_singleton();
-    _project_settings = ProjectSettings::get_singleton();
-    _resource_loader = ResourceLoader::get_singleton();
+    _os = godot::OS::get_singleton();
+    _input = godot::Input::get_singleton();
+    _project_settings = godot::ProjectSettings::get_singleton();
+    _resource_loader = godot::ResourceLoader::get_singleton();
 
-    game_version = String(main::game_version.c_str());
-    full_screen = main::full_screen;
-    window_size = main::window_size;
-    launch_screen = main::launch_screen;
+    set_game_version(godot::String(default_game_version.c_str()));
+    set_full_screen(default_full_screen);
+    set_window_size(default_window_size);
+    set_launch_screen(default_launch_screen);
 }
 
-void Main::_ready()
+void alai::Main::_ready()
 {
     auto success = _project_settings->load_resource_pack("monitor.pck");
     if (success)
     {
         // Load monitor from pck
-        Godot::print("Monitor pck found, loading...");
+        godot::Godot::print("Monitor pck found, loading...");
         load_monitor();
     }
     else if (_resource_loader->exists("res://monitor/Monitor.tscn"))
@@ -75,19 +72,19 @@ void Main::_ready()
     if (success)
     {
         // Load crt from pck
-        Godot::print("CRT pck found, loading...");
-        Ref<PackedScene> crt_scene = _resource_loader->load("res://shaders/crt/crt.tscn");
+        godot::Godot::print("CRT pck found, loading...");
+        godot::Ref<godot::PackedScene> crt_scene = _resource_loader->load("res://shaders/crt/crt.tscn");
         add_child(crt_scene->instance());
     }
     else if (_resource_loader->exists("res://shaders/crt/crt.tscn"))
     {
         // Load crt from alai's pck
-        Ref<PackedScene> crt_scene = _resource_loader->load("res://shaders/crt/crt.tscn");
+        godot::Ref<godot::PackedScene> crt_scene = _resource_loader->load("res://shaders/crt/crt.tscn");
         add_child(crt_scene->instance());
     }
 }
 
-void Main::_on_monitor_loaded()
+void alai::Main::_on_monitor_loaded()
 {
     if (level != nullptr)
     {
@@ -97,16 +94,16 @@ void Main::_on_monitor_loaded()
     }
 }
 
-void Main::load_monitor()
+void alai::Main::load_monitor()
 {
-    Ref<PackedScene> monitor_scene = _resource_loader->load("res://monitor/Monitor.tscn");
+    godot::Ref<godot::PackedScene> monitor_scene = _resource_loader->load("res://monitor/Monitor.tscn");
     add_child(monitor_scene->instance());
     auto monitor = get_node("Monitor");
     monitor->connect("monitor_loaded", this, "_on_monitor_loaded");
     get_tree()->set_pause(true);
 }
 
-Node *Main::load_level()
+godot::Node *alai::Main::load_level()
 {
     if (level != nullptr)
     {
@@ -119,7 +116,7 @@ Node *Main::load_level()
     return nullptr;
 }
 
-void Main::_physics_process(float delta)
+void alai::Main::_physics_process(float delta)
 {
     if (_input->is_action_just_pressed("ui_cancel"))
     {
@@ -127,52 +124,52 @@ void Main::_physics_process(float delta)
     }
 }
 
-void Main::set_level(Ref<PackedScene> level)
+void alai::Main::set_level(godot::Ref<godot::PackedScene> level)
 {
     this->level = level;
 }
 
-Ref<PackedScene> Main::get_level()
+godot::Ref<godot::PackedScene> alai::Main::get_level()
 {
     return this->level;
 }
 
-void Main::set_game_version(String game_version)
+void alai::Main::set_game_version(godot::String game_version)
 {
     this->game_version = game_version;
 }
 
-String Main::get_game_version()
+godot::String alai::Main::get_game_version()
 {
     return this->game_version;
 }
 
-void Main::set_full_screen(bool full_screen)
+void alai::Main::set_full_screen(bool full_screen)
 {
     this->full_screen = full_screen;
 }
 
-bool Main::get_full_screen()
+bool alai::Main::get_full_screen()
 {
     return this->full_screen;
 }
 
-void Main::set_window_size(Vector2 window_size)
+void alai::Main::set_window_size(godot::Vector2 window_size)
 {
     this-> window_size = window_size;
 }
 
-Vector2 Main::get_window_size()
+godot::Vector2 alai::Main::get_window_size()
 {
     return this->window_size;
 }
 
-void Main::set_launch_screen(int8_t launch_screen)
+void alai::Main::set_launch_screen(int8_t launch_screen)
 {
     this->launch_screen = launch_screen;
 }
 
-int8_t Main::get_launch_screen()
+int8_t alai::Main::get_launch_screen()
 {
     if (this->launch_screen == -1)
     {

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Main.gdns" type="Script" id=1]
-[ext_resource path="res://levels/Level2.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/Prototype.tscn" type="PackedScene" id=2]
+[ext_resource path="res://GUI/GameOver.tscn" type="PackedScene" id=3]
 
 [node name="Main" type="Node"]
 pause_mode = 2
@@ -10,3 +11,6 @@ level = ExtResource( 2 )
 
 [node name="Level" type="Node" parent="."]
 pause_mode = 1
+
+[node name="GameOver" parent="." instance=ExtResource( 3 )]
+visible = false

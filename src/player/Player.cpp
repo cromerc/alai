@@ -1,5 +1,7 @@
 #include "player/Player.h"
 
+#include "Event.h"
+
 #include <Camera2D.hpp>
 #include <KinematicCollision2D.hpp>
 #include <RayCast2D.hpp>
@@ -24,9 +26,6 @@ void alai::player::Player::_register_methods()
     godot::register_property<Player, float>("gravity", &Player::set_gravity, &Player::get_gravity, player::gravity);
     godot::register_property<Player, float>("run_speed", &Player::set_run_speed, &Player::get_run_speed, player::run_speed);
     godot::register_property<Player, bool>("double_jump", &Player::set_double_jump, &Player::get_double_jump, player::double_jump);
-    godot::register_signal<Player>("object_created", "name", GODOT_VARIANT_TYPE_STRING, "state", GODOT_VARIANT_TYPE_STRING, "position", GODOT_VARIANT_TYPE_VECTOR2, "velocity", GODOT_VARIANT_TYPE_VECTOR2);
-    godot::register_signal<Player>("object_updated", "name", GODOT_VARIANT_TYPE_STRING, "state", GODOT_VARIANT_TYPE_STRING, "position", GODOT_VARIANT_TYPE_VECTOR2, "velocity", GODOT_VARIANT_TYPE_VECTOR2);
-    godot::register_signal<Player>("object_removed", "name", GODOT_VARIANT_TYPE_STRING);
 }
 
 alai::player::Player::Player()
@@ -78,28 +77,16 @@ void alai::player::Player::_ready()
 }
 
 void alai::player::Player::_on_monitor_loaded() {
-    auto object_node = get_tree()->get_root()->find_node("Monitor", true, false);
-    if (object_node != nullptr)
+    auto state = get_node("StateMachine")->get_child(0);
+    if (state != nullptr)
     {
-        auto state = get_node("StateMachine")->get_child(0);
-        if (state != nullptr)
-        {
-            connect("object_created", object_node, "_object_created");
-            connect("object_updated", object_node, "_object_updated");
-            connect("object_removed", object_node, "_object_removed");
-            emit_signal("object_created", this->get_name(), state->get_name(), get_global_position(), velocity);
-        }
-        else
-        {
-            WARN_PRINT("State not found!");
-        }
+        auto event = get_node<alai::Event>("/root/Event");
+        event->emit_signal("object_created", this->get_name(), state->get_name(), get_global_position(), velocity);
     }
-#ifndef NDEBUG
     else
     {
-        WARN_PRINT("Monitor not found!");
+        WARN_PRINT("State not found!");
     }
-#endif
 }
 
 void alai::player::Player::_physics_process(float delta)
@@ -176,21 +163,24 @@ void alai::player::Player::_physics_process(float delta)
     {
         if (!notifier->is_on_screen())
         {
-            if (get_parent()->get_class() == "TileMap")
+            auto event = get_node<alai::Event>("/root/Event");
+            event->emit_signal("player_died");
+            /*if (get_parent()->get_class() == "TileMap")
             {
                 auto error = get_tree()->change_scene("res://Main.tscn");
                 if (error != godot::Error::OK)
                 {
                     ERR_PRINT(godot::String().num((int) error) + " Could not load scene!");
                 }
-            }
+            }*/
         }
     }
 
     auto state = get_node("StateMachine")->get_child(0);
     if (state != nullptr)
     {
-        emit_signal("object_updated", this->get_name(), state->get_name(), get_global_position(), velocity);
+        auto event = get_node<alai::Event>("/root/Event");
+        event->emit_signal("object_updated", this->get_name(), state->get_name(), get_global_position(), velocity);
     }
     else
     {

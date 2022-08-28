@@ -2,7 +2,7 @@
 #define ALAI_GAME_OVER_SCREEN_H
 
 #include <Godot.hpp>
-#include <Control.hpp>
+#include <CanvasLayer.hpp>
 #include <ResourceLoader.hpp>
 
 
@@ -12,9 +12,9 @@ namespace godot
          * @brief This class controls what happens when the Coin is in the collected .
          * 
          */
-        class GameOverScreen : public Control
+        class GameOverScreen : public CanvasLayer
         {
-            GODOT_CLASS(GameOverScreen, Control)
+            GODOT_CLASS(GameOverScreen, CanvasLayer)
 
             private:
                 ResourceLoader *_resource_loader;
@@ -50,8 +50,10 @@ namespace godot
                  * @brief Called when the collected  of the coin is entered.
                  * 
                  */
+                void _ready();
+                void _on_player_died();
                 void _on_botonreiniciar_pressed();
-
+                void connect_signal();
                 
         };
     

@@ -15,6 +15,7 @@
 #include "coin/CoinCounter.h"
 #include "goal/GoalReached.h"
 #include "goal/GoalNotReached.h"
+#include "gui/game_over/GameOverScreen.h"
 
 using namespace godot;
 
@@ -61,4 +62,5 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void *handle)
     register_class<CoinCounter>();
     register_class<GoalReached>();
     register_class<GoalNotReached>();
+    register_class<GameOverScreen>();
 }

@@ -52,7 +52,7 @@ void Player::_init()
     set_double_jump(player::double_jump);
 
     coins = 0;
-
+    
     velocity = Vector2();
 }
 
@@ -166,14 +166,16 @@ void Player::_physics_process(float delta)
     {
         if (!notifier->is_on_screen())
         {
-            if (get_parent()->get_class() == "TileMap")
+            auto event = get_node<alai::Event>("/root/Event");
+            event->emit_signal("player_died");
+            /*if (get_parent()->get_class() == "TileMap")
             {
                 auto error = get_tree()->change_scene("res://Main.tscn");
                 if (error != Error::OK)
                 {
                     ERR_PRINT(String().num((int) error) + " Could not load scene!");
                 }
-            }
+            }*/
         }
     }
 

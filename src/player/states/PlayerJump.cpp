@@ -1,37 +1,35 @@
 #include "player/states/PlayerJump.h"
+
 #include "player/Player.h"
 
 #include <AudioStreamPlayer.hpp>
 
-using namespace godot;
-using namespace player;
-
-void PlayerJump::_register_methods()
+void alai::player::PlayerJump::_register_methods()
 {
     register_method("_state_enter", &PlayerJump::_state_enter);
     register_method("_state_exit", &PlayerJump::_state_exit);
     register_method("_physics_process", &PlayerJump::_physics_process);
 }
 
-PlayerJump::PlayerJump()
+alai::player::PlayerJump::PlayerJump()
 {
 }
 
-PlayerJump::~PlayerJump()
+alai::player::PlayerJump::~PlayerJump()
 {
 }
 
-void PlayerJump::_init()
+void alai::player::PlayerJump::_init()
 {
-    _input = Input::get_singleton();
+    _input = godot::Input::get_singleton();
 }
 
-void PlayerJump::_state_enter(const String state)
+void alai::player::PlayerJump::_state_enter(const godot::String state)
 {
-    auto jump_sound = get_parent()->get_node<AudioStreamPlayer>("Sounds/Jump");
+    auto jump_sound = get_parent()->get_node<godot::AudioStreamPlayer>("Sounds/Jump");
     jump_sound->play();
 
-    animated_sprite = get_parent()->get_node<AnimatedSprite>("AnimatedSprite");
+    animated_sprite = get_parent()->get_node<godot::AnimatedSprite>("AnimatedSprite");
     animated_sprite->stop();
     animated_sprite->set_animation("air");
 
@@ -44,21 +42,21 @@ void PlayerJump::_state_enter(const String state)
         double_jumped = false;
     }
 
-    auto parent = Object::cast_to<player::Player>(get_parent());
+    auto parent = Object::cast_to<Player>(get_parent());
     auto velocity = parent->get_velocity();
     velocity.y = -parent->get_jump_force();
     parent->set_velocity(velocity);
 }
 
-void PlayerJump::_state_exit()
+void alai::player::PlayerJump::_state_exit()
 {
         animated_sprite->set_animation("move");
         animated_sprite->set_frame(1);
 }
 
-void PlayerJump::_physics_process(float delta)
+void alai::player::PlayerJump::_physics_process(float delta)
 {
-    auto parent = Object::cast_to<player::Player>(get_parent());
+    auto parent = Object::cast_to<Player>(get_parent());
     if (parent->is_on_floor())
     {
         get_state_machine()->change("Move");

@@ -1,14 +1,13 @@
-#ifndef ALAI_PLAYER_H
-#define ALAI_PLAYER_H
+#ifndef ALAI_PLAYER_PLAYER_H
+#define ALAI_PLAYER_PLAYER_H
 
+#include <AnimatedSprite.hpp>
 #include <Godot.hpp>
 #include <KinematicBody2D.hpp>
-#include <Sprite.hpp>
-#include <AnimatedSprite.hpp>
-#include <SpriteFrames.hpp>
 #include <ResourceLoader.hpp>
+#include <SpriteFrames.hpp>
 
-namespace godot
+namespace alai
 {
     /**
      * @brief This namespace contains the global variables related to the player and its states.
@@ -57,27 +56,27 @@ namespace godot
          * 
          * @details This class allows the player to move, run, and jump as well as controls the sprite displayed for those actions.
          */
-        class Player : public KinematicBody2D
+        class Player : public godot::KinematicBody2D
         {
-            GODOT_CLASS(Player, KinematicBody2D)
+            GODOT_CLASS(Player, godot::KinematicBody2D)
 
             private:
                 /**
                  * @brief ResourceLoader singleton.
                  * 
                  */
-                ResourceLoader *_resource_loader;
+                godot::ResourceLoader *_resource_loader;
 
                 /**
                  * @brief The animated sprite connected to the KinematicBody2D.
                  * 
                  */
-                AnimatedSprite *animated_sprite;
+                godot::AnimatedSprite *animated_sprite;
                 /**
                  * @brief The sprite frames used in the animated sprite.
                  * 
                  */
-                Ref<SpriteFrames> sprite_frames;
+                godot::Ref<godot::SpriteFrames> sprite_frames;
                 /**
                  * @brief The coins the player has collected.
                  * 
@@ -87,7 +86,7 @@ namespace godot
                  * @brief The velocity at which moves the player moves.
                  * 
                  */
-                Vector2 velocity;
+                godot::Vector2 velocity;
                 /**
                  * @brief The speed that the player moves in.
                  * 
@@ -167,14 +166,14 @@ namespace godot
                  * 
                  * @param[in] sprite_frames The new sprite frame.
                  */
-                void set_sprite_frames(Ref<SpriteFrames> sprite_frames);
+                void set_sprite_frames(godot::Ref<godot::SpriteFrames> sprite_frames);
 
                 /**
                  * @brief Get the sprite frames object.
                  * 
                  * @return Ref<SpriteFrames> A reference to the sprite frames object.
                  */
-                Ref<SpriteFrames> get_sprite_frames();
+                godot::Ref<godot::SpriteFrames> get_sprite_frames();
 
                 /**
                  * @brief Set the speed object.
@@ -266,14 +265,14 @@ namespace godot
                  * 
                  * @param[in] velocity The new velocity of the player.
                  */
-                void set_velocity(Vector2 velocity);
+                void set_velocity(godot::Vector2 velocity);
 
                 /**
                  * @brief Get the velocity object.
                  * 
                  * @return Vector2 Returns the velocity of the player.
                  */
-                Vector2 get_velocity();
+                godot::Vector2 get_velocity();
 
                 /**
                  * @brief This function is called when an enemy touches the player.
@@ -281,6 +280,10 @@ namespace godot
                  */
                 void _on_player_touched();
 
+                /**
+                 * @brief Called when the monitor is loaded to connect the player to it for tracking.
+                 * 
+                 */
                 void _on_monitor_loaded();
         };
     }

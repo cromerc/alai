@@ -1,12 +1,11 @@
-#ifndef JUEGO_STATE_H
-#define JUEGO_STATE_H
+#ifndef ALAI_STATE_MACHINE_STATE_H
+#define ALAI_STATE_MACHINE_STATE_H
 
 #include "state_machine/StateMachine.h"
 
 #include <Godot.hpp>
-#include <Node.hpp>
 
-namespace godot
+namespace alai
 {
     /**
      * @brief This class provides a virtual template state that real states should extend from and override.
@@ -21,7 +20,7 @@ namespace godot
              * @brief The state's parent, this is the node 1 level above the state machine.
              * 
              */
-            Node *parent;
+            godot::Node *parent;
             /**
              * @brief The state machine itself, used to handle all state related work.
              * 
@@ -61,7 +60,7 @@ namespace godot
              * @param[in] state This will contain the previous state.
              * @param[in] args The arguments passed to the state.
              */
-            virtual void _state_enter(const String state, const Array args = Array());
+            virtual void _state_enter(const godot::String state, const godot::Array args = godot::Array());
 
             /**
              * @brief This is called when a state is exited.
@@ -69,14 +68,14 @@ namespace godot
              * @param[in] state The state we are going to.
              * @param[in] args The arguments passed to the state.
              */
-            virtual void _state_exit(const String state, const Array args = Array());
+            virtual void _state_exit(const godot::String state, const godot::Array args = godot::Array());
 
             /**
              * @brief Set the parent object.
              * 
              * @param[in] parent The parent of the state.
              */
-            virtual void set_parent(Node *parent) final;
+            virtual void set_parent(godot::Node *parent) final;
 
             /**
              * @brief Get the parent object.

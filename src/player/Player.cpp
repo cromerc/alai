@@ -3,45 +3,42 @@
 #include "Event.h"
 
 #include <Camera2D.hpp>
-#include <TileMap.hpp>
-#include <VisibilityNotifier2D.hpp>
+#include <KinematicCollision2D.hpp>
+#include <RayCast2D.hpp>
 #include <SceneTree.hpp>
 #include <Texture.hpp>
+#include <TileMap.hpp>
 #include <Viewport.hpp>
-#include <RayCast2D.hpp>
-#include <KinematicCollision2D.hpp>
+#include <VisibilityNotifier2D.hpp>
 
-using namespace godot;
-using namespace player;
-
-void Player::_register_methods()
+void alai::player::Player::_register_methods()
 {
-    register_method("_ready", &Player::_ready);
-    register_method("_physics_process", &Player::_physics_process);
-    register_method("set_velocity", &Player::set_velocity);
-    register_method("get_velocity", &Player::get_velocity);
-    register_method("_on_player_touched", &Player::_on_player_touched);
-    register_method("_on_monitor_loaded", &Player::_on_monitor_loaded);
-    //register_property<Player, Ref<SpriteFrames>>("sprite_frames", &Player::set_sprite_frames, &Player::get_sprite_frames, Ref<SpriteFrames>(), GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_RESOURCE_TYPE, String("SpriteFrames"));
-    register_property<Player, float>("speed", &Player::set_speed, &Player::get_speed, player::speed);
-    register_property<Player, float>("jump_force", &Player::set_jump_force, &Player::get_jump_force, player::jump_force);
-    register_property<Player, float>("bounce_force", &Player::set_bounce_force, &Player::get_bounce_force, player::bounce_force);
-    register_property<Player, float>("gravity", &Player::set_gravity, &Player::get_gravity, player::gravity);
-    register_property<Player, float>("run_speed", &Player::set_run_speed, &Player::get_run_speed, player::run_speed);
-    register_property<Player, bool>("double_jump", &Player::set_double_jump, &Player::get_double_jump, player::double_jump);
+    godot::register_method("_ready", &Player::_ready);
+    godot::register_method("_physics_process", &Player::_physics_process);
+    godot::register_method("set_velocity", &Player::set_velocity);
+    godot::register_method("get_velocity", &Player::get_velocity);
+    godot::register_method("_on_player_touched", &Player::_on_player_touched);
+    godot::register_method("_on_monitor_loaded", &Player::_on_monitor_loaded);
+    //godot::register_property<Player, godot::Ref<godot::SpriteFrames>>("sprite_frames", &Player::set_sprite_frames, &Player::get_sprite_frames, godot::Ref<godot::SpriteFrames>(), GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_RESOURCE_TYPE, godot::String("SpriteFrames"));
+    godot::register_property<Player, float>("speed", &Player::set_speed, &Player::get_speed, player::speed);
+    godot::register_property<Player, float>("jump_force", &Player::set_jump_force, &Player::get_jump_force, player::jump_force);
+    godot::register_property<Player, float>("bounce_force", &Player::set_bounce_force, &Player::get_bounce_force, player::bounce_force);
+    godot::register_property<Player, float>("gravity", &Player::set_gravity, &Player::get_gravity, player::gravity);
+    godot::register_property<Player, float>("run_speed", &Player::set_run_speed, &Player::get_run_speed, player::run_speed);
+    godot::register_property<Player, bool>("double_jump", &Player::set_double_jump, &Player::get_double_jump, player::double_jump);
 }
 
-Player::Player()
+alai::player::Player::Player()
 {
 }
 
-Player::~Player()
+alai::player::Player::~Player()
 {
 }
 
-void Player::_init()
+void alai::player::Player::_init()
 {
-    _resource_loader = ResourceLoader::get_singleton();
+    _resource_loader = godot::ResourceLoader::get_singleton();
 
     //sprite_frames = _resource_loader->load(player::sprite_frames);
     set_speed(player::speed);
@@ -52,24 +49,24 @@ void Player::_init()
     set_double_jump(player::double_jump);
 
     coins = 0;
-    
-    velocity = Vector2();
+
+    velocity = godot::Vector2();
 }
 
-void Player::_ready()
+void alai::player::Player::_ready()
 {
-    animated_sprite = get_node<AnimatedSprite>("AnimatedSprite");
+    animated_sprite = get_node<godot::AnimatedSprite>("AnimatedSprite");
     if (!animated_sprite)
     {
         ERR_PRINT("AnimateSprite not found!");
-        animated_sprite = AnimatedSprite()._new();
+        animated_sprite = godot::AnimatedSprite()._new();
     }
     //animated_sprite->set_sprite_frames(sprite_frames);
 
     auto node = get_parent()->find_node("Middleground");
     if (node != nullptr)
     {
-        auto tile_map = Object::cast_to<TileMap>(node);
+        auto tile_map = Object::cast_to<godot::TileMap>(node);
         get_parent()->call_deferred("remove_child", this);
         tile_map->call_deferred("add_child", this);
     }
@@ -79,7 +76,7 @@ void Player::_ready()
     }
 }
 
-void Player::_on_monitor_loaded() {
+void alai::player::Player::_on_monitor_loaded() {
     auto state = get_node("StateMachine")->get_child(0);
     if (state != nullptr)
     {
@@ -92,22 +89,22 @@ void Player::_on_monitor_loaded() {
     }
 }
 
-void Player::_physics_process(float delta)
+void alai::player::Player::_physics_process(float delta)
 {
     velocity.y += get_gravity();
 
-    auto snap_vector = Vector2::ZERO;
+    auto snap_vector = godot::Vector2::ZERO;
     if (!is_on_floor())
     {
-        snap_vector = Vector2::DOWN * 20.0;
+        snap_vector = godot::Vector2::DOWN * 20.0;
     }
 
-    auto platform_detector = get_node<RayCast2D>("PlatformDetector");
+    auto platform_detector = get_node<godot::RayCast2D>("PlatformDetector");
     auto is_on_platform = platform_detector->is_colliding();
 
-    velocity = move_and_slide_with_snap(velocity, snap_vector, Vector2::UP, !is_on_platform, 4, 0.9, false);
+    velocity = move_and_slide_with_snap(velocity, snap_vector, godot::Vector2::UP, !is_on_platform, 4, 0.9, false);
     //velocity = move_and_slide(velocity, Vector2::UP, !is_on_platform);
-    velocity.x = Math::lerp((float) velocity.x, (float) 0, (float) 0.2);
+    velocity.x = godot::Math::lerp((float) velocity.x, (float) 0, (float) 0.2);
 
     auto count = get_slide_count();
     for (int64_t i = 0; i < count; i++)
@@ -115,7 +112,7 @@ void Player::_physics_process(float delta)
         auto collision = get_slide_collision(i);
         auto collision_object = collision->get_collider();
         auto collider = Object::cast_to<Node>(collision_object);
-        if (collider->is_in_group("squashable") && Vector2::UP.dot(collision->get_normal()) > 0.1)
+        if (collider->is_in_group("squashable") && godot::Vector2::UP.dot(collision->get_normal()) > 0.1)
         {
             collider->call_deferred("squash");
             /*auto dup_node = collider->duplicate();
@@ -134,7 +131,7 @@ void Player::_physics_process(float delta)
             }*/
             velocity.y = -get_bounce_force();
         }
-        else if (collider->is_in_group("enemy") && (collider->is_in_group("rideable") && Vector2::DOWN.dot(collision->get_normal()) > 0))
+        else if (collider->is_in_group("enemy") && (collider->is_in_group("rideable") && godot::Vector2::DOWN.dot(collision->get_normal()) > 0))
         {
             _on_player_touched();
         }
@@ -145,23 +142,23 @@ void Player::_physics_process(float delta)
     }
 
     // Clamp the player's position inside the camera's limits
-    auto camera = get_node<Camera2D>("Camera2D");
+    auto camera = get_node<godot::Camera2D>("Camera2D");
     auto position = get_global_position();
-    auto sprite_node = get_node<AnimatedSprite>("AnimatedSprite");
+    auto sprite_node = get_node<godot::AnimatedSprite>("AnimatedSprite");
     if (sprite_node != nullptr)
     {
-        position.x = Math::clamp((float) position.x, (float) camera->get_limit(0), (float) camera->get_limit(2) - sprite_node->get_sprite_frames()->get_frame("idle", 0)->get_size().x);
-        position.y = Math::clamp((float) position.y, (float) camera->get_limit(1), (float) camera->get_limit(3) + sprite_node->get_sprite_frames()->get_frame("idle", 0)->get_size().y);
+        position.x = godot::Math::clamp((float) position.x, (float) camera->get_limit(0), (float) camera->get_limit(2) - sprite_node->get_sprite_frames()->get_frame("idle", 0)->get_size().x);
+        position.y = godot::Math::clamp((float) position.y, (float) camera->get_limit(1), (float) camera->get_limit(3) + sprite_node->get_sprite_frames()->get_frame("idle", 0)->get_size().y);
     }
     else {
         WARN_PRINT("Could not clamp player based on sprite frame size!");
-        position.x = Math::clamp((float) position.x, (float) camera->get_limit(0), (float) camera->get_limit(2));
-        position.y = Math::clamp((float) position.y, (float) camera->get_limit(1), (float) camera->get_limit(3));
+        position.x = godot::Math::clamp((float) position.x, (float) camera->get_limit(0), (float) camera->get_limit(2));
+        position.y = godot::Math::clamp((float) position.y, (float) camera->get_limit(1), (float) camera->get_limit(3));
     }
     set_global_position(position);
 
     // If the player is off screen reload the scene
-    auto notifier = get_node<VisibilityNotifier2D>("Camera2D/VisibilityNotifier2D");
+    auto notifier = get_node<godot::VisibilityNotifier2D>("Camera2D/VisibilityNotifier2D");
     if (notifier != nullptr)
     {
         if (!notifier->is_on_screen())
@@ -171,9 +168,9 @@ void Player::_physics_process(float delta)
             /*if (get_parent()->get_class() == "TileMap")
             {
                 auto error = get_tree()->change_scene("res://Main.tscn");
-                if (error != Error::OK)
+                if (error != godot::Error::OK)
                 {
-                    ERR_PRINT(String().num((int) error) + " Could not load scene!");
+                    ERR_PRINT(godot::String().num((int) error) + " Could not load scene!");
                 }
             }*/
         }
@@ -191,91 +188,91 @@ void Player::_physics_process(float delta)
     }
 }
 
-void Player::set_sprite_frames(Ref<SpriteFrames> sprite_frames)
+void alai::player::Player::set_sprite_frames(godot::Ref<godot::SpriteFrames> sprite_frames)
 {
     this->sprite_frames = sprite_frames;
 }
 
-Ref<SpriteFrames> Player::get_sprite_frames()
+godot::Ref<godot::SpriteFrames> alai::player::Player::get_sprite_frames()
 {
     return this->sprite_frames;
 }
 
-void Player::set_speed(float speed)
+void alai::player::Player::set_speed(float speed)
 {
     this->speed = speed;
 }
 
-float Player::get_speed()
+float alai::player::Player::get_speed()
 {
     return this->speed;
 }
 
-void Player::set_jump_force(float jump_force)
+void alai::player::Player::set_jump_force(float jump_force)
 {
     this->jump_force = jump_force;
 }
 
-float Player::get_jump_force()
+float alai::player::Player::get_jump_force()
 {
     return this->jump_force;
 }
 
-void Player::set_bounce_force(float bounce_force)
+void alai::player::Player::set_bounce_force(float bounce_force)
 {
     this->bounce_force = bounce_force;
 }
 
-float Player::get_bounce_force()
+float alai::player::Player::get_bounce_force()
 {
     return this->bounce_force;
 }
 
-void Player::set_gravity(float gravity)
+void alai::player::Player::set_gravity(float gravity)
 {
     this->gravity = gravity;
 }
 
-float Player::get_gravity()
+float alai::player::Player::get_gravity()
 {
     return this->gravity;
 }
 
-void Player::set_run_speed(float run_speed)
+void alai::player::Player::set_run_speed(float run_speed)
 {
     this->run_speed = run_speed;
 }
 
-float Player::get_run_speed()
+float alai::player::Player::get_run_speed()
 {
     return this->run_speed;
 }
 
-void Player::set_double_jump(bool double_jump)
+void alai::player::Player::set_double_jump(bool double_jump)
 {
     this->double_jump = double_jump;
 }
 
-bool Player::get_double_jump()
+bool alai::player::Player::get_double_jump()
 {
     return this->double_jump;
 }
 
-void Player::set_velocity(Vector2 velocity)
+void alai::player::Player::set_velocity(godot::Vector2 velocity)
 {
     this->velocity = velocity;
 }
 
-Vector2 Player::get_velocity()
+godot::Vector2 alai::player::Player::get_velocity()
 {
     return this->velocity;
 }
 
-void Player::_on_player_touched()
+void alai::player::Player::_on_player_touched()
 {
     auto error = get_tree()->change_scene("res://Main.tscn");
-    if (error != Error::OK)
+    if (error != godot::Error::OK)
     {
-        ERR_PRINT(String().num((int) error) + " Could not load scene!");
+        ERR_PRINT(godot::String().num((int) error) + " Could not load scene!");
     }
 }

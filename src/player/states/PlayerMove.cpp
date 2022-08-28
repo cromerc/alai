@@ -1,43 +1,41 @@
 #include "player/states/PlayerMove.h"
+
 #include "player/Player.h"
 
-using namespace godot;
-using namespace player;
-
-void PlayerMove::_register_methods()
+void alai::player::PlayerMove::_register_methods()
 {
     register_method("_state_enter", &PlayerMove::_state_enter);
     register_method("_state_exit", &PlayerMove::_state_exit);
     register_method("_physics_process", &PlayerMove::_physics_process);
 }
 
-PlayerMove::PlayerMove()
+alai::player::PlayerMove::PlayerMove()
 {
 }
 
-PlayerMove::~PlayerMove()
+alai::player::PlayerMove::~PlayerMove()
 {
 }
 
-void PlayerMove::_init()
+void alai::player::PlayerMove::_init()
 {
-    _input = Input::get_singleton();
+    _input = godot::Input::get_singleton();
 }
 
-void PlayerMove::_state_enter()
+void alai::player::PlayerMove::_state_enter()
 {
-    animated_sprite = get_parent()->get_node<AnimatedSprite>("AnimatedSprite");
+    animated_sprite = get_parent()->get_node<godot::AnimatedSprite>("AnimatedSprite");
     animated_sprite->set_animation("move");
     animated_sprite->play();
 }
 
-void PlayerMove::_state_exit()
+void alai::player::PlayerMove::_state_exit()
 {
 }
 
-void PlayerMove::_physics_process(float delta)
+void alai::player::PlayerMove::_physics_process(float delta)
 {
-    auto parent = Object::cast_to<player::Player>(get_parent());
+    auto parent = Object::cast_to<Player>(get_parent());
 
     auto direction_pressed = false;
 

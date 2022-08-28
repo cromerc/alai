@@ -4,16 +4,16 @@
 #include <Godot.hpp>
 #include <Node2D.hpp>
 
-namespace godot
+namespace alai
 {
     /**
      * @brief This class limits the camera's position.
      * 
      * @details The camera will be limited based on the used width and height of the Middleground tilemap.
      */
-    class CameraLimit: public Node2D
+    class CameraLimit: public godot::Node2D
     {
-        GODOT_CLASS(CameraLimit, Node2D)
+        GODOT_CLASS(CameraLimit, godot::Node2D)
 
         public:
             /**

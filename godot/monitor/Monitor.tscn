@@ -6,7 +6,6 @@
 [node name="Monitor" type="Node"]
 pause_mode = 2
 script = ExtResource( 1 )
-monitor_enabled = true
 
 [node name="MonitorGUI" parent="." instance=ExtResource( 3 )]
 visible = false

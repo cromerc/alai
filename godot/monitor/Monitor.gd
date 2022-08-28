@@ -53,7 +53,7 @@ func _ready() -> void:
 	Event.connect("object_created", self, "_object_created")
 	Event.connect("object_updated", self, "_object_updated")
 	Event.connect("object_removed", self, "_object_removed")
-
+	Event.connect("coin_collected", self, "_on_coin_update")
 	game_version = get_parent().game_version
 
 	player["rut"] = ""

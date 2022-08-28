@@ -104,8 +104,10 @@ Send={
 
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Tiles"
+2d_physics/layer_3="Collectables"
 2d_physics/layer_4="Enemies"
 2d_physics/layer_5="Platforms"
+2d_physics/layer_6="End Level"
 
 [physics]
 

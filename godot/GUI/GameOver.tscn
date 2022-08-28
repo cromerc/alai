@@ -36,7 +36,7 @@ custom_fonts/font = SubResource( 1 )
 text = "GAME OVER"
 align = 1
 
-[node name="botonreiniciar" type="Button" parent="Control"]
+[node name="RestartButton" type="Button" parent="Control"]
 margin_left = 194.0
 margin_top = 150.0
 margin_right = 338.0
@@ -45,4 +45,4 @@ custom_fonts/font = SubResource( 2 )
 custom_styles/hover = SubResource( 3 )
 text = "REINICIAR"
 
-[connection signal="pressed" from="Control/botonreiniciar" to="." method="_on_botonreiniciar_pressed"]
+[connection signal="pressed" from="Control/RestartButton" to="." method="_on_restart_button_pressed"]

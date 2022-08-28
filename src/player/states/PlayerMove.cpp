@@ -1,4 +1,5 @@
 #include "player/states/PlayerMove.h"
+
 #include "player/Player.h"
 
 void alai::player::PlayerMove::_register_methods()

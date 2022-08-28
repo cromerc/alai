@@ -56,10 +56,10 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void *handle)
     godot::register_class<alai::player::PlayerMove>();
     godot::register_class<alai::player::PlayerJump>();
     godot::register_class<alai::player::PlayerFall>();
-    godot::register_class<godot::CoinNotCollected>();
-    godot::register_class<godot::CoinCollected>();
-    godot::register_class<godot::CoinCounter>();
-    godot::register_class<godot::GoalReached>();
-    godot::register_class<godot::GoalNotReached>();
-    godot::register_class<godot::GameOverScreen>();
+    godot::register_class<alai::CoinNotCollected>();
+    godot::register_class<alai::CoinCollected>();
+    godot::register_class<alai::CoinCounter>();
+    godot::register_class<alai::GoalReached>();
+    godot::register_class<alai::GoalNotReached>();
+    godot::register_class<alai::GameOverScreen>();
 }

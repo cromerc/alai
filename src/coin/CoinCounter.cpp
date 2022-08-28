@@ -1,43 +1,37 @@
 #include "coin/CoinCounter.h"
-#include <String.hpp>
-#include "coin/CoinCollected.h"
-#include "Event.h"
-using namespace godot;
 
-void CoinCounter::_register_methods()
+#include "Event.h"
+
+#include <String.hpp>
+
+void alai::CoinCounter::_register_methods()
 {
     register_method("_on_coin_collected", &CoinCounter::_on_coin_collected);
     register_method("_ready", &CoinCounter::_ready);
 }
 
-CoinCounter::CoinCounter()
+alai::CoinCounter::CoinCounter()
 {
 }
 
-CoinCounter::~CoinCounter()
+alai::CoinCounter::~CoinCounter()
 {
 }
 
-void CoinCounter::_init()
+void alai::CoinCounter::_init()
 {
-
+    coins = 0;
 }
 
-void CoinCounter::_on_CoinHUD_ready()
-{
-    
-
-}
-void CoinCounter::_on_coin_collected(int amount)
+void alai::CoinCounter::_on_coin_collected(int amount)
 {
     coins = coins + amount;
-    set_text(String::num(coins));
+    set_text(godot::String::num(coins));
 }
-void CoinCounter::_ready()
+
+void alai::CoinCounter::_ready()
 {
     set_text("0");
     auto event = get_node<alai::Event>("/root/Event");
     event->connect("coin_collected", this, "_on_coin_collected");
-   
-
 }

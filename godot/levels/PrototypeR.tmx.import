@@ -1,0 +1,24 @@
+[remap]
+
+importer="vnen.tiled_importer"
+type="PackedScene"
+path="res://.import/PrototypeR.tmx-dfb7d18f520c5c44182a13443fe1b69c.scn"
+
+[deps]
+
+source_file="res://levels/PrototypeR.tmx"
+dest_files=[ "res://.import/PrototypeR.tmx-dfb7d18f520c5c44182a13443fe1b69c.scn" ]
+
+[params]
+
+custom_properties=true
+tile_metadata=false
+uv_clip=true
+y_sort=false
+image_flags=0
+collision_layer=2
+collision_mask=0
+embed_internal_images=false
+save_tiled_properties=false
+add_background=true
+post_import_script=""

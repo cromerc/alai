@@ -130,8 +130,13 @@ void alai::player::Player::_physics_process(float delta)
                 WARN_PRINT("Enemies not found!");
                 dup->queue_free();
             }*/
-            auto jump_sound = get_parent()->get_node<godot::AudioStreamPlayer>("Sounds/Jump");
-            jump_sound->play();
+            auto jump_sound = get_node<godot::AudioStreamPlayer>("Sounds/Jump");
+            if (jump_sound != nullptr) {
+                jump_sound->play();
+            }
+            else {
+                WARN_PRINT("Player jump sound not found!");
+            }
             velocity.y = -get_bounce_force();
         }
         else if (collider->is_in_group("enemy") && (collider->is_in_group("rideable") && godot::Vector2::DOWN.dot(collision->get_normal()) > 0))
@@ -168,14 +173,6 @@ void alai::player::Player::_physics_process(float delta)
         {
             auto event = get_node<alai::Event>("/root/Event");
             event->emit_signal("player_died");
-            /*if (get_parent()->get_class() == "TileMap")
-            {
-                auto error = get_tree()->change_scene("res://Main.tscn");
-                if (error != godot::Error::OK)
-                {
-                    ERR_PRINT(godot::String().num((int) error) + " Could not load scene!");
-                }
-            }*/
         }
     }
 
@@ -273,9 +270,11 @@ godot::Vector2 alai::player::Player::get_velocity()
 
 void alai::player::Player::_on_player_touched()
 {
-    auto error = get_tree()->change_scene("res://Main.tscn");
+    /*auto error = get_tree()->change_scene("res://Main.tscn");
     if (error != godot::Error::OK)
     {
         ERR_PRINT(godot::String().num((int) error) + " Could not load scene!");
-    }
+    }*/
+    auto event = get_node<alai::Event>("/root/Event");
+    event->emit_signal("player_died");
 }

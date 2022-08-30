@@ -161,6 +161,8 @@ func start_monitor() -> void:
 	frames.clear()
 	game["level_id"] = 2 # PrototypeR
 	game["won"] = false
+	coins = 0
+	points = 0
 	game["timestamp"] = int(Time.get_unix_time_from_system())
 	start_time = Time.get_ticks_msec()
 	started = true

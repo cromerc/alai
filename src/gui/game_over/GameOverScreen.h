@@ -1,5 +1,5 @@
-#ifndef ALAI_GAME_OVER_SCREEN_H
-#define ALAI_GAME_OVER_SCREEN_H
+#ifndef ALAI_GAME_OVER_GAME_OVER_SCREEN_H
+#define ALAI_GAME_OVER_GAME_OVER_SCREEN_H
 
 #include <CanvasLayer.hpp>
 #include <Godot.hpp>

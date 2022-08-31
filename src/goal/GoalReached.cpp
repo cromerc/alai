@@ -1,5 +1,7 @@
 #include "goal/GoalReached.h"
 
+#include "Event.h"
+
 #include <Area2D.hpp>
 
 void alai::GoalReached::_register_methods()
@@ -22,7 +24,8 @@ void alai::GoalReached::_init()
 
 void alai::GoalReached::_state_enter()
 {
-    godot::Godot::print("Flag touched");
+    auto event = get_node<alai::Event>("/root/Event");
+    event->emit_signal("player_won");
 }
 
 void alai::GoalReached::_state_exit()

@@ -16,6 +16,7 @@
 #include "goal/GoalReached.h"
 #include "goal/GoalNotReached.h"
 #include "gui/game_over/GameOverScreen.h"
+#include "gui/game_won/GameWonScreen.h"
 
 /**
  * @brief This function connects the gdnative init function.
@@ -62,4 +63,5 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void *handle)
     godot::register_class<alai::GoalReached>();
     godot::register_class<alai::GoalNotReached>();
     godot::register_class<alai::GameOverScreen>();
+    godot::register_class<alai::GameWonScreen>();
 }

@@ -6,9 +6,9 @@
 
 void alai::CoinCollected::_register_methods()
 {
-    register_method("_state_enter", &CoinCollected::_state_enter);
-    register_method("_state_exit", &CoinCollected::_state_exit);
-    register_method("_on_animation_finished", &CoinCollected::_on_animation_finished);
+    godot::register_method("_state_enter", &CoinCollected::_state_enter);
+    godot::register_method("_state_exit", &CoinCollected::_state_exit);
+    godot::register_method("_on_animation_finished", &CoinCollected::_on_animation_finished);
 }
 
 alai::CoinCollected::CoinCollected()
@@ -37,7 +37,6 @@ void alai::CoinCollected::_state_enter()
 
 void alai::CoinCollected::_state_exit()
 {
-    
 }
 
 void alai::CoinCollected::_on_animation_finished(godot::String anim_name)

@@ -6,8 +6,8 @@
 
 void alai::CoinCounter::_register_methods()
 {
-    register_method("_on_coin_collected", &CoinCounter::_on_coin_collected);
-    register_method("_ready", &CoinCounter::_ready);
+    godot::register_method("_on_coin_collected", &CoinCounter::_on_coin_collected);
+    godot::register_method("_ready", &CoinCounter::_ready);
 }
 
 alai::CoinCounter::CoinCounter()

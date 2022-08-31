@@ -1,7 +1,6 @@
 #include "gui/game_over/GameOverScreen.h"
 #include "Event.h"
 
-#include <Node.hpp>
 #include <PackedScene.hpp>
 #include <Ref.hpp>
 #include <Resource.hpp>
@@ -10,10 +9,10 @@
 
 void alai::GameOverScreen::_register_methods()
 {  
-    register_method("_on_restart_button_pressed", &GameOverScreen::_on_restart_button_pressed);
-    register_method("_ready", &GameOverScreen::_ready);
-    register_method("connect_signal", &GameOverScreen::connect_signal);
-    register_method("_on_player_died", &GameOverScreen::_on_player_died);
+    godot::register_method("_on_restart_button_pressed", &GameOverScreen::_on_restart_button_pressed);
+    godot::register_method("_ready", &GameOverScreen::_ready);
+    godot::register_method("connect_signal", &GameOverScreen::connect_signal);
+    godot::register_method("_on_player_died", &GameOverScreen::_on_player_died);
 }
 
 alai::GameOverScreen::GameOverScreen()

@@ -1,7 +1,6 @@
 #include "gui/game_over/GameOverScreen.h"
 #include "Event.h"
 
-#include <Node.hpp>
 #include <PackedScene.hpp>
 #include <Ref.hpp>
 #include <Resource.hpp>

@@ -7,7 +7,7 @@ void alai::Event::_register_methods()
     godot::register_signal<Event>("object_removed", "name", GODOT_VARIANT_TYPE_STRING);
     godot::register_signal<Event>("coin_collected", "amount", GODOT_VARIANT_TYPE_INT);
     godot::register_signal<Event>("player_died");
-
+    godot::register_signal<Event>("player_won");
 }
 
 alai::Event::Event()

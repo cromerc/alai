@@ -4,9 +4,9 @@
 
 void alai::GoalNotReached::_register_methods()
 {
-    register_method("_state_enter", &GoalNotReached::_state_enter);
-    register_method("_state_exit", &GoalNotReached::_state_exit);
-    register_method("_on_Goal_body_entered", &GoalNotReached::_on_Goal_body_entered);
+    godot::register_method("_state_enter", &GoalNotReached::_state_enter);
+    godot::register_method("_state_exit", &GoalNotReached::_state_exit);
+    godot::register_method("_on_Goal_body_entered", &GoalNotReached::_on_Goal_body_entered);
 }
 
 alai::GoalNotReached::GoalNotReached()

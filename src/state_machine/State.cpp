@@ -2,11 +2,11 @@
 
 void alai::State::_register_methods()
 {
-    register_method("set_parent", &State::set_parent);
-    register_method("get_parent", &State::get_parent);
-    register_method("set_state_machine", &State::set_state_machine);
-    register_method("_state_enter", &State::_state_enter);
-    register_method("_state_exit", &State::_state_exit);
+    godot::register_method("set_parent", &State::set_parent);
+    godot::register_method("get_parent", &State::get_parent);
+    godot::register_method("set_state_machine", &State::set_state_machine);
+    godot::register_method("_state_enter", &State::_state_enter);
+    godot::register_method("_state_exit", &State::_state_exit);
 }
 
 alai::State::State()

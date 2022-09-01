@@ -51,6 +51,8 @@ void alai::player::Player::_init()
 
     coins = 0;
 
+    notifier_initialized = false;
+
     velocity = godot::Vector2();
 }
 
@@ -189,10 +191,17 @@ void alai::player::Player::_physics_process(float delta)
     auto notifier = get_node<godot::VisibilityNotifier2D>("Camera2D/VisibilityNotifier2D");
     if (notifier != nullptr)
     {
-        if (!notifier->is_on_screen())
+        if (notifier->is_inside_tree() && !notifier->is_on_screen())
         {
-            auto event = get_node<alai::Event>("/root/Event");
-            event->emit_signal("player_died");
+            // The first time the notifier is checked always returns false in the first frame
+            // So skip the check from the first frame
+            if (notifier_initialized) {
+                auto event = get_node<alai::Event>("/root/Event");
+                event->emit_signal("player_died");
+            }
+            else {
+                notifier_initialized = true;
+            }
         }
     }
     else

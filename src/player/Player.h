@@ -117,6 +117,11 @@ namespace alai
                  * 
                  */
                 bool double_jump;
+                /**
+                 * @brief If the notifier for the player being on screen has been initialized or not.
+                 * 
+                 */
+                bool notifier_initialized;
 
             public:
                 /**

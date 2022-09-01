@@ -2,6 +2,7 @@
 
 #include "Event.h"
 
+#include <AudioStreamPlayer.hpp>
 #include <Camera2D.hpp>
 #include <KinematicCollision2D.hpp>
 #include <RayCast2D.hpp>
@@ -129,6 +130,8 @@ void alai::player::Player::_physics_process(float delta)
                 WARN_PRINT("Enemies not found!");
                 dup->queue_free();
             }*/
+            auto jump_sound = get_parent()->get_node<godot::AudioStreamPlayer>("Sounds/Jump");
+            jump_sound->play();
             velocity.y = -get_bounce_force();
         }
         else if (collider->is_in_group("enemy") && (collider->is_in_group("rideable") && godot::Vector2::DOWN.dot(collision->get_normal()) > 0))

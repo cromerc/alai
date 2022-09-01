@@ -45,4 +45,5 @@ script = ExtResource( 1 )
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
 stream = ExtResource( 5 )
+volume_db = -35.0
 script = ExtResource( 6 )

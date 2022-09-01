@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Magic Fx 7.ogg-8a3ae422bac9ed88f48079377b8e81ff.oggstr"
+
+[deps]
+
+source_file="res://assets/music/Magic Fx 7.ogg"
+dest_files=[ "res://.import/Magic Fx 7.ogg-8a3ae422bac9ed88f48079377b8e81ff.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

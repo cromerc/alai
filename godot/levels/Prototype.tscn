@@ -55,5 +55,3 @@ position = Vector2( 72, 450 )
 position = Vector2( 234, 450 )
 
 [node name="Goal" parent="." instance=ExtResource( 8 )]
-
-[editable path="Coins/coin"]

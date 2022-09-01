@@ -5,6 +5,7 @@
 #include <Godot.hpp>
 #include <ResourceLoader.hpp>
 
+
 namespace alai
 {
     /**
@@ -53,6 +54,7 @@ namespace alai
             void _on_player_died();
             void _on_restart_button_pressed();
             void connect_signal();
+            void _play_music();
     };
 }
 

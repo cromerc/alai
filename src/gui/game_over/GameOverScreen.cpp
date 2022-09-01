@@ -7,6 +7,8 @@
 #include <Resource.hpp>
 #include <SceneTree.hpp>
 #include <Viewport.hpp>
+#include <AudioStreamPlayer.hpp>
+#include <VisibilityNotifier.hpp>
 
 void alai::GameOverScreen::_register_methods()
 {  
@@ -14,6 +16,7 @@ void alai::GameOverScreen::_register_methods()
     register_method("_ready", &GameOverScreen::_ready);
     register_method("connect_signal", &GameOverScreen::connect_signal);
     register_method("_on_player_died", &GameOverScreen::_on_player_died);
+    register_method("_play music", &GameOverScreen::_play_music);
 }
 
 alai::GameOverScreen::GameOverScreen()
@@ -29,9 +32,11 @@ void alai::GameOverScreen::_init()
     _resource_loader = godot::ResourceLoader::get_singleton();
 }
 
+    
 void alai::GameOverScreen::_ready()
 {
     connect_signal();
+    
 }
 
 void alai::GameOverScreen::_on_restart_button_pressed()
@@ -84,4 +89,21 @@ void alai::GameOverScreen::connect_signal()
 {
     auto event = get_node<alai::Event>("/root/Event");
     event->connect("player_died", this, "_on_player_died");
+}
+
+void alai::GameOverScreen::_play_music()
+{
+    if (this->is_on_screen() == true)
+    {
+        auto game_over_sound = get_node<godot::AudioStreamPlayer>("GameOverMusic");
+        game_over_sound->play();
+
+    }
+    else
+    {
+        auto game_over_sound = get_node<godot::AudioStreamPlayer>("GameOverMusic");
+        game_over_sound->stop();
+    }
+    
+
 }

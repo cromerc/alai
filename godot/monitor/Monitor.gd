@@ -1,10 +1,8 @@
 extends Node
 
 
-signal monitor_loaded()
-
-
 export var monitor_enabled: bool = false
+export var debug: bool = false
 export var development_url: String = "http://localhost:4050/api/v1"
 var url_real: String = "https://alai.cromer.cl/api/v1"
 export var use_development_url: bool = false
@@ -53,7 +51,11 @@ func _ready() -> void:
 	Event.connect("object_created", self, "_object_created")
 	Event.connect("object_updated", self, "_object_updated")
 	Event.connect("object_removed", self, "_object_removed")
+	Event.connect("game_started", self, "_on_game_started")
+	Event.connect("player_died", self, "_on_game_over")
+	Event.connect("player_won", self, "_on_game_won")
 	Event.connect("coin_collected", self, "_on_coin_update")
+
 	game_version = get_parent().game_version
 
 	player["rut"] = ""
@@ -108,7 +110,7 @@ func _physics_process(_delta: float) -> void:
 	if monitor_enabled:
 		if has_node("MonitorGUI") and not $MonitorGUI.visible:
 			$MonitorGUI.visible = true
-			emit_signal("monitor_loaded")
+			Event.emit_signal("monitor_loaded")
 
 		if started and not get_tree().paused:
 			var frame = empty_frame.duplicate(true)
@@ -130,13 +132,14 @@ func _physics_process(_delta: float) -> void:
 				start_monitor()
 	else:
 		get_tree().paused = false
-		emit_signal("monitor_loaded")
+		Event.emit_signal("monitor_loaded")
 		queue_free()
 
 
 func _on_input_validated(validated_player: Dictionary) -> void:
 	$MonitorGUI.queue_free()
 	get_tree().paused = false
+	Event.emit_signal("game_started")
 	player = validated_player.duplicate(true)
 	game["player"] = player
 
@@ -161,6 +164,8 @@ func start_monitor() -> void:
 	frames.clear()
 	game["level_id"] = 2 # PrototypeR
 	game["won"] = false
+	coins = 0
+	points = 0
 	game["timestamp"] = int(Time.get_unix_time_from_system())
 	start_time = Time.get_ticks_msec()
 	started = true
@@ -186,6 +191,7 @@ func remove_object(name: String) -> void:
 	for i in range(0, objects.size()):
 		if objects[i]["name"] == name:
 			objects.remove(i)
+			return
 
 
 func _on_coin_update(amount: int) -> void:
@@ -217,7 +223,16 @@ func send_data() -> void:
 	print("Body B: " + String(body.length()))
 	print("Body MB: " + String(body.length() / pow(2, 20)))
 
-	$HTTPRequest.request(url + "/game", headers, false, HTTPClient.METHOD_POST, body)
+	if not debug:
+		$HTTPRequest.request(url + "/game", headers, false, HTTPClient.METHOD_POST, body)
+	else:
+		var file = File.new()
+		if file.open("user://game.json", File.WRITE) != 0:
+			print_debug("Could not open game.json for writing!")
+			return
+
+		file.store_string(json)
+		file.close()
 
 
 func compress_payload(payload: String) -> String:
@@ -229,3 +244,21 @@ func compress_payload(payload: String) -> String:
 	return new_payload
 
 
+func _on_game_started() -> void:
+	print_debug("started game")
+	if not started:
+		start_monitor()
+
+
+func _on_game_over() -> void:
+	if started:
+		stop_monitor()
+		game["won"] = false
+		send_data()
+
+
+func _on_game_won() -> void:
+	if started:
+		stop_monitor()
+		game["won"] = true
+		send_data()

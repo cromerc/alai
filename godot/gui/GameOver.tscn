@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/fonts/ttf/PixelOperator8.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/fonts/ttf/PixelOperatorHB8.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://gui/GameOverScreen.gdns" type="Script" id=3]
+[ext_resource path="res://assets/sounds/died.wav" type="AudioStream" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.0705882, 0.917647, 0, 1 )
+
+[node name="GameOver" type="CanvasLayer"]
+script = ExtResource( 3 )
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+margin_right = 512.0
+margin_bottom = 288.0
+rect_min_size = Vector2( 512, 288 )
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="Control"]
+margin_left = 66.0
+margin_top = 17.0
+margin_right = 456.0
+margin_bottom = 71.0
+custom_fonts/font = SubResource( 1 )
+text = "GAME OVER"
+align = 1
+
+[node name="RestartButton" type="Button" parent="Control"]
+margin_left = 194.0
+margin_top = 150.0
+margin_right = 338.0
+margin_bottom = 180.0
+custom_fonts/font = SubResource( 2 )
+custom_styles/hover = SubResource( 3 )
+text = "REINICIAR"
+
+[node name="GameOverMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -23.524
+
+[connection signal="visibility_changed" from="." to="." method="_play_music"]
+[connection signal="pressed" from="Control/RestartButton" to="." method="_on_restart_button_pressed"]

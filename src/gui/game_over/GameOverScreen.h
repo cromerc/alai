@@ -1,5 +1,5 @@
-#ifndef ALAI_GAME_OVER_SCREEN_H
-#define ALAI_GAME_OVER_SCREEN_H
+#ifndef ALAI_GAME_OVER_GAME_OVER_SCREEN_H
+#define ALAI_GAME_OVER_GAME_OVER_SCREEN_H
 
 #include <CanvasLayer.hpp>
 #include <Godot.hpp>
@@ -53,6 +53,7 @@ namespace alai
             void _ready();
             void _on_player_died();
             void _on_restart_button_pressed();
+            void restart_game();
             void connect_signal();
             void _play_music();
     };

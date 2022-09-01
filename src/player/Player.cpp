@@ -19,7 +19,7 @@ void alai::player::Player::_register_methods()
     godot::register_method("set_velocity", &Player::set_velocity);
     godot::register_method("get_velocity", &Player::get_velocity);
     godot::register_method("_on_player_touched", &Player::_on_player_touched);
-    godot::register_method("_on_monitor_loaded", &Player::_on_monitor_loaded);
+    godot::register_method("_on_level_loaded", &Player::_on_level_loaded);
     //godot::register_property<Player, godot::Ref<godot::SpriteFrames>>("sprite_frames", &Player::set_sprite_frames, &Player::get_sprite_frames, godot::Ref<godot::SpriteFrames>(), GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_RESOURCE_TYPE, godot::String("SpriteFrames"));
     godot::register_property<Player, float>("speed", &Player::set_speed, &Player::get_speed, player::speed);
     godot::register_property<Player, float>("jump_force", &Player::set_jump_force, &Player::get_jump_force, player::jump_force);
@@ -51,11 +51,16 @@ void alai::player::Player::_init()
 
     coins = 0;
 
+    notifier_initialized = false;
+
     velocity = godot::Vector2();
 }
 
 void alai::player::Player::_ready()
 {
+    auto event = get_node<alai::Event>("/root/Event");
+    event->connect("level_loaded", this, "_on_level_loaded");
+
     animated_sprite = get_node<godot::AnimatedSprite>("AnimatedSprite");
     if (!animated_sprite)
     {
@@ -77,7 +82,7 @@ void alai::player::Player::_ready()
     }
 }
 
-void alai::player::Player::_on_monitor_loaded() {
+void alai::player::Player::_on_level_loaded() {
     auto state = get_node("StateMachine")->get_child(0);
     if (state != nullptr)
     {
@@ -100,8 +105,16 @@ void alai::player::Player::_physics_process(float delta)
         snap_vector = godot::Vector2::DOWN * 20.0;
     }
 
+    auto is_on_platform = false;
     auto platform_detector = get_node<godot::RayCast2D>("PlatformDetector");
-    auto is_on_platform = platform_detector->is_colliding();
+    if (platform_detector != nullptr)
+    {
+        is_on_platform = platform_detector->is_colliding();   
+    }
+    else
+    {
+        WARN_PRINT("PlatformDetector not found!");
+    }
 
     velocity = move_and_slide_with_snap(velocity, snap_vector, godot::Vector2::UP, !is_on_platform, 4, 0.9, false);
     //velocity = move_and_slide(velocity, Vector2::UP, !is_on_platform);
@@ -130,8 +143,15 @@ void alai::player::Player::_physics_process(float delta)
                 WARN_PRINT("Enemies not found!");
                 dup->queue_free();
             }*/
-            auto jump_sound = get_parent()->get_node<godot::AudioStreamPlayer>("Sounds/Jump");
-            jump_sound->play();
+            auto jump_sound = get_node<godot::AudioStreamPlayer>("Sounds/Jump");
+            if (jump_sound != nullptr)
+            {
+                jump_sound->play();
+            }
+            else
+            {
+                WARN_PRINT("Player jump sound not found!");
+            }
             velocity.y = -get_bounce_force();
         }
         else if (collider->is_in_group("enemy") && (collider->is_in_group("rideable") && godot::Vector2::DOWN.dot(collision->get_normal()) > 0))
@@ -146,37 +166,47 @@ void alai::player::Player::_physics_process(float delta)
 
     // Clamp the player's position inside the camera's limits
     auto camera = get_node<godot::Camera2D>("Camera2D");
-    auto position = get_global_position();
-    auto sprite_node = get_node<godot::AnimatedSprite>("AnimatedSprite");
-    if (sprite_node != nullptr)
+    if (camera != nullptr)
     {
-        position.x = godot::Math::clamp((float) position.x, (float) camera->get_limit(0), (float) camera->get_limit(2) - sprite_node->get_sprite_frames()->get_frame("idle", 0)->get_size().x);
-        position.y = godot::Math::clamp((float) position.y, (float) camera->get_limit(1), (float) camera->get_limit(3) + sprite_node->get_sprite_frames()->get_frame("idle", 0)->get_size().y);
+        auto position = get_global_position();
+        auto sprite_node = get_node<godot::AnimatedSprite>("AnimatedSprite");
+        if (sprite_node != nullptr)
+        {
+            position.x = godot::Math::clamp((float) position.x, (float) camera->get_limit(0), (float) camera->get_limit(2) - sprite_node->get_sprite_frames()->get_frame("idle", 0)->get_size().x);
+            position.y = godot::Math::clamp((float) position.y, (float) camera->get_limit(1), (float) camera->get_limit(3) + sprite_node->get_sprite_frames()->get_frame("idle", 0)->get_size().y);
+        }
+        else {
+            WARN_PRINT("Could not clamp player based on sprite frame size!");
+            position.x = godot::Math::clamp((float) position.x, (float) camera->get_limit(0), (float) camera->get_limit(2));
+            position.y = godot::Math::clamp((float) position.y, (float) camera->get_limit(1), (float) camera->get_limit(3));
+        }
+        set_global_position(position);
     }
-    else {
-        WARN_PRINT("Could not clamp player based on sprite frame size!");
-        position.x = godot::Math::clamp((float) position.x, (float) camera->get_limit(0), (float) camera->get_limit(2));
-        position.y = godot::Math::clamp((float) position.y, (float) camera->get_limit(1), (float) camera->get_limit(3));
+    else
+    {
+        WARN_PRINT("Camera node not found!");
     }
-    set_global_position(position);
 
     // If the player is off screen reload the scene
     auto notifier = get_node<godot::VisibilityNotifier2D>("Camera2D/VisibilityNotifier2D");
     if (notifier != nullptr)
     {
-        if (!notifier->is_on_screen())
+        if (notifier->is_inside_tree() && !notifier->is_on_screen())
         {
-            auto event = get_node<alai::Event>("/root/Event");
-            event->emit_signal("player_died");
-            /*if (get_parent()->get_class() == "TileMap")
-            {
-                auto error = get_tree()->change_scene("res://Main.tscn");
-                if (error != godot::Error::OK)
-                {
-                    ERR_PRINT(godot::String().num((int) error) + " Could not load scene!");
-                }
-            }*/
+            // The first time the notifier is checked always returns false in the first frame
+            // So skip the check from the first frame
+            if (notifier_initialized) {
+                auto event = get_node<alai::Event>("/root/Event");
+                event->emit_signal("player_died");
+            }
+            else {
+                notifier_initialized = true;
+            }
         }
+    }
+    else
+    {
+        WARN_PRINT("Visibility notifier not found!");
     }
 
     auto state = get_node("StateMachine")->get_child(0);
@@ -273,9 +303,6 @@ godot::Vector2 alai::player::Player::get_velocity()
 
 void alai::player::Player::_on_player_touched()
 {
-    auto error = get_tree()->change_scene("res://Main.tscn");
-    if (error != godot::Error::OK)
-    {
-        ERR_PRINT(godot::String().num((int) error) + " Could not load scene!");
-    }
+    auto event = get_node<alai::Event>("/root/Event");
+    event->emit_signal("player_died");
 }

@@ -15,7 +15,6 @@
 collision_layer = 5
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-current = true
 limit_left = 0
 limit_top = 0
 limit_right = 512

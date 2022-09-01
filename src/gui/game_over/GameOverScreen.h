@@ -52,6 +52,7 @@ namespace alai
             void _ready();
             void _on_player_died();
             void _on_restart_button_pressed();
+            void restart_game();
             void connect_signal();
     };
 }

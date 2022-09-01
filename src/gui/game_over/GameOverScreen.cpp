@@ -16,7 +16,7 @@ void alai::GameOverScreen::_register_methods()
     godot::register_method("restart_game", &GameOverScreen::restart_game);
     godot::register_method("connect_signal", &GameOverScreen::connect_signal);
     godot::register_method("_on_player_died", &GameOverScreen::_on_player_died);
-	godot::register_method("_play music", &GameOverScreen::_play_music);
+	godot::register_method("_play_music", &GameOverScreen::_play_music);
 }
 
 alai::GameOverScreen::GameOverScreen()

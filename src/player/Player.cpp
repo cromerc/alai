@@ -19,7 +19,7 @@ void alai::player::Player::_register_methods()
     godot::register_method("set_velocity", &Player::set_velocity);
     godot::register_method("get_velocity", &Player::get_velocity);
     godot::register_method("_on_player_touched", &Player::_on_player_touched);
-    godot::register_method("_on_monitor_loaded", &Player::_on_monitor_loaded);
+    godot::register_method("_on_level_loaded", &Player::_on_level_loaded);
     //godot::register_property<Player, godot::Ref<godot::SpriteFrames>>("sprite_frames", &Player::set_sprite_frames, &Player::get_sprite_frames, godot::Ref<godot::SpriteFrames>(), GODOT_METHOD_RPC_MODE_DISABLED, GODOT_PROPERTY_USAGE_DEFAULT, GODOT_PROPERTY_HINT_RESOURCE_TYPE, godot::String("SpriteFrames"));
     godot::register_property<Player, float>("speed", &Player::set_speed, &Player::get_speed, player::speed);
     godot::register_property<Player, float>("jump_force", &Player::set_jump_force, &Player::get_jump_force, player::jump_force);
@@ -56,6 +56,9 @@ void alai::player::Player::_init()
 
 void alai::player::Player::_ready()
 {
+    auto event = get_node<alai::Event>("/root/Event");
+    event->connect("level_loaded", this, "_on_level_loaded");
+
     animated_sprite = get_node<godot::AnimatedSprite>("AnimatedSprite");
     if (!animated_sprite)
     {
@@ -77,7 +80,7 @@ void alai::player::Player::_ready()
     }
 }
 
-void alai::player::Player::_on_monitor_loaded() {
+void alai::player::Player::_on_level_loaded() {
     auto state = get_node("StateMachine")->get_child(0);
     if (state != nullptr)
     {

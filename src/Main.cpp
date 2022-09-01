@@ -1,5 +1,7 @@
 #include "Main.h"
 
+#include "Event.h"
+
 #include <SceneTree.hpp>
 
 void alai::Main::_register_methods()
@@ -86,24 +88,21 @@ void alai::Main::_ready()
 
 void alai::Main::_on_monitor_loaded()
 {
-    if (level != nullptr)
-    {
-        auto level_node = load_level();
-        connect("monitor_loaded", level_node->get_child(0)->find_node("Player", true, false), "_on_monitor_loaded");
-        emit_signal("monitor_loaded");
-    }
+    load_level();
+    auto event = get_node<alai::Event>("/root/Event");
+    event->emit_signal("level_loaded");    
+    get_tree()->set_pause(true);
 }
 
 void alai::Main::load_monitor()
 {
+    auto event = get_node<alai::Event>("/root/Event");
+    event->connect("monitor_loaded", this, "_on_monitor_loaded");
     godot::Ref<godot::PackedScene> monitor_scene = _resource_loader->load("res://monitor/Monitor.tscn");
     add_child(monitor_scene->instance());
-    auto monitor = get_node("Monitor");
-    monitor->connect("monitor_loaded", this, "_on_monitor_loaded");
-    get_tree()->set_pause(true);
 }
 
-godot::Node *alai::Main::load_level()
+void alai::Main::load_level()
 {
     if (level != nullptr)
     {
@@ -111,9 +110,7 @@ godot::Node *alai::Main::load_level()
         auto loaded_level = level->instance();
         auto level_node = get_node("Level");
         level_node->add_child(loaded_level);
-        return level_node;
     }
-    return nullptr;
 }
 
 void alai::Main::_physics_process(float delta)

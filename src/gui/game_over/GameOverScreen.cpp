@@ -1,4 +1,5 @@
 #include "gui/game_over/GameOverScreen.h"
+
 #include "Event.h"
 
 #include <PackedScene.hpp>
@@ -11,6 +12,7 @@ void alai::GameOverScreen::_register_methods()
 {  
     godot::register_method("_on_restart_button_pressed", &GameOverScreen::_on_restart_button_pressed);
     godot::register_method("_ready", &GameOverScreen::_ready);
+    godot::register_method("restart_game", &GameOverScreen::restart_game);
     godot::register_method("connect_signal", &GameOverScreen::connect_signal);
     godot::register_method("_on_player_died", &GameOverScreen::_on_player_died);
 }
@@ -45,7 +47,7 @@ void alai::GameOverScreen::_on_restart_button_pressed()
         {
             level_node->add_child(level);
             set_visible(false);
-            call_deferred("connect_signal");
+            call_deferred("restart_game");
         }
         else
         {
@@ -77,6 +79,13 @@ void alai::GameOverScreen::_on_player_died()
     {
         WARN_PRINT("Node level not found!");
     }
+}
+
+void alai::GameOverScreen::restart_game()
+{
+    auto event = get_node<alai::Event>("/root/Event");
+    event->emit_signal("game_started");
+    connect_signal();
 }
 
 void alai::GameOverScreen::connect_signal()

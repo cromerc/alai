@@ -16,6 +16,7 @@ func _ready() -> void:
 		$AnimatedSprite.flip_h = true
 	$FloorChecker.position.x = $CollisionShape2D.shape.get_extents().x * direction
 	$FloorChecker.enabled = detect_edges
+	Event.connect("level_loaded", self, "_on_level_loaded")
 
 
 func _physics_process(_delta: float) -> void:
@@ -33,6 +34,13 @@ func _physics_process(_delta: float) -> void:
 		if collision.collider.name == "Player":
 			emit_signal("player_touched")
 
+	Event.emit_signal("object_updated", self.get_name(), "Walking", global_position, velocity)
+
 
 func squash() -> void:
+	Event.emit_signal("object_removed", self.get_name())
 	queue_free()
+
+
+func _on_level_loaded() -> void:
+	Event.emit_signal("object_created", self.get_name(), "Walking", global_position, Vector2(0, 0))

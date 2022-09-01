@@ -90,8 +90,7 @@ void alai::Main::_on_monitor_loaded()
 {
     load_level();
     auto event = get_node<alai::Event>("/root/Event");
-    event->emit_signal("level_loaded");    
-    get_tree()->set_pause(true);
+    event->emit_signal("level_loaded");
 }
 
 void alai::Main::load_monitor()
@@ -100,6 +99,7 @@ void alai::Main::load_monitor()
     event->connect("monitor_loaded", this, "_on_monitor_loaded");
     godot::Ref<godot::PackedScene> monitor_scene = _resource_loader->load("res://monitor/Monitor.tscn");
     add_child(monitor_scene->instance());
+    get_tree()->set_pause(true);
 }
 
 void alai::Main::load_level()

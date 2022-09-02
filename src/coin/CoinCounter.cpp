@@ -30,10 +30,14 @@ void alai::CoinCounter::_ready()
     event->connect("coin_collected", this, "_on_coin_collected");
 }
 
-
 void alai::CoinCounter::_on_coin_collected(int amount)
 {
     coins = coins + amount;
+    if (coins >= 100)
+    {
+        auto extra = coins - 100;
+        coins = extra;
+    } 
     godot::String coin_string = godot::String();
     if (coins <= 9)
     {

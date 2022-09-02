@@ -16,7 +16,7 @@ void alai::GameOverScreen::_register_methods()
     godot::register_method("restart_game", &GameOverScreen::restart_game);
     godot::register_method("connect_signal", &GameOverScreen::connect_signal);
     godot::register_method("_on_player_died", &GameOverScreen::_on_player_died);
-	godot::register_method("_play_music", &GameOverScreen::_play_music);
+	godot::register_method("_on_visibility_changed", &GameOverScreen::_on_visibility_changed);
 }
 
 alai::GameOverScreen::GameOverScreen()
@@ -96,6 +96,15 @@ void alai::GameOverScreen::connect_signal()
     event->connect("player_died", this, "_on_player_died");
 }
 
-void alai::GameOverScreen::_play_music()
+void alai::GameOverScreen::_on_visibility_changed()
 {
+    auto gameoversound = get_node<godot::AudioStreamPlayer>("GameOverMusic");
+    if (is_visible()) 
+    { 
+        gameoversound->play();
+    }
+    else
+    {
+        gameoversound->stop();
+    }
 }

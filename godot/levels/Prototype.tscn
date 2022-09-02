@@ -15,6 +15,7 @@
 collision_layer = 5
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
 limit_left = 0
 limit_top = 0
 limit_right = 512
@@ -50,9 +51,6 @@ script = ExtResource( 1 )
 
 [node name="coin" parent="Coins" instance=ExtResource( 5 )]
 position = Vector2( 72, 450 )
-
-[node name="AnimatedSprite" parent="Coins/coin" index="1"]
-frame = 0
 
 [node name="coin2" parent="Coins" instance=ExtResource( 5 )]
 position = Vector2( 234, 450 )

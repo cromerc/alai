@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/backgrounds/mountains.png" type="Texture" id=4]
 [ext_resource path="res://collectables/coin/Coin.tscn" type="PackedScene" id=5]
 [ext_resource path="res://hud/CoinHUD.tscn" type="PackedScene" id=6]
-[ext_resource path="res://assets/music/Magic Fx 7.ogg" type="AudioStream" id=7]
+[ext_resource path="res://assets/music/prototype_r.ogg" type="AudioStream" id=7]
 [ext_resource path="res://goal/Goal.tscn" type="PackedScene" id=8]
 
 [node name="Prototype" type="Node2D"]

@@ -1,9 +1,6 @@
 extends KinematicBody2D
 
 
-signal player_touched
-
-
 export var direction = -1
 export var speed = 50
 export var follow_path = false
@@ -82,7 +79,7 @@ func get_velocity_towards_target(delta: float) -> Vector2:
 
 func wall_checker_collided(wall_checker: RayCast2D) -> void:
 	if wall_checker.get_collider().name == "Player":
-		emit_signal("player_touched")
+		Event.emit_signal("player_touched", 3)
 	direction *= -1
 	$AnimatedSprite.flip_h = not $AnimatedSprite.flip_h
 

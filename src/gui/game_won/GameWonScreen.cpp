@@ -2,6 +2,7 @@
 
 #include "Event.h"
 
+#include <AudioStreamPlayer.hpp>
 #include <SceneTree.hpp>
 #include <Viewport.hpp>
 
@@ -11,6 +12,7 @@ void alai::GameWonScreen::_register_methods()
     godot::register_method("connect_signal", &GameWonScreen::connect_signal);
     godot::register_method("_on_player_won", &GameWonScreen::_on_player_won);
     godot::register_method("_on_quit_button_pressed", &GameWonScreen::_on_quit_button_pressed);
+    godot::register_method("_on_visibility_changed", &GameWonScreen::_on_visibility_changed);
 }
 
 alai::GameWonScreen::GameWonScreen()
@@ -63,4 +65,17 @@ void alai::GameWonScreen::connect_signal()
 {
     auto event = get_node<alai::Event>("/root/Event");
     event->connect("player_won", this, "_on_player_won");
+}
+
+void alai::GameWonScreen::_on_visibility_changed()
+{
+    auto victorysound = get_node<godot::AudioStreamPlayer>("VictorySound");
+    if (is_visible()) 
+    { 
+        victorysound->play();
+    }
+    else
+    {
+        victorysound->stop();
+    }
 }

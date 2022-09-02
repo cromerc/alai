@@ -48,7 +48,7 @@ text = "REINICIAR"
 
 [node name="GameOverMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
-volume_db = -23.524
+volume_db = -25.0
 
-[connection signal="visibility_changed" from="." to="." method="_play_music"]
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="Control/RestartButton" to="." method="_on_restart_button_pressed"]

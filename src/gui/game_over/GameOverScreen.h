@@ -55,7 +55,7 @@ namespace alai
             void _on_restart_button_pressed();
             void restart_game();
             void connect_signal();
-            void _play_music();
+            void _on_visibility_changed();
     };
 }
 

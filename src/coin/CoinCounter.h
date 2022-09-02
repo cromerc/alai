@@ -15,7 +15,7 @@ namespace alai
         GODOT_CLASS(CoinCounter, godot::Label)
 
         private:
-            int coins;
+            uint8_t coins;
 
         public:
             /**

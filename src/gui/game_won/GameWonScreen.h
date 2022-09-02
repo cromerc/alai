@@ -45,6 +45,7 @@ namespace alai
             void _on_player_won();
             void _on_quit_button_pressed();
             void connect_signal();
+            void _on_visibility_changed();
     };
 }
 

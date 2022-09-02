@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://CameraLimit.gdns" type="Script" id=1]
 [ext_resource path="res://characters/player/Player.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://characters/enemies/dreadtooth/Dreadtooth.tscn" type="PackedScene" id=11]
 [ext_resource path="res://characters/enemies/spikeball/Spikeball.tscn" type="PackedScene" id=12]
 [ext_resource path="res://characters/enemies/super_shelly/SuperShelly.tscn" type="PackedScene" id=13]
+[ext_resource path="res://characters/enemies/blightwing/Blightwing.tscn" type="PackedScene" id=14]
 
 [node name="PrototypeR" type="Node2D"]
 
@@ -129,3 +130,24 @@ position = Vector2( 1845, 366 )
 
 [node name="SuperShelly" parent="Enemies" instance=ExtResource( 13 )]
 position = Vector2( 1962, 432 )
+
+[node name="Blightwing" parent="Enemies" instance=ExtResource( 14 )]
+position = Vector2( 1206, 450 )
+follow_path = true
+
+[node name="Path" type="Node2D" parent="Enemies/Blightwing"]
+
+[node name="Node2D" type="Node2D" parent="Enemies/Blightwing/Path"]
+position = Vector2( -126, 0 )
+
+[node name="Blightwing2" parent="Enemies" instance=ExtResource( 14 )]
+position = Vector2( 1846, 324 )
+follow_path = true
+
+[node name="Path" type="Node2D" parent="Enemies/Blightwing2"]
+
+[node name="Node2D" type="Node2D" parent="Enemies/Blightwing2/Path"]
+position = Vector2( -36, 63 )
+
+[node name="Node2D2" type="Node2D" parent="Enemies/Blightwing2/Path"]
+position = Vector2( 36, 63 )

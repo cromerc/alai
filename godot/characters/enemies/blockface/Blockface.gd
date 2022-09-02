@@ -1,9 +1,6 @@
 extends KinematicBody2D
 
 
-signal player_touched
-
-
 onready var start_position = position
 var velocity = Vector2()
 export var speed = 50.0
@@ -25,7 +22,7 @@ func _physics_process(delta: float) -> void:
 			return_to_start = true
 			$AnimatedSprite.play("normal")
 			if collision.collider.name == "Player":
-				emit_signal("player_touched")
+				Event.emit_signal("player_touched", 3)
 		Event.emit_signal("object_updated", self.get_name(), "Falling", global_position, velocity)
 
 	if position.y <= start_position.y:

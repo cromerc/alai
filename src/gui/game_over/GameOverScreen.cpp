@@ -2,6 +2,7 @@
 
 #include "Event.h"
 
+#include <AudioStreamPlayer.hpp>
 #include <PackedScene.hpp>
 #include <Ref.hpp>
 #include <Resource.hpp>
@@ -9,12 +10,13 @@
 #include <Viewport.hpp>
 
 void alai::GameOverScreen::_register_methods()
-{  
+{
     godot::register_method("_on_restart_button_pressed", &GameOverScreen::_on_restart_button_pressed);
     godot::register_method("_ready", &GameOverScreen::_ready);
     godot::register_method("restart_game", &GameOverScreen::restart_game);
     godot::register_method("connect_signal", &GameOverScreen::connect_signal);
     godot::register_method("_on_player_died", &GameOverScreen::_on_player_died);
+	godot::register_method("_play_music", &GameOverScreen::_play_music);
 }
 
 alai::GameOverScreen::GameOverScreen()
@@ -37,9 +39,9 @@ void alai::GameOverScreen::_ready()
 
 void alai::GameOverScreen::_on_restart_button_pressed()
 {
-    if (_resource_loader->exists("res://levels/Prototype.tscn"))
+    if (_resource_loader->exists("res://levels/PrototypeR.tscn"))
     {
-        godot::Ref<godot::PackedScene> level_scene = _resource_loader->load("res://levels/Prototype.tscn");
+        godot::Ref<godot::PackedScene> level_scene = _resource_loader->load("res://levels/PrototypeR.tscn");
         auto level = level_scene->instance(); 
         auto level_node = get_tree()->get_root()->get_node("Main")->find_node("Level");
 
@@ -92,4 +94,8 @@ void alai::GameOverScreen::connect_signal()
 {
     auto event = get_node<alai::Event>("/root/Event");
     event->connect("player_died", this, "_on_player_died");
+}
+
+void alai::GameOverScreen::_play_music()
+{
 }

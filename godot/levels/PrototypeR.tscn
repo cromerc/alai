@@ -1,0 +1,154 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://CameraLimit.gdns" type="Script" id=1]
+[ext_resource path="res://characters/player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/PrototypeR.tmx" type="PackedScene" id=3]
+[ext_resource path="res://assets/backgrounds/hills.png" type="Texture" id=4]
+[ext_resource path="res://hud/CoinHUD.tscn" type="PackedScene" id=5]
+[ext_resource path="res://collectables/coin/Coin.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/music/prototype_r.ogg" type="AudioStream" id=7]
+[ext_resource path="res://goal/Goal.tscn" type="PackedScene" id=8]
+[ext_resource path="res://characters/enemies/blockface/Blockface.tscn" type="PackedScene" id=9]
+[ext_resource path="res://characters/enemies/shelly/Shelly.tscn" type="PackedScene" id=10]
+[ext_resource path="res://characters/enemies/dreadtooth/Dreadtooth.tscn" type="PackedScene" id=11]
+[ext_resource path="res://characters/enemies/spikeball/Spikeball.tscn" type="PackedScene" id=12]
+[ext_resource path="res://characters/enemies/super_shelly/SuperShelly.tscn" type="PackedScene" id=13]
+[ext_resource path="res://characters/enemies/blightwing/Blightwing.tscn" type="PackedScene" id=14]
+
+[node name="PrototypeR" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 36, 444 )
+collision_layer = 5
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+limit_left = 0
+limit_top = 0
+limit_right = 512
+limit_bottom = 288
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+__meta__ = {
+"_edit_bone_": true
+}
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="Player/Camera2D"]
+rect = Rect2( 0, 0, 24, 24 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.2, 0.1 )
+motion_offset = Vector2( 0, -288 )
+motion_mirroring = Vector2( 528, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource( 4 )
+centered = false
+
+[node name="Map" type="Node2D" parent="."]
+
+[node name="PrototypeR" parent="Map" instance=ExtResource( 3 )]
+script = ExtResource( 1 )
+
+[node name="CoinHUD" parent="." instance=ExtResource( 5 )]
+
+[node name="Coins" type="Node" parent="."]
+
+[node name="Coin" parent="Coins" instance=ExtResource( 6 )]
+position = Vector2( 270, 432 )
+
+[node name="Coin2" parent="Coins" instance=ExtResource( 6 )]
+position = Vector2( 846, 252 )
+
+[node name="Coin3" parent="Coins" instance=ExtResource( 6 )]
+position = Vector2( 1278, 342 )
+
+[node name="Coin4" parent="Coins" instance=ExtResource( 6 )]
+position = Vector2( 1278, 180 )
+
+[node name="Coin9" parent="Coins" instance=ExtResource( 6 )]
+position = Vector2( 1278, 108 )
+
+[node name="Coin10" parent="Coins" instance=ExtResource( 6 )]
+position = Vector2( 1800, 378 )
+
+[node name="Coin11" parent="Coins" instance=ExtResource( 6 )]
+position = Vector2( 1872, 378 )
+
+[node name="Coin12" parent="Coins" instance=ExtResource( 6 )]
+position = Vector2( 1836, 315 )
+
+[node name="Coin5" parent="Coins" instance=ExtResource( 6 )]
+position = Vector2( 522, 270 )
+
+[node name="Coin6" parent="Coins" instance=ExtResource( 6 )]
+position = Vector2( 990, 324 )
+
+[node name="Coin13" parent="Coins" instance=ExtResource( 6 )]
+position = Vector2( 1134, 414 )
+
+[node name="Coin7" parent="Coins" instance=ExtResource( 6 )]
+position = Vector2( 468, 306 )
+
+[node name="Coin8" parent="Coins" instance=ExtResource( 6 )]
+position = Vector2( 576, 306 )
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -25.0
+autoplay = true
+
+[node name="Goal" parent="." instance=ExtResource( 8 )]
+position = Vector2( 2052, 396 )
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Blockface" parent="Enemies" instance=ExtResource( 9 )]
+position = Vector2( 531, 228 )
+
+[node name="Blockface2" parent="Enemies" instance=ExtResource( 9 )]
+position = Vector2( 1287, 72 )
+
+[node name="Shelly" parent="Enemies" instance=ExtResource( 10 )]
+position = Vector2( 918, 258 )
+
+[node name="Shelly2" parent="Enemies" instance=ExtResource( 10 )]
+position = Vector2( 612, 360 )
+
+[node name="Dreadtooth" parent="Enemies" instance=ExtResource( 11 )]
+position = Vector2( 1337, 217 )
+
+[node name="Spikeball" parent="Enemies" instance=ExtResource( 12 )]
+position = Vector2( 1458, 336 )
+
+[node name="Spikeball2" parent="Enemies" instance=ExtResource( 12 )]
+position = Vector2( 1428, 348 )
+
+[node name="Spikeball3" parent="Enemies" instance=ExtResource( 12 )]
+position = Vector2( 1845, 366 )
+
+[node name="SuperShelly" parent="Enemies" instance=ExtResource( 13 )]
+position = Vector2( 1962, 432 )
+
+[node name="Blightwing" parent="Enemies" instance=ExtResource( 14 )]
+position = Vector2( 1206, 450 )
+follow_path = true
+
+[node name="Path" type="Node2D" parent="Enemies/Blightwing"]
+
+[node name="Node2D" type="Node2D" parent="Enemies/Blightwing/Path"]
+position = Vector2( -126, 0 )
+
+[node name="Blightwing2" parent="Enemies" instance=ExtResource( 14 )]
+position = Vector2( 1846, 324 )
+follow_path = true
+
+[node name="Path" type="Node2D" parent="Enemies/Blightwing2"]
+
+[node name="Node2D" type="Node2D" parent="Enemies/Blightwing2/Path"]
+position = Vector2( -36, 63 )
+
+[node name="Node2D2" type="Node2D" parent="Enemies/Blightwing2/Path"]
+position = Vector2( 36, 63 )

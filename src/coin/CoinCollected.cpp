@@ -2,6 +2,7 @@
 
 #include "Event.h"
 
+#include <AudioStreamPlayer.hpp>
 #include <AnimationPlayer.hpp>
 
 void alai::CoinCollected::_register_methods()
@@ -32,7 +33,8 @@ void alai::CoinCollected::_state_enter()
         auto animation_player = Object::cast_to<godot::AnimationPlayer>(node);
         animation_player->play("jump");
     }
-    
+    auto coin_collected_sound = get_parent()->get_node<godot::AudioStreamPlayer>("CoinCollectedSound");
+    coin_collected_sound->play();
 }
 
 void alai::CoinCollected::_state_exit()

@@ -1,9 +1,6 @@
 extends KinematicBody2D
 
 
-signal player_touched
-
-
 var velocity = Vector2()
 export var direction = -1
 export var detect_edges = true
@@ -32,7 +29,7 @@ func _physics_process(_delta: float) -> void:
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
 		if collision.collider.name == "Player":
-			emit_signal("player_touched")
+			Event.emit_signal("player_touched", 3)
 
 	Event.emit_signal("object_updated", self.get_name(), "Walking", global_position, velocity)
 

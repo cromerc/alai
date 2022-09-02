@@ -89,10 +89,3 @@ position = Vector2( 247, 439 )
 
 [node name="SuperShelly" parent="Enemies" instance=ExtResource( 7 )]
 position = Vector2( 62, 546 )
-
-[connection signal="player_touched" from="Enemies/Blightwing" to="Player" method="_on_player_touched"]
-[connection signal="player_touched" from="Enemies/Blockface" to="Player" method="_on_player_touched"]
-[connection signal="player_touched" from="Enemies/Dreadtooth" to="Player" method="_on_player_touched"]
-[connection signal="player_touched" from="Enemies/Dreadtooth2" to="Player" method="_on_player_touched"]
-[connection signal="player_touched" from="Enemies/Shelly" to="Player" method="_on_player_touched"]
-[connection signal="player_touched" from="Enemies/SuperShelly" to="Player" method="_on_player_touched"]

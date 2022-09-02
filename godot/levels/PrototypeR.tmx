@@ -3,12 +3,12 @@
  <tileset firstgid="1" source="../tilesets/tiles.tsx"/>
  <layer id="3" name="Background" width="120" height="32">
   <data encoding="base64" compression="zstd">
-   KLUv/WAAO9UGAOQDABIAAAATFAAnEiYoEjo8YgAAADs6dQA6iwAAAIwAOnUAihIoADd/YwAAAGQAAAB4AAAAdiY3ADqLYwAAgAA8oBCVNdsBwAKTQCJcY8XxUYoarT8gQjyeu5O6nkqpOlT1gMJhyWO43xyk5jp+D3SGOxcoT52U4vScQx63fcb98i+k3jK5QUu8pNUR8O+i4l7VPW51R5d4k1T3FuabG4vErcrOI+U6fRflI6vfRsa41pUIv1HPe0OudqI1qDNHH2bcTSH3r27pd6Tac6lM+3bwXaj+q2cxvogB
+   KLUv/WAAO+UJAKKFEBmgKa0BQ/z5f96XBipzAacygijAnyB3inwKFSvNi9glMAjxxA9XlsgtTIpZPMt4Y5dngxsSKwGqJ/AAXtOPtCPdGGCgMLGl7aACk0ACwdEBxfEUiOZVzal6o7kqyNAeN3fIyH7S5qp2c6UrxlMzmjiIKgDhsHQId31OUO2QhjGOn1jH74PYuHOc8tYy/qlHqaNzDnLc/nFdEc9bdesdom5Z3PEgeGCq2jtS46axwFMfv3dxfKgNZ5HU/e4tjqcWSd0k/yrTDSmpq+CqHl/d0aVt0urewnTzsUiyVcsyprra58l1+g7NC/UOqt5CzniZswtOyWRvAHxDn0csowOGV42bUrLGiSrDqDOLOIxxbSotgVq8/NT2n/z80u/Jz1KVb98VKDofNZOm5Ndvltmp+0cuUIUgKiT5TQw=
   </data>
  </layer>
  <layer id="1" name="Middleground" width="120" height="32">
   <data encoding="base64" compression="zstd">
-   KLUv/WAAOz0FAIQCADEAAAAyMwACAAAAAwQAAhYAAAAXGAB6AAAAe3wAF4ZfAHuIAIZeiCygMLF1UIIUiARiZAelj/9XjXZV/ipp0q1TfoI4FDJcav6xkgcm3cqld/XLYVzNgPGrRkX6pwiG831dQsKVhvGrM0E5nOTUdZpyl96SqGcYDzh1mVBuKT0+fmorpXmjgBlElduJp59uitTebrC/onYW//xER7myT2JL+hkD
+   KLUv/WAAO50FAMQCADEAAAAyMwACAAAAAwQAGwACFgAAABcYABt6AAAAe3wAGxeGXwB7iACGXogxoCCzdWCCFIgEYmQHpY//V412Vf4gGemWL/1AEQoZHqr8I5IHRLoFS671y2WYzYBxqqNa2qcCCqf7uoRE1YZxqzJNOVxJqesG5R7dJVCGcRyg1GVAvQU6Pu6UVhrTRgcqSPFJzkzZ78bTSSezM7YmircT9lep4Hgo+u2SHKWql8yW9EEH
   </data>
  </layer>
  <layer id="2" name="Foreground" width="120" height="32">

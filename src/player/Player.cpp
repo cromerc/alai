@@ -60,6 +60,7 @@ void alai::player::Player::_ready()
 {
     auto event = get_node<alai::Event>("/root/Event");
     event->connect("level_loaded", this, "_on_level_loaded");
+    event->connect("player_touched", this, "_on_player_touched");
 
     animated_sprite = get_node<godot::AnimatedSprite>("AnimatedSprite");
     if (!animated_sprite)
@@ -156,11 +157,11 @@ void alai::player::Player::_physics_process(float delta)
         }
         else if (collider->is_in_group("enemy") && (collider->is_in_group("rideable") && godot::Vector2::DOWN.dot(collision->get_normal()) > 0))
         {
-            _on_player_touched();
+            _on_player_touched(3);
         }
         else if (collider->is_in_group("enemy") && !collider->is_in_group("rideable"))
         {
-            _on_player_touched();
+            _on_player_touched(3);
         }
     }
 
@@ -301,7 +302,7 @@ godot::Vector2 alai::player::Player::get_velocity()
     return this->velocity;
 }
 
-void alai::player::Player::_on_player_touched()
+void alai::player::Player::_on_player_touched(uint8_t damage)
 {
     auto event = get_node<alai::Event>("/root/Event");
     event->emit_signal("player_died");

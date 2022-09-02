@@ -283,7 +283,7 @@ namespace alai
                  * @brief This function is called when an enemy touches the player.
                  * 
                  */
-                void _on_player_touched();
+                void _on_player_touched(uint8_t damage);
 
                 /**
                  * @brief Called when the monitor is loaded to connect the player to it for tracking.

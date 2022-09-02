@@ -7,7 +7,7 @@
 
 void alai::CameraLimit::_register_methods()
 {
-    register_method("_ready", &CameraLimit::_ready);
+    godot::register_method("_ready", &CameraLimit::_ready);
 }
 
 alai::CameraLimit::CameraLimit()

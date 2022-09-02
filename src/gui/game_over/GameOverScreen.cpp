@@ -1,7 +1,8 @@
 #include "gui/game_over/GameOverScreen.h"
+
 #include "Event.h"
 
-#include <Node.hpp>
+#include <AudioStreamPlayer.hpp>
 #include <PackedScene.hpp>
 #include <Ref.hpp>
 #include <Resource.hpp>
@@ -9,11 +10,13 @@
 #include <Viewport.hpp>
 
 void alai::GameOverScreen::_register_methods()
-{  
-    register_method("_on_restart_button_pressed", &GameOverScreen::_on_restart_button_pressed);
-    register_method("_ready", &GameOverScreen::_ready);
-    register_method("connect_signal", &GameOverScreen::connect_signal);
-    register_method("_on_player_died", &GameOverScreen::_on_player_died);
+{
+    godot::register_method("_on_restart_button_pressed", &GameOverScreen::_on_restart_button_pressed);
+    godot::register_method("_ready", &GameOverScreen::_ready);
+    godot::register_method("restart_game", &GameOverScreen::restart_game);
+    godot::register_method("connect_signal", &GameOverScreen::connect_signal);
+    godot::register_method("_on_player_died", &GameOverScreen::_on_player_died);
+	godot::register_method("_on_visibility_changed", &GameOverScreen::_on_visibility_changed);
 }
 
 alai::GameOverScreen::GameOverScreen()
@@ -36,9 +39,9 @@ void alai::GameOverScreen::_ready()
 
 void alai::GameOverScreen::_on_restart_button_pressed()
 {
-    if (_resource_loader->exists("res://levels/Prototype.tscn"))
+    if (_resource_loader->exists("res://levels/PrototypeR.tscn"))
     {
-        godot::Ref<godot::PackedScene> level_scene = _resource_loader->load("res://levels/Prototype.tscn");
+        godot::Ref<godot::PackedScene> level_scene = _resource_loader->load("res://levels/PrototypeR.tscn");
         auto level = level_scene->instance(); 
         auto level_node = get_tree()->get_root()->get_node("Main")->find_node("Level");
 
@@ -46,7 +49,7 @@ void alai::GameOverScreen::_on_restart_button_pressed()
         {
             level_node->add_child(level);
             set_visible(false);
-            call_deferred("connect_signal");
+            call_deferred("restart_game");
         }
         else
         {
@@ -80,8 +83,28 @@ void alai::GameOverScreen::_on_player_died()
     }
 }
 
+void alai::GameOverScreen::restart_game()
+{
+    auto event = get_node<alai::Event>("/root/Event");
+    event->emit_signal("game_started");
+    connect_signal();
+}
+
 void alai::GameOverScreen::connect_signal()
 {
     auto event = get_node<alai::Event>("/root/Event");
     event->connect("player_died", this, "_on_player_died");
+}
+
+void alai::GameOverScreen::_on_visibility_changed()
+{
+    auto gameoversound = get_node<godot::AudioStreamPlayer>("GameOverMusic");
+    if (is_visible()) 
+    { 
+        gameoversound->play();
+    }
+    else
+    {
+        gameoversound->stop();
+    }
 }

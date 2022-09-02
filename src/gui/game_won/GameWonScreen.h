@@ -1,23 +1,18 @@
-#ifndef ALAI_GAME_OVER_GAME_OVER_SCREEN_H
-#define ALAI_GAME_OVER_GAME_OVER_SCREEN_H
+#ifndef ALAI_GAME_WON_GAME_WON_SCREEN_H
+#define ALAI_GAME_WON_GAME_WON_SCREEN_H
 
 #include <CanvasLayer.hpp>
 #include <Godot.hpp>
-#include <ResourceLoader.hpp>
-
 
 namespace alai
 {
     /**
-     * @brief This class controls what happens when the Coin is in the collected .
+     * @brief This class controls what happens when the game is won.
      * 
      */
-    class GameOverScreen : public godot::CanvasLayer
+    class GameWonScreen : public godot::CanvasLayer
     {
-        GODOT_CLASS(GameOverScreen, godot::CanvasLayer)
-
-        private:
-            godot::ResourceLoader *_resource_loader;
+        GODOT_CLASS(GameWonScreen, godot::CanvasLayer)
 
         public:
             /**
@@ -28,16 +23,16 @@ namespace alai
             static void _register_methods();
 
             /**
-             * @brief Construct a new GameOverScreen object.
+             * @brief Construct a new GameWonScreen object.
              * 
              */
-            GameOverScreen();
+            GameWonScreen();
 
             /**
-             * @brief Destroy the GameOverScreen object.
+             * @brief Destroy the GameWonScreen object.
              * 
              */
-            ~GameOverScreen();
+            ~GameWonScreen();
 
             /**
              * @brief Initialize the class from Godot.
@@ -46,14 +41,9 @@ namespace alai
              */
             void _init();
 
-            /**
-             * @brief Called when the collected  of the coin is entered.
-             * 
-             */
             void _ready();
-            void _on_player_died();
-            void _on_restart_button_pressed();
-            void restart_game();
+            void _on_player_won();
+            void _on_quit_button_pressed();
             void connect_signal();
             void _on_visibility_changed();
     };

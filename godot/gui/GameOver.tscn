@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/fonts/ttf/PixelOperator8.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/fonts/ttf/PixelOperatorHB8.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://GUI/botonreiniciar.gdns" type="Script" id=3]
+[ext_resource path="res://gui/GameOverScreen.gdns" type="Script" id=3]
+[ext_resource path="res://assets/sounds/died.wav" type="AudioStream" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50
@@ -45,4 +46,9 @@ custom_fonts/font = SubResource( 2 )
 custom_styles/hover = SubResource( 3 )
 text = "REINICIAR"
 
+[node name="GameOverMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -25.0
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="Control/RestartButton" to="." method="_on_restart_button_pressed"]

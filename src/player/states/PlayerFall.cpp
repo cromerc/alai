@@ -4,9 +4,9 @@
 
 void alai::player::PlayerFall::_register_methods()
 {
-    register_method("_state_enter", &PlayerFall::_state_enter);
-    register_method("_state_exit", &PlayerFall::_state_exit);
-    register_method("_physics_process", &PlayerFall::_physics_process);
+    godot::register_method("_state_enter", &PlayerFall::_state_enter);
+    godot::register_method("_state_exit", &PlayerFall::_state_exit);
+    godot::register_method("_physics_process", &PlayerFall::_physics_process);
 }
 
 alai::player::PlayerFall::PlayerFall()

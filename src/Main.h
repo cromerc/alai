@@ -224,9 +224,8 @@ namespace alai
             /**
              * @brief Loads the selected level.
              * 
-             * @return Node* The level node which we will later add the monitor to.
              */
-            Node *load_level();
+            void load_level();
     };
 }
 

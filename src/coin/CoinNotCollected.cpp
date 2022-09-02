@@ -4,9 +4,9 @@
 
 void alai::CoinNotCollected::_register_methods()
 {
-    register_method("_state_enter", &CoinNotCollected::_state_enter);
-    register_method("_state_exit", &CoinNotCollected::_state_exit);
-    register_method("_on_body_entered", &CoinNotCollected::_on_body_entered);
+    godot::register_method("_state_enter", &CoinNotCollected::_state_enter);
+    godot::register_method("_state_exit", &CoinNotCollected::_state_exit);
+    godot::register_method("_on_body_entered", &CoinNotCollected::_on_body_entered);
 }
 
 alai::CoinNotCollected::CoinNotCollected()

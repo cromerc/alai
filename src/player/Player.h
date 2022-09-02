@@ -117,6 +117,11 @@ namespace alai
                  * 
                  */
                 bool double_jump;
+                /**
+                 * @brief If the notifier for the player being on screen has been initialized or not.
+                 * 
+                 */
+                bool notifier_initialized;
 
             public:
                 /**
@@ -278,13 +283,13 @@ namespace alai
                  * @brief This function is called when an enemy touches the player.
                  * 
                  */
-                void _on_player_touched();
+                void _on_player_touched(uint8_t damage);
 
                 /**
                  * @brief Called when the monitor is loaded to connect the player to it for tracking.
                  * 
                  */
-                void _on_monitor_loaded();
+                void _on_level_loaded();
         };
     }
 }

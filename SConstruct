@@ -82,6 +82,8 @@ elif env['platform'] == "windows":
     # that way you can run scons in a vs 2017 prompt and it will find all the required tools
     env.Append(ENV=os.environ)
 
+    env.Append(CXXFLAGS=['-std=c++17'])
+
     env.Append(LINKFLAGS=[
         '--static',
         '-Wl,--no-undefined',

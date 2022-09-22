@@ -2,6 +2,7 @@ extends Node
 
 
 export var monitor_enabled: bool = false
+export var anonymous: bool = true
 export var debug: bool = false
 export var development_url: String = "http://localhost:4050/api/v1"
 var url_real: String = "https://alai.cromer.cl/api/v1"
@@ -58,9 +59,10 @@ func _ready() -> void:
 
 	game_version = get_parent().game_version
 
-	player["rut"] = ""
-	player["name"] = ""
-	player["email"] = ""
+	if not anonymous:
+		player["rut"] = ""
+		player["name"] = ""
+		player["email"] = ""
 
 	var os_name = OS.get_name()
 	if os_name == "Android":
@@ -82,7 +84,8 @@ func _ready() -> void:
 	else:
 		os_id = 0
 
-	game["player"] = player
+	if not anonymous:
+		game["player"] = player
 	game["level_id"] = 0
 	game["os_id"] = os_id
 	game["godot_version"] = godot_version
@@ -108,9 +111,15 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if monitor_enabled:
-		if has_node("MonitorGUI") and not $MonitorGUI.visible:
-			$MonitorGUI.visible = true
+		if anonymous and has_node("MonitorGUI"):
+			$MonitorGUI.queue_free()
 			Event.emit_signal("monitor_loaded")
+			get_tree().paused = false
+			start_monitor()
+		else:
+			if has_node("MonitorGUI") and not $MonitorGUI.visible:
+				$MonitorGUI.visible = true
+				Event.emit_signal("monitor_loaded")
 
 		if started and not get_tree().paused:
 			var frame = empty_frame.duplicate(true)
@@ -137,12 +146,13 @@ func _physics_process(_delta: float) -> void:
 
 
 func _on_input_validated(validated_player: Dictionary) -> void:
-	$MonitorGUI.queue_free()
-	get_tree().paused = false
-	Event.emit_signal("game_started")
-	player = validated_player.duplicate(true)
-	game["player"] = player
-	start_monitor()
+	if not anonymous:
+		$MonitorGUI.queue_free()
+		get_tree().paused = false
+		Event.emit_signal("game_started")
+		player = validated_player.duplicate(true)
+		game["player"] = player
+		start_monitor()
 
 
 func _object_created(name: String, state: String, position: Vector2, velocity: Vector2) -> void:

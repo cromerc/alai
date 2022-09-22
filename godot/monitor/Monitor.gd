@@ -133,11 +133,11 @@ func _physics_process(_delta: float) -> void:
 
 			frames.append(frame)
 
-			if Input.is_action_just_pressed("Send"):
+			if debug and Input.is_action_just_pressed("Send"):
 				stop_monitor()
 				send_data()
 		else:
-			if Input.is_action_just_pressed("Send"):
+			if debug and Input.is_action_just_pressed("Send"):
 				start_monitor()
 	else:
 		get_tree().paused = false

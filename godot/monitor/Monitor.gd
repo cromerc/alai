@@ -142,6 +142,7 @@ func _on_input_validated(validated_player: Dictionary) -> void:
 	Event.emit_signal("game_started")
 	player = validated_player.duplicate(true)
 	game["player"] = player
+	start_monitor()
 
 
 func _object_created(name: String, state: String, position: Vector2, velocity: Vector2) -> void:

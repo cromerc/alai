@@ -1,6 +1,5 @@
-#include "player/states/PlayerJump.h"
-
 #include "player/Player.h"
+#include "player/states/PlayerJump.h"
 
 #include <AudioStreamPlayer.hpp>
 
@@ -42,16 +41,16 @@ void alai::player::PlayerJump::_state_enter(const godot::String state)
         double_jumped = false;
     }
 
-    auto parent = Object::cast_to<Player>(get_parent());
+    auto parent   = Object::cast_to<Player>(get_parent());
     auto velocity = parent->get_velocity();
-    velocity.y = -parent->get_jump_force();
+    velocity.y    = -parent->get_jump_force();
     parent->set_velocity(velocity);
 }
 
 void alai::player::PlayerJump::_state_exit()
 {
-        animated_sprite->set_animation("move");
-        animated_sprite->set_frame(1);
+    animated_sprite->set_animation("move");
+    animated_sprite->set_frame(1);
 }
 
 void alai::player::PlayerJump::_physics_process(float delta)
@@ -64,8 +63,8 @@ void alai::player::PlayerJump::_physics_process(float delta)
     }
 
     auto current_speed = parent->get_speed();
-    auto velocity = parent->get_velocity();
-    velocity.x = 0;
+    auto velocity      = parent->get_velocity();
+    velocity.x         = 0;
     if (_input->is_action_pressed("run"))
     {
         current_speed *= parent->get_run_speed();

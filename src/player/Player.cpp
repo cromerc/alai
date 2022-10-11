@@ -1,6 +1,5 @@
-#include "player/Player.h"
-
 #include "Event.h"
+#include "player/Player.h"
 
 #include <AudioStreamPlayer.hpp>
 #include <Camera2D.hpp>
@@ -83,7 +82,8 @@ void alai::player::Player::_ready()
     }
 }
 
-void alai::player::Player::_on_level_loaded() {
+void alai::player::Player::_on_level_loaded()
+{
     auto state = get_node("StateMachine")->get_child(0);
     if (state != nullptr)
     {
@@ -106,27 +106,27 @@ void alai::player::Player::_physics_process(float delta)
         snap_vector = godot::Vector2::DOWN * 20.0;
     }
 
-    auto is_on_platform = false;
+    auto is_on_platform    = false;
     auto platform_detector = get_node<godot::RayCast2D>("PlatformDetector");
     if (platform_detector != nullptr)
     {
-        is_on_platform = platform_detector->is_colliding();   
+        is_on_platform = platform_detector->is_colliding();
     }
     else
     {
         WARN_PRINT("PlatformDetector not found!");
     }
 
-    velocity = move_and_slide_with_snap(velocity, snap_vector, godot::Vector2::UP, !is_on_platform, 4, 0.9, false);
+    velocity   = move_and_slide_with_snap(velocity, snap_vector, godot::Vector2::UP, !is_on_platform, 4, 0.9, false);
     //velocity = move_and_slide(velocity, Vector2::UP, !is_on_platform);
     velocity.x = godot::Math::lerp((float) velocity.x, (float) 0, (float) 0.2);
 
     auto count = get_slide_count();
     for (int64_t i = 0; i < count; i++)
     {
-        auto collision = get_slide_collision(i);
+        auto collision        = get_slide_collision(i);
         auto collision_object = collision->get_collider();
-        auto collider = Object::cast_to<Node>(collision_object);
+        auto collider         = Object::cast_to<Node>(collision_object);
         if (collider->is_in_group("squashable") && godot::Vector2::UP.dot(collision->get_normal()) > 0.1)
         {
             collider->call_deferred("squash");
@@ -169,14 +169,15 @@ void alai::player::Player::_physics_process(float delta)
     auto camera = get_node<godot::Camera2D>("Camera2D");
     if (camera != nullptr)
     {
-        auto position = get_global_position();
+        auto position    = get_global_position();
         auto sprite_node = get_node<godot::AnimatedSprite>("AnimatedSprite");
         if (sprite_node != nullptr)
         {
             position.x = godot::Math::clamp((float) position.x, (float) camera->get_limit(0), (float) camera->get_limit(2) - sprite_node->get_sprite_frames()->get_frame("idle", 0)->get_size().x);
             position.y = godot::Math::clamp((float) position.y, (float) camera->get_limit(1), (float) camera->get_limit(3) + sprite_node->get_sprite_frames()->get_frame("idle", 0)->get_size().y);
         }
-        else {
+        else
+        {
             WARN_PRINT("Could not clamp player based on sprite frame size!");
             position.x = godot::Math::clamp((float) position.x, (float) camera->get_limit(0), (float) camera->get_limit(2));
             position.y = godot::Math::clamp((float) position.y, (float) camera->get_limit(1), (float) camera->get_limit(3));
@@ -196,11 +197,13 @@ void alai::player::Player::_physics_process(float delta)
         {
             // The first time the notifier is checked always returns false in the first frame
             // So skip the check from the first frame
-            if (notifier_initialized) {
+            if (notifier_initialized)
+            {
                 auto event = get_node<alai::Event>("/root/Event");
                 event->emit_signal("player_died");
             }
-            else {
+            else
+            {
                 notifier_initialized = true;
             }
         }

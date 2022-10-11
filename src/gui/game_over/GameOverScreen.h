@@ -5,7 +5,6 @@
 #include <Godot.hpp>
 #include <ResourceLoader.hpp>
 
-
 namespace alai
 {
     /**
@@ -14,7 +13,7 @@ namespace alai
      */
     class GameOverScreen : public godot::CanvasLayer
     {
-        GODOT_CLASS(GameOverScreen, godot::CanvasLayer)
+            GODOT_CLASS(GameOverScreen, godot::CanvasLayer)
 
         private:
             godot::ResourceLoader *_resource_loader;
@@ -57,6 +56,6 @@ namespace alai
             void connect_signal();
             void _on_visibility_changed();
     };
-}
+} // namespace alai
 
 #endif

@@ -1,22 +1,22 @@
-#include <Godot.hpp>
-
-#include "Event.h"
-#include "state_machine/StateMachine.h"
-#include "state_machine/State.h"
-#include "Main.h"
 #include "CameraLimit.h"
-#include "player/Player.h"
-#include "player/states/PlayerIdle.h"
-#include "player/states/PlayerMove.h"
-#include "player/states/PlayerJump.h"
-#include "player/states/PlayerFall.h"
-#include "coin/CoinNotCollected.h"
+#include "Event.h"
+#include "Main.h"
 #include "coin/CoinCollected.h"
 #include "coin/CoinCounter.h"
-#include "goal/GoalReached.h"
+#include "coin/CoinNotCollected.h"
 #include "goal/GoalNotReached.h"
+#include "goal/GoalReached.h"
 #include "gui/game_over/GameOverScreen.h"
 #include "gui/game_won/GameWonScreen.h"
+#include "player/Player.h"
+#include "player/states/PlayerFall.h"
+#include "player/states/PlayerIdle.h"
+#include "player/states/PlayerJump.h"
+#include "player/states/PlayerMove.h"
+#include "state_machine/State.h"
+#include "state_machine/StateMachine.h"
+
+#include <Godot.hpp>
 
 /**
  * @brief This function connects the gdnative init function.
@@ -47,7 +47,7 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void *handle)
 {
     godot::Godot::nativescript_init(handle);
 
-	godot::register_class<alai::Event>();
+    godot::register_class<alai::Event>();
     godot::register_class<alai::StateMachine>();
     godot::register_class<alai::State>();
     godot::register_class<alai::Main>();

@@ -3,9 +3,9 @@
 
 #include "state_machine/State.h"
 
+#include <AnimatedSprite.hpp>
 #include <Godot.hpp>
 #include <Input.hpp>
-#include <AnimatedSprite.hpp>
 
 namespace alai
 {
@@ -17,7 +17,7 @@ namespace alai
          */
         class PlayerMove : public State
         {
-            GODOT_CLASS(PlayerMove, State)
+                GODOT_CLASS(PlayerMove, State)
 
             private:
                 /**
@@ -77,7 +77,7 @@ namespace alai
                  */
                 void _physics_process(float delta);
         };
-    }
-}
+    } // namespace player
+} // namespace alai
 
 #endif

@@ -1,6 +1,5 @@
-#include "coin/CoinCounter.h"
-
 #include "Event.h"
+#include "coin/CoinCounter.h"
 
 #include <String.hpp>
 
@@ -36,14 +35,15 @@ void alai::CoinCounter::_on_coin_collected(int amount)
     if (coins >= 100)
     {
         auto extra = coins - 100;
-        coins = extra;
-    } 
+        coins      = extra;
+    }
     godot::String coin_string = godot::String();
     if (coins <= 9)
     {
         coin_string = "0" + godot::String::num(coins);
     }
-    else{
+    else
+    {
         coin_string = godot::String::num(coins);
     }
     set_text(coin_string);

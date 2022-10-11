@@ -1,6 +1,5 @@
-#include "goal/GoalReached.h"
-
 #include "Event.h"
+#include "goal/GoalReached.h"
 
 #include <Area2D.hpp>
 

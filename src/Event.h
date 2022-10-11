@@ -14,7 +14,8 @@ namespace alai
      */
     class Event : public godot::Node
     {
-        GODOT_CLASS(Event, godot::Node)
+            GODOT_CLASS(Event, godot::Node)
+
         public:
             /**
              * @brief This method registers classes with Godot.
@@ -42,6 +43,6 @@ namespace alai
              */
             void _init();
     };
-}
+} // namespace alai
 
 #endif

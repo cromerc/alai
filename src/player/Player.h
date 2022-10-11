@@ -24,32 +24,32 @@ namespace alai
          * @brief The default speed of the player.
          * 
          */
-        const float speed = 60.0;
+        const float speed                 = 60.0;
         /**
          * @brief The default jump force applied when jumping.
          * 
          */
-        const float jump_force = 300.0;
+        const float jump_force            = 300.0;
         /**
          * @brief The default bounce force applied when bouncing on something.
          * 
          */
-        const float bounce_force = 200.0;
+        const float bounce_force          = 200.0;
         /**
          * @brief The default gravity applied to the player.
          * 
          */
-        const float gravity = 9.81;
+        const float gravity               = 9.81;
         /**
          * @brief The default run speed multiplier.
          * 
          */
-        const float run_speed = 2.0;
+        const float run_speed             = 2.0;
         /**
          * @brief The default double jump activation state.
          * 
          */
-        const bool double_jump = true;
+        const bool double_jump            = true;
 
         /**
          * @brief This class is used to control the player.
@@ -58,7 +58,7 @@ namespace alai
          */
         class Player : public godot::KinematicBody2D
         {
-            GODOT_CLASS(Player, godot::KinematicBody2D)
+                GODOT_CLASS(Player, godot::KinematicBody2D)
 
             private:
                 /**
@@ -291,7 +291,7 @@ namespace alai
                  */
                 void _on_level_loaded();
         };
-    }
-}
+    } // namespace player
+} // namespace alai
 
 #endif

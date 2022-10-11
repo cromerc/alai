@@ -1,6 +1,5 @@
-#include "player/states/PlayerMove.h"
-
 #include "player/Player.h"
+#include "player/states/PlayerMove.h"
 
 void alai::player::PlayerMove::_register_methods()
 {
@@ -40,8 +39,8 @@ void alai::player::PlayerMove::_physics_process(float delta)
     auto direction_pressed = false;
 
     auto current_speed = parent->get_speed();
-    auto velocity = parent->get_velocity();
-    velocity.x = 0;
+    auto velocity      = parent->get_velocity();
+    velocity.x         = 0;
     if (_input->is_action_pressed("run"))
     {
         current_speed *= parent->get_run_speed();

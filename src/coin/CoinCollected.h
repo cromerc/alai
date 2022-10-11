@@ -14,7 +14,7 @@ namespace alai
      */
     class CoinCollected : public alai::State
     {
-        GODOT_CLASS(CoinCollected, alai::State)
+            GODOT_CLASS(CoinCollected, alai::State)
 
         private:
             /**
@@ -68,6 +68,6 @@ namespace alai
              */
             void _on_animation_finished(godot::String anim_name);
     };
-}
+} // namespace alai
 
 #endif

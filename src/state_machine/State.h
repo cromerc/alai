@@ -13,7 +13,7 @@ namespace alai
      */
     class State : public StateMachine
     {
-        GODOT_CLASS(State, Node)
+            GODOT_CLASS(State, Node)
 
         private:
             /**
@@ -98,6 +98,6 @@ namespace alai
              */
             virtual StateMachine *get_state_machine() final;
     };
-}
+} // namespace alai
 
 #endif

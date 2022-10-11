@@ -1,6 +1,5 @@
-#include "Main.h"
-
 #include "Event.h"
+#include "Main.h"
 
 #include <SceneTree.hpp>
 
@@ -27,10 +26,10 @@ alai::Main::~Main()
 
 void alai::Main::_init()
 {
-    _os = godot::OS::get_singleton();
-    _input = godot::Input::get_singleton();
+    _os               = godot::OS::get_singleton();
+    _input            = godot::Input::get_singleton();
     _project_settings = godot::ProjectSettings::get_singleton();
-    _resource_loader = godot::ResourceLoader::get_singleton();
+    _resource_loader  = godot::ResourceLoader::get_singleton();
 
     set_game_version(godot::String(default_game_version.c_str()));
     set_full_screen(default_full_screen);
@@ -66,8 +65,7 @@ void alai::Main::_ready()
     {
         _os->set_window_size(window_size);
         _os->set_window_position(
-            _os->get_screen_position(get_launch_screen()) + _os->get_screen_size() *  0.5 - _os->get_window_size() * 0.5
-        );
+            _os->get_screen_position(get_launch_screen()) + _os->get_screen_size() * 0.5 - _os->get_window_size() * 0.5);
     }
 
     success = _project_settings->load_resource_pack("crt.pck");
@@ -106,9 +104,9 @@ void alai::Main::load_level()
 {
     if (level != nullptr)
     {
-        auto path = level->get_path();
+        auto path         = level->get_path();
         auto loaded_level = level->instance();
-        auto level_node = get_node("Level");
+        auto level_node   = get_node("Level");
         level_node->add_child(loaded_level);
     }
 }
@@ -153,7 +151,7 @@ bool alai::Main::get_full_screen()
 
 void alai::Main::set_window_size(godot::Vector2 window_size)
 {
-    this-> window_size = window_size;
+    this->window_size = window_size;
 }
 
 godot::Vector2 alai::Main::get_window_size()

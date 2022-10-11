@@ -12,7 +12,7 @@ namespace alai
      */
     class CoinCounter : public godot::Label
     {
-        GODOT_CLASS(CoinCounter, godot::Label)
+            GODOT_CLASS(CoinCounter, godot::Label)
 
         private:
             uint8_t coins;
@@ -52,9 +52,8 @@ namespace alai
             void _on_CoinHUD_ready();
             void _on_coin_collected(int amount);
             void _ready();
-            
     };
-    
-}
+
+} // namespace alai
 
 #endif

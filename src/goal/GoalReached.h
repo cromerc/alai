@@ -14,7 +14,7 @@ namespace alai
      */
     class GoalReached : public alai::State
     {
-        GODOT_CLASS(GoalReached, alai::State)
+            GODOT_CLASS(GoalReached, alai::State)
 
         private:
             /**
@@ -67,6 +67,6 @@ namespace alai
              * 
              */
     };
-}
+} // namespace alai
 
 #endif

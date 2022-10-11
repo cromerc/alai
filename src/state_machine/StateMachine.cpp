@@ -1,6 +1,5 @@
-#include "state_machine/StateMachine.h"
-
 #include "state_machine/State.h"
+#include "state_machine/StateMachine.h"
 
 void alai::StateMachine::_register_methods()
 {
@@ -54,7 +53,7 @@ void alai::StateMachine::setup()
         if (children.size() > 0)
         {
             WARN_PRINT("The state machine doesn't have a default state set, using first child!");
-            auto child = Object::cast_to<Node>(children[0].operator Object*());
+            auto child = Object::cast_to<Node>(children[0].operator Object * ());
             set_current_state(child->get_name());
         }
         else
@@ -66,7 +65,7 @@ void alai::StateMachine::setup()
 
     for (uint8_t i = 0; i < children.size(); i++)
     {
-        auto child = Object::cast_to<Node>(children[i].operator Object*());
+        auto child = Object::cast_to<Node>(children[i].operator Object * ());
 
         child->call("set_state_machine", this);
 
@@ -83,7 +82,8 @@ void alai::StateMachine::setup()
     {
         this->call("_state_enter", get_current_state());
     }
-    else {
+    else
+    {
         WARN_PRINT("The state " + get_current_state() + " doesn't have a _state_enter method!");
     }
 }
@@ -93,7 +93,7 @@ void alai::StateMachine::add_states()
     auto children = get_children();
     for (uint8_t i = 0; i < children.size(); i++)
     {
-        auto child = Object::cast_to<Node>(children[i].operator Object*());
+        auto child = Object::cast_to<Node>(children[i].operator Object * ());
         add_state(child->get_name(), child);
     }
 }
@@ -120,7 +120,7 @@ bool alai::StateMachine::has(const godot::String state)
     return states.has(state);
 }
 
-void alai::StateMachine::restart(const godot::String state, const godot::Array& args)
+void alai::StateMachine::restart(const godot::String state, const godot::Array &args)
 {
     this->call("_state_exit", state, args);
     this->call("_state_enter", state, args);
@@ -162,7 +162,7 @@ void alai::StateMachine::change(const godot::String state, const godot::Array &a
 
     if (get_current_state() != "")
     {
-        auto child = Object::cast_to<Node>(states[get_current_state()].operator Object*());
+        auto child = Object::cast_to<Node>(states[get_current_state()].operator Object * ());
         if (child != nullptr)
         {
             this->remove_child(child);
@@ -175,7 +175,7 @@ void alai::StateMachine::change(const godot::String state, const godot::Array &a
     }
 
     set_current_state(state);
-    auto child = Object::cast_to<Node>(states[get_current_state()].operator Object*());
+    auto child = Object::cast_to<Node>(states[get_current_state()].operator Object * ());
     this->add_child(child);
 
     state_node = Object::cast_to<Node>(this->states[get_current_state()]);
@@ -204,7 +204,7 @@ void alai::StateMachine::change(const godot::String state, const godot::Array &a
 
 godot::Variant alai::StateMachine::call(const godot::String method, const godot::Array &args)
 {
-    auto node = Object::cast_to<Node>(states[get_current_state()].operator Object*());
+    auto node = Object::cast_to<Node>(states[get_current_state()].operator Object * ());
     if (node)
     {
         if (node->has_method(method))
@@ -269,7 +269,7 @@ void alai::StateMachine::_on_StateMachine_tree_exiting()
     auto keys = states.keys();
     for (uint8_t i = 0; i < keys.size(); i++)
     {
-        auto child = Object::cast_to<Node>(states[keys[i]].operator Object*());
+        auto child = Object::cast_to<Node>(states[keys[i]].operator Object * ());
         if (child)
         {
             auto children = get_children();

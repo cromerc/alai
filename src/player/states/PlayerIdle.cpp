@@ -1,6 +1,5 @@
-#include "player/states/PlayerIdle.h"
-
 #include "player/Player.h"
+#include "player/states/PlayerIdle.h"
 
 void alai::player::PlayerIdle::_register_methods()
 {

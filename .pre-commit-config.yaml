@@ -1,0 +1,40 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: check-case-conflict
+    -   id: mixed-line-ending
+    -   id: check-added-large-files
+    -   id: check-executables-have-shebangs
+    -   id: check-shebang-scripts-are-executable
+    -   id: detect-private-key
+    -   id: no-commit-to-branch
+        args: [--branch, master, --branch, develop]
+-   repo: https://github.com/pre-commit/mirrors-clang-format
+    rev: v14.0.6
+    hooks:
+    -   id: clang-format
+        types_or: [c++, c]
+        args: ["-style=file"]
+-   repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.3.1
+    hooks:
+    -   id: forbid-crlf
+    -   id: forbid-tabs
+    -   id: insert-license
+        files: \.(cpp|c|h)$
+        args:
+        -   --license-filepath
+        -   LICENSE
+        -   --comment-style
+        -   /*| *| */
+#-   repo: https://github.com/pocc/pre-commit-hooks
+#    rev: v1.3.5
+#    hooks:
+#    -   id: clang-tidy
+#        args: [-checks=clang-diagnostic-return-type]
+#        files: src/.*\.cpp

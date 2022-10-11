@@ -1,6 +1,5 @@
-#include "player/states/PlayerFall.h"
-
 #include "player/Player.h"
+#include "player/states/PlayerFall.h"
 
 void alai::player::PlayerFall::_register_methods()
 {
@@ -46,8 +45,8 @@ void alai::player::PlayerFall::_physics_process(float delta)
     }
 
     auto current_speed = parent->get_speed();
-    auto velocity = parent->get_velocity();
-    velocity.x = 0;
+    auto velocity      = parent->get_velocity();
+    velocity.x         = 0;
     if (_input->is_action_pressed("run"))
     {
         current_speed *= parent->get_run_speed();

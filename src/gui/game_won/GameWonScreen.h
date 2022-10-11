@@ -12,7 +12,7 @@ namespace alai
      */
     class GameWonScreen : public godot::CanvasLayer
     {
-        GODOT_CLASS(GameWonScreen, godot::CanvasLayer)
+            GODOT_CLASS(GameWonScreen, godot::CanvasLayer)
 
         public:
             /**
@@ -47,6 +47,6 @@ namespace alai
             void connect_signal();
             void _on_visibility_changed();
     };
-}
+} // namespace alai
 
 #endif

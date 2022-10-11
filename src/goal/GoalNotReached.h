@@ -14,7 +14,7 @@ namespace alai
      */
     class GoalNotReached : public alai::State
     {
-        GODOT_CLASS(GoalNotReached, alai::State)
+            GODOT_CLASS(GoalNotReached, alai::State)
 
         private:
             /**
@@ -69,6 +69,6 @@ namespace alai
              */
             void _on_Goal_body_entered(Node *node);
     };
-}
+} // namespace alai
 
 #endif

@@ -1,6 +1,5 @@
-#include "gui/game_over/GameOverScreen.h"
-
 #include "Event.h"
+#include "gui/game_over/GameOverScreen.h"
 
 #include <AudioStreamPlayer.hpp>
 #include <PackedScene.hpp>
@@ -16,7 +15,7 @@ void alai::GameOverScreen::_register_methods()
     godot::register_method("restart_game", &GameOverScreen::restart_game);
     godot::register_method("connect_signal", &GameOverScreen::connect_signal);
     godot::register_method("_on_player_died", &GameOverScreen::_on_player_died);
-	godot::register_method("_on_visibility_changed", &GameOverScreen::_on_visibility_changed);
+    godot::register_method("_on_visibility_changed", &GameOverScreen::_on_visibility_changed);
 }
 
 alai::GameOverScreen::GameOverScreen()
@@ -42,8 +41,8 @@ void alai::GameOverScreen::_on_restart_button_pressed()
     if (_resource_loader->exists("res://levels/PrototypeR.tscn"))
     {
         godot::Ref<godot::PackedScene> level_scene = _resource_loader->load("res://levels/PrototypeR.tscn");
-        auto level = level_scene->instance(); 
-        auto level_node = get_tree()->get_root()->get_node("Main")->find_node("Level");
+        auto level                                 = level_scene->instance();
+        auto level_node                            = get_tree()->get_root()->get_node("Main")->find_node("Level");
 
         if (level_node != nullptr)
         {
@@ -66,7 +65,7 @@ void alai::GameOverScreen::_on_player_died()
     auto level_node = get_tree()->get_root()->get_node("Main")->find_node("Level");
     if (level_node != nullptr)
     {
-        auto child = level_node->get_child(0); 
+        auto child = level_node->get_child(0);
         if (child != nullptr)
         {
             // Delete the currently active level from the tree.
@@ -99,8 +98,8 @@ void alai::GameOverScreen::connect_signal()
 void alai::GameOverScreen::_on_visibility_changed()
 {
     auto gameoversound = get_node<godot::AudioStreamPlayer>("GameOverMusic");
-    if (is_visible()) 
-    { 
+    if (is_visible())
+    {
         gameoversound->play();
     }
     else

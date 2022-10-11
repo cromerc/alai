@@ -12,7 +12,7 @@ namespace alai
      */
     class StateMachine : public godot::Node
     {
-        GODOT_CLASS(StateMachine, godot::Node)
+            GODOT_CLASS(StateMachine, godot::Node)
 
         private:
             /**
@@ -126,7 +126,7 @@ namespace alai
              * @param[in] state The state that is being restarted.
              * @param[in] args The arguments to pass to the state on exit and enter.
              */
-            void restart(const godot::String state, const godot::Array& args = godot::Array());
+            void restart(const godot::String state, const godot::Array &args = godot::Array());
 
             /**
              * @brief Change to a different state.
@@ -214,7 +214,7 @@ namespace alai
              * @param[in] state The state being restarted.
              * @param[in] args The arguments to pass when restarting.
              */
-            template <class ...Args> void restart(const godot::String state, Args ...args)
+            template<class... Args> void restart(const godot::String state, Args... args)
             {
                 return restart(state, godot::Array::make(args...));
             }
@@ -226,7 +226,7 @@ namespace alai
              * @param[in] state The state to change to.
              * @param[in] args The arguments to pass to the new state.
              */
-            template <class ...Args> void change(const godot::String state, Args ...args)
+            template<class... Args> void change(const godot::String state, Args... args)
             {
                 return change(state, godot::Array::make(args...));
             }
@@ -239,7 +239,7 @@ namespace alai
              * @param[in] args The arguments to pass to it.
              * @return Variant The Variant object returned by the method called.
              */
-            template <class ...Args> godot::Variant call(const godot::String method, Args ...args)
+            template<class... Args> godot::Variant call(const godot::String method, Args... args)
             {
                 return call(method, godot::Array::make(args...));
             }
@@ -252,11 +252,11 @@ namespace alai
              * @param[in] args The arguments to pass.
              * @return Variant The Variant object returned by the method called.
              */
-            template <class ...Args> godot::Variant _call(const godot::String method, Args ...args)
+            template<class... Args> godot::Variant _call(const godot::String method, Args... args)
             {
                 return _call(method, godot::Array::make(args...));
             }
     };
-}
+} // namespace alai
 
 #endif

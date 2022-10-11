@@ -17,7 +17,7 @@ namespace alai
          */
         class PlayerIdle : public State
         {
-            GODOT_CLASS(PlayerIdle, State)
+                GODOT_CLASS(PlayerIdle, State)
 
             private:
                 /**
@@ -77,7 +77,7 @@ namespace alai
                  */
                 void _physics_process(float delta);
         };
-    }
-}
+    } // namespace player
+} // namespace alai
 
 #endif

@@ -1,9 +1,8 @@
+#include "Event.h"
 #include "coin/CoinCollected.h"
 
-#include "Event.h"
-
-#include <AudioStreamPlayer.hpp>
 #include <AnimationPlayer.hpp>
+#include <AudioStreamPlayer.hpp>
 
 void alai::CoinCollected::_register_methods()
 {

@@ -14,7 +14,7 @@ namespace alai
      */
     class CoinNotCollected : public alai::State
     {
-        GODOT_CLASS(CoinNotCollected, alai::State)
+            GODOT_CLASS(CoinNotCollected, alai::State)
 
         private:
             /**
@@ -69,6 +69,6 @@ namespace alai
              */
             void _on_body_entered(Node *node);
     };
-}
+} // namespace alai
 
 #endif

@@ -1,13 +1,12 @@
-#include "gui/game_won/GameWonScreen.h"
-
 #include "Event.h"
+#include "gui/game_won/GameWonScreen.h"
 
 #include <AudioStreamPlayer.hpp>
 #include <SceneTree.hpp>
 #include <Viewport.hpp>
 
 void alai::GameWonScreen::_register_methods()
-{  
+{
     godot::register_method("_ready", &GameWonScreen::_ready);
     godot::register_method("connect_signal", &GameWonScreen::connect_signal);
     godot::register_method("_on_player_won", &GameWonScreen::_on_player_won);
@@ -45,7 +44,7 @@ void alai::GameWonScreen::_on_player_won()
     auto level_node = get_tree()->get_root()->get_node("Main")->find_node("Level");
     if (level_node != nullptr)
     {
-        auto child = level_node->get_child(0); 
+        auto child = level_node->get_child(0);
         if (child != nullptr)
         {
             child->queue_free();
@@ -70,8 +69,8 @@ void alai::GameWonScreen::connect_signal()
 void alai::GameWonScreen::_on_visibility_changed()
 {
     auto victorysound = get_node<godot::AudioStreamPlayer>("VictorySound");
-    if (is_visible()) 
-    { 
+    if (is_visible())
+    {
         victorysound->play();
     }
     else

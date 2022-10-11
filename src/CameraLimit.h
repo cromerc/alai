@@ -11,9 +11,9 @@ namespace alai
      * 
      * @details The camera will be limited based on the used width and height of the Middleground tilemap.
      */
-    class CameraLimit: public godot::Node2D
+    class CameraLimit : public godot::Node2D
     {
-        GODOT_CLASS(CameraLimit, godot::Node2D)
+            GODOT_CLASS(CameraLimit, godot::Node2D)
 
         public:
             /**
@@ -49,5 +49,5 @@ namespace alai
              */
             void _ready();
     };
-}
+} // namespace alai
 #endif

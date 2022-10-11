@@ -1,7 +1,6 @@
 #ifndef ALAI_MAIN_H
 #define ALAI_MAIN_H
 
-#include <string>
 #include <Godot.hpp>
 #include <Input.hpp>
 #include <Node.hpp>
@@ -10,6 +9,7 @@
 #include <ProjectSettings.hpp>
 #include <Ref.hpp>
 #include <ResourceLoader.hpp>
+#include <string>
 
 /**
  * @brief This is the alai namespace for all the code included in the game.
@@ -25,7 +25,7 @@ namespace alai
      */
     class Main : public godot::Node
     {
-        GODOT_CLASS(Main, godot::Node)
+            GODOT_CLASS(Main, godot::Node)
 
         private:
             /**
@@ -52,12 +52,12 @@ namespace alai
              * @brief The default value for the game version.
              * 
              */
-            inline static const std::string default_game_version = "0.1.0";
+            inline static const std::string default_game_version   = "0.1.0";
             /**
              * @brief The default value for if the game should start in full screen.
              * 
              */
-            inline static const bool default_full_screen = false;
+            inline static const bool default_full_screen           = false;
             /**
              * @brief The default resolution for the game window.
              * 
@@ -68,7 +68,7 @@ namespace alai
              * 
              * @details -1 opens it on the currently active screen. And 0 and above are the screens to use.
              */
-            inline static const int8_t default_launch_screen = -1;
+            inline static const int8_t default_launch_screen       = -1;
             /**
              * @brief The first level to load
              * 
@@ -227,6 +227,6 @@ namespace alai
              */
             void load_level();
     };
-}
+} // namespace alai
 
 #endif

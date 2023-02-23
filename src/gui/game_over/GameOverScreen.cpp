@@ -38,9 +38,9 @@ void alai::GameOverScreen::_ready()
 
 void alai::GameOverScreen::_on_restart_button_pressed()
 {
-    if (_resource_loader->exists("res://levels/PrototypeR.tscn"))
+    if (_resource_loader->exists("res://levels/TestLevel.tscn"))
     {
-        godot::Ref<godot::PackedScene> level_scene = _resource_loader->load("res://levels/PrototypeR.tscn");
+        godot::Ref<godot::PackedScene> level_scene = _resource_loader->load("res://levels/TestLevel.tscn");
         auto level                                 = level_scene->instance();
         auto level_node                            = get_tree()->get_root()->get_node("Main")->find_node("Level");
 

@@ -13,7 +13,7 @@
 [node name="TestLevel" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 5 )]
-position = Vector2( 36, 444 )
+position = Vector2( 36, 498 )
 collision_layer = 5
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -63,15 +63,21 @@ position = Vector2( 216, 504 )
 [node name="Coin8" parent="Coins" instance=ExtResource( 2 )]
 position = Vector2( 459, 468 )
 
+[node name="Coin9" parent="Coins" instance=ExtResource( 2 )]
+position = Vector2( 560, 468 )
+
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 volume_db = -25.0
 autoplay = true
 
 [node name="Goal" parent="." instance=ExtResource( 3 )]
-position = Vector2( 621, 486 )
+position = Vector2( 656, 504 )
 
 [node name="Enemies" type="Node" parent="."]
 
 [node name="Shelly" parent="Enemies" instance=ExtResource( 1 )]
 position = Vector2( 379, 510 )
+
+[node name="Shelly2" parent="Enemies" instance=ExtResource( 1 )]
+position = Vector2( 628, 510 )

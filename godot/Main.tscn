@@ -1,14 +1,14 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Main.gdns" type="Script" id=1]
-[ext_resource path="res://levels/PrototypeR.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/TestLevel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gui/GameOver.tscn" type="PackedScene" id=3]
 [ext_resource path="res://gui/GameWon.tscn" type="PackedScene" id=4]
 
 [node name="Main" type="Node"]
 pause_mode = 2
 script = ExtResource( 1 )
-game_version = "1.1.0"
+game_version = "1.0.0"
 level = ExtResource( 2 )
 
 [node name="Level" type="Node" parent="."]

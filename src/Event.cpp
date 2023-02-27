@@ -12,6 +12,7 @@ void alai::Event::_register_methods()
     godot::register_signal<Event>("player_died");
     godot::register_signal<Event>("player_won");
     godot::register_signal<Event>("player_touched", "damage", GODOT_VARIANT_TYPE_INT);
+    godot::register_signal<Event>("report_object", "name", GODOT_VARIANT_TYPE_STRING, "state", GODOT_VARIANT_TYPE_STRING, "position", GODOT_VARIANT_TYPE_VECTOR2, "velocity", GODOT_VARIANT_TYPE_VECTOR2);
 }
 
 alai::Event::Event()

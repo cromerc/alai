@@ -37,6 +37,9 @@ godot_headers_path = "godot-cpp/godot-headers/"
 cpp_bindings_path = "godot-cpp/"
 cpp_library = "libgodot-cpp"
 
+obelisk_bindings_path = "obelisk/"
+obelisk_library = "libobelisk"
+
 # Updates the environment with the option variables.
 opts.Update(env)
 
@@ -112,9 +115,9 @@ else:
 cpp_library += '.' + str(env['bits'])
 
 # make sure our binding library is properly includes
-env.Append(CPPPATH=['.', godot_headers_path, cpp_bindings_path + 'include/', cpp_bindings_path + 'include/core/', cpp_bindings_path + 'include/gen/'])
-env.Append(LIBPATH=[cpp_bindings_path + 'bin/'])
-env.Append(LIBS=[cpp_library])
+env.Append(CPPPATH=['.', obelisk_bindings_path + 'include/', godot_headers_path, cpp_bindings_path + 'include/', cpp_bindings_path + 'include/core/', cpp_bindings_path + 'include/gen/'])
+env.Append(LIBPATH=[cpp_bindings_path + 'bin/', obelisk_bindings_path + 'bin/'])
+env.Append(LIBS=[cpp_library, obelisk_library])
 
 # tweak this if you want to use different folders, or more folders, to store your source code in.
 env.Append(CPPPATH=['src/'])

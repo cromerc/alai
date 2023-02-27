@@ -1,5 +1,6 @@
 #include "Event.h"
 #include "Main.h"
+#include "obelisk.h"
 
 #include <SceneTree.hpp>
 
@@ -39,6 +40,10 @@ void alai::Main::_init()
 
 void alai::Main::_ready()
 {
+    auto obelisk = std::unique_ptr<obelisk::Obelisk> {new obelisk::Obelisk("alai.kb")};
+    godot::Godot::print("Obelisk version: " + godot::String(obelisk->getVersion().c_str()));
+    godot::Godot::print("Obelisk library version: " + godot::String(std::to_string(obelisk->getLibVersion()).c_str()));
+
     auto success = _project_settings->load_resource_pack("monitor.pck");
     if (success)
     {

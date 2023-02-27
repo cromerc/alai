@@ -8,6 +8,7 @@
 #include "goal/GoalReached.h"
 #include "gui/game_over/GameOverScreen.h"
 #include "gui/game_won/GameWonScreen.h"
+#include "player/AI.h"
 #include "player/Player.h"
 #include "player/states/PlayerFall.h"
 #include "player/states/PlayerIdle.h"
@@ -20,7 +21,7 @@
 
 /**
  * @brief This function connects the gdnative init function.
- * 
+ *
  */
 extern "C" void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options *o)
 {
@@ -29,7 +30,7 @@ extern "C" void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options *o)
 
 /**
  * @brief This function connects the gdnative terminate function.
- * 
+ *
  */
 extern "C" void GDN_EXPORT godot_gdnative_terminate(godot_gdnative_terminate_options *o)
 {
@@ -41,7 +42,7 @@ extern "C" void GDN_EXPORT godot_gdnative_terminate(godot_gdnative_terminate_opt
 
 /**
  * @brief This function connects the init methods in the classes to godot's gdnative.
- * 
+ *
  */
 extern "C" void GDN_EXPORT godot_nativescript_init(void *handle)
 {
@@ -53,6 +54,7 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void *handle)
     godot::register_class<alai::Main>();
     godot::register_class<alai::CameraLimit>();
     godot::register_class<alai::player::Player>();
+    godot::register_class<alai::player::AI>();
     godot::register_class<alai::player::PlayerIdle>();
     godot::register_class<alai::player::PlayerMove>();
     godot::register_class<alai::player::PlayerJump>();

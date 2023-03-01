@@ -8,6 +8,7 @@
 #include <Godot.hpp>
 #include <Input.hpp>
 #include <Node.hpp>
+#include <Timer.hpp>
 #include <Vector2.hpp>
 #include <queue>
 
@@ -18,6 +19,7 @@ namespace alai
         class Entity
         {
             public:
+                godot::String originalName;
                 godot::String name;
                 godot::String state;
                 godot::Vector2 position;
@@ -43,9 +45,13 @@ namespace alai
 
                 alai::Event* event;
 
-                std::queue<alai::player::Entity> entities;
+                std::deque<alai::player::Entity> entities;
 
                 alai::player::Player* parent;
+
+                godot::String lastEntity;
+
+                godot::Timer* timer = godot::Timer()._new();
 
             public:
                 /**
@@ -56,7 +62,16 @@ namespace alai
                 static void
                     _register_methods();
 
+                /**
+                 * @brief Construct a new AI object.
+                 *
+                 */
                 AI();
+
+                /**
+                 * @brief Destroy the AI object.
+                 *
+                 */
                 ~AI();
 
                 /**
@@ -80,6 +95,18 @@ namespace alai
                  */
                 void _physics_process(float delta);
 
+                void _on_timer_timeout();
+
+                void unset_action(godot::String action);
+
+                /**
+                 * @brief Callback that receives information about the game environment.
+                 *
+                 * @param[in] name The name of the object.
+                 * @param[in] state The state the object is in.
+                 * @param[in] position The position of the object.
+                 * @param[in] velocity The object's velocity.
+                 */
                 void _on_object_report(godot::String name, godot::String state, godot::Vector2 position, godot::Vector2 velocity);
         };
     } // namespace player

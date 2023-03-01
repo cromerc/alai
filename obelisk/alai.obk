@@ -1,0 +1,17 @@
+fact("coin" is "gold");
+rule("gold coin" is "collectable" if "coin" is "gold");
+
+fact("goal" is "touchable");
+
+fact("shelly" is "dangerous");
+fact("shelly" is "bouncable");
+fact("shelly" can "walk");
+
+fact("dreadtooth" is "dangerous");
+fact("dreadtooth" can "walk");
+
+action(if "shelly" is "bouncable" then "jump on" else "jump over");
+action(if "dreadtooth" is "bouncable" then "jump on" else "jump over");
+
+action(if "coin" is "collectable" then "collect" else "avoid");
+action(if "goal" is "touchable" then "touch" else "avoid");

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://characters/enemies/shelly/Shelly.tscn" type="PackedScene" id=1]
 [ext_resource path="res://collectables/coin/Coin.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/backgrounds/hills.png" type="Texture" id=7]
 [ext_resource path="res://levels/TestLevel.tmx" type="PackedScene" id=8]
 [ext_resource path="res://CameraLimit.gdns" type="Script" id=9]
+[ext_resource path="res://characters/enemies/dreadtooth/Dreadtooth.tscn" type="PackedScene" id=10]
 
 [node name="TestLevel" type="Node2D"]
 
@@ -79,5 +80,5 @@ position = Vector2( 656, 504 )
 [node name="Shelly" parent="Enemies" instance=ExtResource( 1 )]
 position = Vector2( 379, 510 )
 
-[node name="Shelly2" parent="Enemies" instance=ExtResource( 1 )]
-position = Vector2( 628, 510 )
+[node name="Dreadtooth" parent="Enemies" instance=ExtResource( 10 )]
+position = Vector2( 640, 510 )

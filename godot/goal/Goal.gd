@@ -1,5 +1,17 @@
 extends Area2D
 
 
-func _process(_delta: float) -> void:
-    Event.emit_signal("report_object", self.get_name(), "not touched", global_position, Vector2())
+var timer := Timer.new()
+
+
+func _ready() -> void:
+	add_child(timer)
+	timer.wait_time = 0.1
+	var err = timer.connect("timeout", self, "_on_timer_timeout")
+	if err == OK:
+		timer.start()
+
+
+func _on_timer_timeout() -> void:
+	Event.emit_signal("report_object", self.get_name(), "not touched", global_position, Vector2())
+	timer.start()
